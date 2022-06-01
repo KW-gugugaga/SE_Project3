@@ -2,6 +2,7 @@ package conpanda9.shop.controller;
 
 import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.domain.User;
+import conpanda9.shop.service.AdminService;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class HomeController {
 
     private final UserService userService;
+    private final AdminService adminService;
 
     @GetMapping("/login")
     public String home(Model model) {
@@ -44,10 +46,14 @@ public class HomeController {
             return "login";
         }
 
-        log.info("loginId={}", loginDTO.getLoginId());
-        log.info("loginPw={}", loginDTO.getLoginPw());
+        log.info("loginUser loginId={}", loginUser.getLoginId());
+        log.info("loginUser loginPw={}", loginUser.getLoginPw());
 
-        return "redirect:/main";
+        if(loginUser.getLoginId().equals("admin") && loginUser.getLoginPw().equals("admin!")) {
+            return "redirect:admin/main";   // 로그인 계정이 admin이라면 admin page로 이동
+        } else {
+            return "redirect:main";   // 로그인 계정이 일반 회원이라면 main page로 이동
+        }
     }
 
     @GetMapping("/main")

@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
 
 @Data
 @Entity
@@ -16,14 +17,14 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    @NotNull
     private String loginId;
 
-    @NotNull
     private String loginPw;
 
     private String nickname;
+
     private String email;
+
     private String phoneNumber;
 
     public User() {

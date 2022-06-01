@@ -32,4 +32,18 @@ public class UserRepository {
                 .filter(m ->m.getLoginId().equals(loginId))
                 .findAny();
     }
+
+    public Optional<User> findOneByNickname(String nickname) {
+        log.info("UserRepository findOneByNickname");
+        return findAll().stream()
+                .filter(m ->m.getNickname().equals(nickname))
+                .findAny();
+    }
+
+    public Optional<User> findOneByEmail(String email) {
+        log.info("UserRepository findOneByEmail");
+        return findAll().stream()
+                .filter(m ->m.getEmail().equals(email))
+                .findAny();
+    }
 }
