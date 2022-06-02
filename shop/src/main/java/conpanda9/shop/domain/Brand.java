@@ -1,11 +1,13 @@
 package conpanda9.shop.domain;
 
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
+@Data
 public class Brand {
 
     @Id @GeneratedValue

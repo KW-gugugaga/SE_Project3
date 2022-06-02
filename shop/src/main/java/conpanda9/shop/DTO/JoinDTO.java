@@ -26,7 +26,7 @@ public class JoinDTO {
     @Email(message = "이메일 형식을 맞추어 입력하세요.")
     private String email;
 
-    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "핸드폰 번호를 -를 포함한 형식에 맞추어 입력하세요.")
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$", message = "-를 포함한 핸드폰 번호를 형식에 맞추어 입력하세요.")
     private String phoneNumber;
 
 }

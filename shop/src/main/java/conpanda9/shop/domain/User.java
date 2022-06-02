@@ -2,6 +2,7 @@ package conpanda9.shop.domain;
 
 import com.sun.istack.NotNull;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Email;
 
 @Data
 @Entity
+@NoArgsConstructor
 public class User {
 
     @Id @GeneratedValue
@@ -26,9 +28,6 @@ public class User {
     private String email;
 
     private String phoneNumber;
-
-    public User() {
-    }
 
     public User(String loginId, String loginPw, String nickname, String email, String phoneNumber) {
         this.loginId = loginId;
