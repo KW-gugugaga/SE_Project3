@@ -84,8 +84,6 @@
 
         <div class="logo">
             <h1><a href="index.html">Conpanda</a></h1>
-            <!-- Uncomment below if you prefer to use an image logo -->
-            <!-- <a href="index.html"><img src="/img/logo.png" alt="" class="img-fluid"></a>-->
         </div>
     </div>
 </header><!-- End Header -->
@@ -112,12 +110,14 @@
                             <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
                         </div>
                         <br>
+                        <br>
                         <div>
                             <label for="loginPw">비밀번호</label>
                             <input style="text-align: center" type="password" class="form-control" id="loginPw"
                                    th:field="*{loginPw}">
                             <div class="field-error" th:errors="*{loginPw}">비밀번호 입력 오류</div>
                         </div>
+                        <br>
                         <div style="text-align: center">
                             <br>
                             <button type="submit" value="로그인" class="button-18" role="button" style="width:80%">로그인</button>
@@ -128,9 +128,9 @@
                             <button type="button" class="button-18" role="button">아이디 찾기</button>
                             <button type="button" class="button-18" role="button">비밀번호 찾기</button>
                         </div>
+                        <br>
+                        <br>
                     </form>
-
-
                 </div>
             </div>
             <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1"
