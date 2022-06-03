@@ -3,10 +3,7 @@ package conpanda9.shop.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @NoArgsConstructor
@@ -18,4 +15,8 @@ public class Question {
     private Long id;
 
     private String text;   // 내용
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 }

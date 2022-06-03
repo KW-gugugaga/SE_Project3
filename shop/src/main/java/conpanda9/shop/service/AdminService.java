@@ -32,9 +32,8 @@ public class AdminService {
     }
 
     public List<Notice> findAllNotice() {
-        List<Notice> notices = new ArrayList<>();
-        notices.addAll(adminRepository.findAllImportantNotice());
+        List<Notice> notices = new ArrayList<>(adminRepository.findAllImportantNotice());
+        notices.addAll(adminRepository.findAllNormalNotice());
         return notices;
     }
-
 }

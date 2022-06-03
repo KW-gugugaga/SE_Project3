@@ -1,12 +1,15 @@
 package conpanda9.shop.controller;
 
+import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
 import conpanda9.shop.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/admin")
+@Slf4j
 public class AdminController {
 
     private final AdminService adminService;
@@ -39,7 +43,20 @@ public class AdminController {
     }
 
     @GetMapping("/notice")
-    public String notice() {
+    public String notices(Model model) {
+        List<Notice> notices = adminService.findAllNotice();
+        model.addAttribute("notices", notices);
         return "admin/notice";
+    }
+
+    @GetMapping("/notice/{noticeId}")
+    public String notice(@PathVariable("noticeId") Long id) {
+        log.info("notice id={}", id);
+        return "admin/notice";
+    }
+
+    @GetMapping("/add/notice")
+    public String addNotice(Model model) {
+        return "admin/notice/add";
     }
 }
