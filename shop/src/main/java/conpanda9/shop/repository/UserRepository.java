@@ -1,6 +1,7 @@
 package conpanda9.shop.repository;
 
 import conpanda9.shop.domain.Review;
+import conpanda9.shop.domain.Sold;
 import conpanda9.shop.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +19,20 @@ public class UserRepository {
 
     private final EntityManager em;
 
-    @Transactional
+    @Transactional   // DB 저장은 할 때마다 commit 해야돼서 이거 필수로 붙여야함!
     public void save(User user) {
-        em.persist(user);
+        em.persist(user);   // DB 저장 함수
+    }
+
+    public User find(Long id) {
+        User user = em.find(User.class, id);   // pk id에 따라 객치(Data) 찾기
+        return user;
+    }
+
+    public User findSeller(Long id) {
+        Sold sold = em.find(Sold.class, id);   // 거래 내역 찾고
+        User user = sold.getUser();   // 해당 거래내역에 연결된 판매자(user) 객체 가져오기
+        return user;
     }
 
     public List<User> findAll() {
