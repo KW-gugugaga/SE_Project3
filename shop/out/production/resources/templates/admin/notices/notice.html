@@ -1,0 +1,70 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Notice</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+
+    <style>
+        .notice-title {
+            cursor: pointer;
+        }
+
+        .a-menu {
+            font-size: 16px;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <h2>NAV BAR</h2>
+</div>
+<div id="colorlib-page">
+    <div class="admin-menu" th:fragment="admin-menu">
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul style="font-size: 16px;">
+                    <li class="colorlib-active"><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                    <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                    <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                    <li><a class="a-menu" href="/admin/users">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/">매물관리</a></li>
+                </ul>
+            </nav>
+        </aside> <!-- END COLORLIB-ASIDE -->
+    </div>
+
+    <div id="colorlib-main" style="margin-top: 40px;">
+        <h2>
+            ADMIN NOTICE
+        </h2>
+        <div>
+            <input type="button" value="새 공지 등록" onClick="location.href='/admin/add/notice'">
+        </div>
+        <table>
+            <tbody>
+            <tr class="notice-title" th:each="notice : ${notices}"
+                th:onclick="|location.href='@{/admin/notice/{pv1}(pv1=${notice.id})}'|">
+                <td th:text="${notice.title}">title</a></td>
+                <td th:text="${notice.uploadDate}">updateDate</td>
+                <td th:text="${notice.count}">count</td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
+</body>
+</html>
+

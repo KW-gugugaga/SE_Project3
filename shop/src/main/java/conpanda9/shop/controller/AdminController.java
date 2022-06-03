@@ -46,17 +46,17 @@ public class AdminController {
     public String notices(Model model) {
         List<Notice> notices = adminService.findAllNotice();
         model.addAttribute("notices", notices);
-        return "admin/notice";
+        return "admin/notices/list";
     }
 
     @GetMapping("/notice/{noticeId}")
     public String notice(@PathVariable("noticeId") Long id) {
         log.info("notice id={}", id);
-        return "admin/notice";
+        return "admin/notices/notice";
     }
 
     @GetMapping("/add/notice")
     public String addNotice(Model model) {
-        return "admin/notice/add";
+        return "admin/notices/add";
     }
 }

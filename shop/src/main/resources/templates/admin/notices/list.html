@@ -15,6 +15,10 @@
         .notice-title {
             cursor: pointer;
         }
+
+        .a-menu {
+            font-size: 16px;
+        }
     </style>
 
 </head>
@@ -23,7 +27,18 @@
     <h2>NAV BAR</h2>
 </div>
 <div id="colorlib-page">
-    <div th:replace="fragments/admin-menu :: admin-menu"></div>
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul style="font-size: 16px;">
+                <li class="colorlib-active"><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                <li><a class="a-menu" href="/admin/users">회원관리</a></li>
+                <li><a class="a-menu" href="/admin/">매물관리</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
+
     <div id="colorlib-main" style="margin-top: 40px;">
         <h2>
             ADMIN NOTICE

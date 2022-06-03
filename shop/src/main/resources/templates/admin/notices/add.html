@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Join</title>
+    <style>
+        .field-error {
+            font-size: 12px;
+            color: darkred;
+        }
+    </style>
+</head>
+<body>
+<h2>
+    Join
+</h2>
+<form th:object="${joinDTO}" th:action="@{/user/join}" method="post">
+    <div>
+        <label for="loginId">ID</label>
+        <input type="text" id="loginId" th:field="*{loginId}">
+        <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
+    </div>
+    <div>
+        <label for="loginPw">Password</label>
+        <input type="password" class="form-control" id="loginPw" th:field="*{loginPw}">
+        <div class="field-error" th:errors="*{loginPw}">비밀번호 입력 오류</div>
+    </div>
+    <div>
+        <label for="nickname">Nickname</label>
+        <input type="text" class="form-control" id="nickname" th:field="*{nickname}">
+        <div class="field-error" th:errors="*{nickname}">닉네임 입력 오류</div>
+    </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" th:field="*{email}">
+        <div class="field-error" th:errors="*{email}">이메일 입력 오류</div>
+    </div>
+    <div>
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
+        <div class="field-error" th:errors="*{phoneNumber}">전화번호 입력 오류</div>
+    </div>
+    <input type="submit" value="Join">
+</form>
+</body>
+</html>
