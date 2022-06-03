@@ -23,6 +23,11 @@ public class HomeController {
     private final UserService userService;
     private final AdminService adminService;
 
+    @GetMapping("/")
+    public String defaultMain() {
+        return "login";
+    }
+
     @GetMapping("/main")
     public String main() {
         return "main";
