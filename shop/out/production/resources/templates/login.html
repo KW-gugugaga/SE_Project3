@@ -122,7 +122,7 @@
                     <h1 style="text-align: center">로그인</h1>
 
                     <form th:object="${loginDTO}" th:action="@{/login}" method="post"
-                          style="padding: 0px 50px 50px 50px">
+                          style="padding: 0px 100px 50px 100px">
                         <div th:if="${#fields.hasGlobalErrors()}">
                             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
                                 글로벌 오류 메시지</p>
@@ -133,15 +133,16 @@
                                    th:field="*{loginId}">
                             <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
                         </div>
+                        <br>
                         <div>
-                            <label for="loginPw">패스워드</label>
+                            <label for="loginPw">비밀번호</label>
                             <input style="text-align: center" type="password" class="form-control" id="loginPw"
                                    th:field="*{loginPw}">
                             <div class="field-error" th:errors="*{loginPw}">비밀번호 입력 오류</div>
                         </div>
                         <div style="text-align: center">
                             <br>
-                            <button type="submit" value="로그인" class="button-18" role="button" style="width:100%">로그인</button>
+                            <button type="submit" value="로그인" class="button-18" role="button" style="width:80%">로그인</button>
                             <br><br>
                             <button type="button" value="회원가입" class="button-18" role="button"
                                     onClick="location.href='/user/join'">회원가입
@@ -157,7 +158,6 @@
             <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1"
                  data-aos="fade-up">
                 <img src="/img/logo.png"  style="height: 400px; width: 300px; margin: 0 auto;" alt="">
-
             </div>
         </div>
     </div>
@@ -167,93 +167,6 @@
 <main id="main">
 
 </main><!-- End #main -->
-
-<!-- ======= Footer ======= -->
-<footer id="footer">
-
-    <div class="footer-newsletter">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <h4>Join Our Newsletter</h4>
-                    <p>Tamen quem nulla quae legam multos aute sint culpa legam noster magna</p>
-                    <form action="" method="post">
-                        <input type="email" name="email"><input type="submit" value="Subscribe">
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="footer-top">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-3 col-md-6 footer-contact">
-                    <h3>Conpanda9</h3>
-                    <p>
-                        A108 Adam Street <br>
-                        New York, NY 535022<br>
-                        대한민국 <br><br>
-                        <strong>Phone:</strong> +82 010-8399-9493<br>
-                        <strong>Email:</strong> bbo1209@naver.com<br>
-                    </p>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Useful Links</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Our Services</h4>
-                    <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Design</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Web Development</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Graphic Design</a></li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Our Social Networks</h4>
-                    <p>Cras fermentum odio eu feugiat lide par naso tierra videa magna derita valies</p>
-                    <div class="social-links mt-3">
-                        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-                        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-                        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-                        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-                        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="container py-4">
-        <div class="copyright">
-            &copy; Copyright <strong><span>Appland</span></strong>. All Rights Reserved
-        </div>
-        <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/ -->
-            Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-        </div>
-    </div>
-</footer><!-- End Footer -->
-
-<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-        class="bi bi-arrow-up-short"></i></a>
 
 <!-- Vendor JS Files -->
 <script src="/vendor/aos/aos.js"></script>
