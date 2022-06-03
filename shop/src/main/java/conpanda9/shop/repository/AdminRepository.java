@@ -1,5 +1,6 @@
 package conpanda9.shop.repository;
 
+import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,12 @@ public class AdminRepository {
 
     public List<Report> findAllReport() {
         return em.createQuery("select r from Report as r", Report.class).getResultList();
+    }
+
+    public List<Notice> findAllImportantNotice() {
+        return em.createQuery("select n from Notice as n " +
+                        "where n.important = true " +
+                        "order by n.uploadDate desc", Notice.class)
+                .getResultList();
     }
 }

@@ -21,8 +21,7 @@ public class AdminController {
     @GetMapping("/main")
     public String main() {
 
-        //return "admin/main";
-        return "menu/menu";
+        return "admin/main";
     }
 
     @GetMapping("/question")
@@ -37,5 +36,10 @@ public class AdminController {
         List<Report> reports = adminService.findAllReport();
         model.addAttribute("reports", reports);
         return "admin/report";
+    }
+
+    @GetMapping("/notice")
+    public String notice() {
+        return "admin/notice";
     }
 }

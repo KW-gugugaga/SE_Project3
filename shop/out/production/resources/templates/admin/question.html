@@ -1,12 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Question</title>
+    <title>Admin Question</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+
+    <style>
+        .a-menu {
+            font-size: 16px;
+        }
+    </style>
+
 </head>
 <body>
-<h2>
-  Question
-</h2>
+<div>
+    <h2>NAV BAR</h2>
+</div>
+<div id="colorlib-page">
+    <div th:replace="fragments/admin-menu :: admin-menu"></div>
+    <div id="colorlib-main" style="margin-top: 40px;">
+        <h2>
+            ADMIN QUESTION
+        </h2>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
 </body>
 </html>
+
