@@ -9,10 +9,14 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  src : url("../fonts/NanumSquare_acB.ttf");
+  font-family: "nanum";
   color: #585a61;
 }
-
+@font-face {
+  src : url("../fonts/NanumSquare_acB.ttf");
+  font-family: "nanum";
+}
 a {
   color: #5777ba;
   text-decoration: none;
@@ -24,9 +28,58 @@ a:hover {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Raleway", sans-serif;
+  src : url("../fonts/NanumSquare_acB.ttf");
+  font-family: "nanum";
+}
+/*--------------------------------------------------------------
+#  button
+--------------------------------------------------------------*/
+/* CSS */
+.button-18 {
+  align-items: center;
+  background-color: #6DA6D9;
+  border: 0;
+  border-radius: 100px;
+  box-sizing: border-box;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: "nanum";
+  font-size: 16px;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 20px;
+  max-width: 480px;
+  min-height: 40px;
+  min-width: 0px;
+  overflow: hidden;
+  padding: 0px;
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  touch-action: manipulation;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
 }
 
+.button-18:hover,
+.button-18:focus {
+  background-color: #16437E;
+  color: #ffffff;
+}
+
+.button-18:active {
+  background: #09223b;
+  color: rgb(255, 255, 255, .7);
+}
+
+.button-18:disabled {
+  cursor: not-allowed;
+  background: rgba(0, 0, 0, .08);
+  color: rgba(0, 0, 0, .3);
+}
 /*--------------------------------------------------------------
 # Back to top button
 --------------------------------------------------------------*/
@@ -122,7 +175,7 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   justify-content: space-between;
   padding: 10px 0 10px 30px;
-  font-family: "Raleway", sans-serif;
+  font-family: "nanum";
   font-size: 15px;
   color: #47536e;
   white-space: nowrap;
@@ -320,16 +373,15 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 48px;
   font-weight: 500;
   line-height: 56px;
-  color: #5777ba;
-  font-family: "Poppins", sans-serif;
-}
+  color: #6DA6D9;
+  font-family: "nanum";}
 #hero h2 {
   color: #515f7d;
   margin-bottom: 50px;
   font-size: 20px;
 }
 #hero .download-btn {
-  font-family: "Raleway", sans-serif;
+  font-family: "nanum";
   font-weight: 500;
   font-size: 15px;
   display: inline-block;
@@ -408,8 +460,7 @@ section {
   margin-bottom: 20px;
   padding-bottom: 0;
   color: #5777ba;
-  font-family: "Poppins", sans-serif;
-}
+  font-family: "nanum";}
 .section-title p {
   margin-bottom: 0;
 }
@@ -651,7 +702,7 @@ section {
   font-size: 46px;
   color: #5777ba;
   font-weight: 400;
-  font-family: "Open Sans", sans-serif;
+  font-family: "nanum";
   margin-bottom: 25px;
 }
 .pricing h4 span {
@@ -692,7 +743,7 @@ section {
   transition: none;
   font-size: 14px;
   font-weight: 400;
-  font-family: "Raleway", sans-serif;
+  font-family: "nanum";
   transition: 0.3s;
 }
 .pricing .get-started-btn:hover {
@@ -749,8 +800,7 @@ section {
 .faq .accordion-list a {
   display: block;
   position: relative;
-  font-family: "Poppins", sans-serif;
-  font-size: 16px;
+  font-family: "nanum";  font-size: 16px;
   line-height: 24px;
   font-weight: 500;
   padding: 0 30px;
