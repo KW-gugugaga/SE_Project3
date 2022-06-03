@@ -2,8 +2,11 @@ package conpanda9.shop.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Entity
 @NoArgsConstructor
@@ -19,4 +22,6 @@ public class Question {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    private String answer;   // 관리자 답변 (null 가능, 없어도됨)
 }

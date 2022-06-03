@@ -23,9 +23,9 @@ public class HomeController {
     private final UserService userService;
     private final AdminService adminService;
 
-    @GetMapping("/")
+    @GetMapping("/main")
     public String main() {
-        return "index";
+        return "main";
     }
 
     @GetMapping("/login")
@@ -57,7 +57,7 @@ public class HomeController {
         if(loginUser.getLoginId().equals("admin") && loginUser.getLoginPw().equals("admin!")) {
             return "redirect:admin/main";   // 로그인 계정이 admin이라면 admin page로 이동
         } else {
-            return "redirect:main";   // 로그인 계정이 일반 회원이라면 main page로 이동
+            return "redirect:/main";   // 로그인 계정이 일반 회원이라면 main page로 이동
         }
     }
 
