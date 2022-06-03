@@ -20,7 +20,9 @@ public class AdminController {
 
     @GetMapping("/main")
     public String main() {
-        return "admin/main";
+
+        //return "admin/main";
+        return "menu/menu";
     }
 
     @GetMapping("/question")
