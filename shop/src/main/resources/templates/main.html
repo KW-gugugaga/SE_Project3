@@ -4,9 +4,34 @@
 
 <head>
     <style>
-        .field-error {
-            font-size: 12px;
-            color: darkred;
+
+        .button-18 {
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
         }
     </style>
     <meta charset="utf-8">
@@ -54,21 +79,24 @@
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li><a class="nav-link scrollto" href="#features">App Features</a></li>
-                <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
-                <li><a class="nav-link scrollto" href="#pricing">Pricing</a></li>
-                <li><a class="nav-link scrollto" href="#faq">F.A.Q</a></li>
-                <li class="dropdown"><a href="#"><span>공지사항</span> <i class="bi bi-chevron-down"></i></a>
+                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li><a href="#">공지사항 등록</a></li>
-                        <li><a href="#">공지사항 수정</a></li>
-                        <li><a href="#">공지사항 삭제</a></li>
-                        <li><a href="#">Drop Down 4</a></li>
+                        <li><a href="#">나의 판매내역</a></li>
+                        <li><a href="#">나의 구매내역</a></li>
+                        <li><a href="#">나의 거래내역</a></li>
+                        <li><a href="#">나의 찜</a></li>
+                        <li><a href="#">나의 지갑</a></li>
+                        <li><a href="#">내 상점 리뷰</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
-                <li><a class="getstarted scrollto" href="#features">Get Started</a></li>
+                <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
+                <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
+                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
+                <li><a class="nav-link scrollto" href="#faq">내 정보</a></li>
+                <li><button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
+                </li>
             </ul>
+
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
