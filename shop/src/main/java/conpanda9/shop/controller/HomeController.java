@@ -23,6 +23,11 @@ public class HomeController {
     private final UserService userService;
     private final AdminService adminService;
 
+    @GetMapping("/")
+    public String main() {
+        return "index";
+    }
+
     @GetMapping("/login")
     public String home(Model model) {
         log.info("get login");
@@ -56,8 +61,4 @@ public class HomeController {
         }
     }
 
-    @GetMapping("/main")
-    public String main() {
-        return "main";
-    }
 }

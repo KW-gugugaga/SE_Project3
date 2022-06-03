@@ -1,5 +1,6 @@
 package conpanda9.shop.repository;
 
+import conpanda9.shop.domain.Review;
 import conpanda9.shop.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
