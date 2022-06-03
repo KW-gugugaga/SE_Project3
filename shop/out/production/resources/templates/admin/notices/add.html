@@ -1,46 +1,57 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Join</title>
+    <title>Admin Notice</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+
     <style>
-        .field-error {
-            font-size: 12px;
-            color: darkred;
+        .notice-title {
+            cursor: pointer;
+        }
+
+        .a-menu {
+            font-size: 16px;
         }
     </style>
+
 </head>
 <body>
-<h2>
-    Join
-</h2>
-<form th:object="${joinDTO}" th:action="@{/user/join}" method="post">
-    <div>
-        <label for="loginId">ID</label>
-        <input type="text" id="loginId" th:field="*{loginId}">
-        <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
+<div>
+    <h2>NAV BAR</h2>
+</div>
+<div id="colorlib-page">
+    <div class="admin-menu" th:fragment="admin-menu">
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul style="font-size: 16px;">
+                    <li class="colorlib-active"><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                    <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                    <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                    <li><a class="a-menu" href="/admin/users">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/">매물관리</a></li>
+                </ul>
+            </nav>
+        </aside> <!-- END COLORLIB-ASIDE -->
     </div>
-    <div>
-        <label for="loginPw">Password</label>
-        <input type="password" class="form-control" id="loginPw" th:field="*{loginPw}">
-        <div class="field-error" th:errors="*{loginPw}">비밀번호 입력 오류</div>
-    </div>
-    <div>
-        <label for="nickname">Nickname</label>
-        <input type="text" class="form-control" id="nickname" th:field="*{nickname}">
-        <div class="field-error" th:errors="*{nickname}">닉네임 입력 오류</div>
-    </div>
-    <div>
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" th:field="*{email}">
-        <div class="field-error" th:errors="*{email}">이메일 입력 오류</div>
-    </div>
-    <div>
-        <label for="phoneNumber">Phone Number</label>
-        <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
-        <div class="field-error" th:errors="*{phoneNumber}">전화번호 입력 오류</div>
-    </div>
-    <input type="submit" value="Join">
-</form>
+
+    <div id="colorlib-main" style="margin-top: 40px;">
+        <h2>
+            ADMIN NOTICE ADD
+        </h2>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
 </body>
 </html>
+

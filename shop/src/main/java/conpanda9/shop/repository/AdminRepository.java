@@ -24,12 +24,8 @@ public class AdminRepository {
         em.persist(notice);
     }
 
-    public List<Question> findAllQuestion() {
-        return em.createQuery("select q from Question as q", Question.class).getResultList();
-    }
-
-    public List<Report> findAllReport() {
-        return em.createQuery("select r from Report as r", Report.class).getResultList();
+    public Notice findNotice(Long id) {
+        return em.find(Notice.class, id);
     }
 
     public List<Notice> findAllImportantNotice() {
@@ -45,4 +41,19 @@ public class AdminRepository {
                         "order by n.uploadDate desc", Notice.class)
                 .getResultList();
     }
+
+    @Transactional
+    public void deleteNotice(Long id) {
+        em.remove(findNotice(id));
+    }
+
+    public List<Question> findAllQuestion() {
+        return em.createQuery("select q from Question as q", Question.class).getResultList();
+    }
+
+    public List<Report> findAllReport() {
+        return em.createQuery("select r from Report as r", Report.class).getResultList();
+    }
+
+
 }

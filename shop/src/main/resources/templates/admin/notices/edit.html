@@ -16,13 +16,11 @@
             font-size: 16px;
         }
 
-        .important-button {
-            border-radius: 10px;
-            background-color: #b20425;
-            color: white;
-            width: 80px;
+        .field-error {
+            font-family: "nanum";
             font-size: 12px;
-            border: none;
+            color: darkred;
+            margin-left: 40px;
         }
     </style>
 
@@ -48,33 +46,37 @@
 
     <div id="colorlib-main" style="margin-top: 40px;">
         <h2>
-            ADMIN NOTICE EACH NOTICE
+            ADMIN NOTICE EDIT
         </h2>
+        <form th:object="${form}" th:method="post">
             <table>
                 <tbody>
                 <tr>
-                    <td th:if="${notice.important == true}">
-                        <button type="button" class="important-button">중요 공지</button>
+                    <td th:if="${important == true}">
+                        <input type='checkbox' name='important' value='important' checked/>중요공지
+                    </td>
+                    <td th:if="${important == false}">
+                        <input type='checkbox' name='important' value='important'/>중요공지
                     </td>
                 </tr>
                 <tr>
-                    <td th:text="${notice.title}">title</td>
+                    <td>
+                        <label th:for="title">제목</label>
+                        <input type="text" style="width: 663px;" th:field="*{title}" th:value="*{title}"/>
+                        <div class="field-error" th:errors="*{title}">제목 입력 오류</div>
+                    </td>
                 </tr>
                 <tr>
-                    <td th:text="${notice.contents}">contents</td>
-                </tr>
-                <tr>
-                    <td th:text="${notice.uploadDate}">uploadDate</td>
-                </tr>
-                <tr>
-                    <td th:text="${notice.count}">count</td>
+                    <td>
+                        <label th:for="contents">내용</label>
+                        <textarea cols="80" rows="7" th:field="*{contents}" th:value="*{contents}"></textarea>
+                        <div class="field-error" th:errors="*{contents}">내용 입력 오류</div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
-        <button type="button"
-                th:onclick="|location.href='@{/admin/notice/edit/{pv1}(pv1=${notice.id})}'|">공지 수정하기</button>
-        <button type="button"
-                th:onclick="|location.href='@{/admin/notice/delete/{pv1}(pv1=${notice.id})}'|">공지 삭제하기</button>
+            <button type="submit">수정하기</button>
+        </form>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 
