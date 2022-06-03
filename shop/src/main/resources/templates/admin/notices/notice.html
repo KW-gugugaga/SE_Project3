@@ -12,12 +12,17 @@
     <link rel="stylesheet" href="/menu_theme/css/style.css">
 
     <style>
-        .notice-title {
-            cursor: pointer;
-        }
-
         .a-menu {
             font-size: 16px;
+        }
+
+        .important-button {
+            border-radius: 10px;
+            background-color: #b20425;
+            color: white;
+            width: 80px;
+            font-size: 12px;
+            border: none;
         }
     </style>
 
@@ -43,21 +48,33 @@
 
     <div id="colorlib-main" style="margin-top: 40px;">
         <h2>
-            ADMIN NOTICE
+            ADMIN NOTICE EACH NOTICE
         </h2>
-        <div>
-            <input type="button" value="새 공지 등록" onClick="location.href='/admin/add/notice'">
-        </div>
-        <table>
-            <tbody>
-            <tr class="notice-title" th:each="notice : ${notices}"
-                th:onclick="|location.href='@{/admin/notice/{pv1}(pv1=${notice.id})}'|">
-                <td th:text="${notice.title}">title</a></td>
-                <td th:text="${notice.uploadDate}">updateDate</td>
-                <td th:text="${notice.count}">count</td>
-            </tr>
-            </tbody>
-        </table>
+            <table>
+                <tbody>
+                <tr>
+                    <td th:if="${notice.important == true}">
+                        <button type="button" class="important-button">중요 공지</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td th:text="${notice.title}">title</td>
+                </tr>
+                <tr>
+                    <td th:text="${notice.contents}">contents</td>
+                </tr>
+                <tr>
+                    <td th:text="${notice.uploadDate}">uploadDate</td>
+                </tr>
+                <tr>
+                    <td th:text="${notice.count}">count</td>
+                </tr>
+                </tbody>
+            </table>
+        <button type="button"
+                th:onclick="|location.href='@{/admin/notice/edit/{pv1}(pv1=${notice.id})}'|">공지 수정하기</button>
+        <button type="button"
+                th:onclick="|location.href='@{/admin/notice/delete/{pv1}(pv1=${notice.id})}'|">공지 삭제하기</button>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 

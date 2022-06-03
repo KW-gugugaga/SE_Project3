@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
 
 @Component
@@ -18,7 +19,7 @@ public class TestDataInit {
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
 
-    //@PostConstruct
+    @PostConstruct
     public void dataInit() {
 
         User admin = new User("admin", "admin!", "admin", "admin@gmail.com", "010-1111-1111");
