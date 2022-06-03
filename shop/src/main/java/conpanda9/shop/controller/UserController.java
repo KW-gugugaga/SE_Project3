@@ -31,6 +31,12 @@ public class UserController {
     @PostMapping("/join")
     public String join(@Validated @ModelAttribute("joinDTO") JoinDTO joinDTO, BindingResult bindingResult) {
 
+        /**
+         * @Validated, 검사 객체, BindingResult 세트로 같이 써야함
+         * 검사 객체에 Validation annotation으로 달아놓은 것 검사
+         * message에 등록한 문구 출력
+         */
+
         if(bindingResult.hasErrors()) {   // 필드 에러
             return "user/join";
         }
