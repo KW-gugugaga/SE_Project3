@@ -41,7 +41,7 @@ public class Gifticon {
      * 한 브랜드에 여러개의 상품이 속할 수 있음
      */
     @ManyToOne
-    @JoinColumn(name = "barnd_id")
+    @JoinColumn(name = "brand_id")
     private Brand brand;   // 상품의 브랜드(여러 상품이 하나의 브랜드에 속할 수 있음)
 
     private String image;   // 이미지 저장 경로

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Repository
@@ -17,6 +18,11 @@ import java.util.List;
 public class AdminRepository {
 
     private final EntityManager em;
+
+    @Transactional
+    public void saveNotice(Notice notice) {
+        em.persist(notice);
+    }
 
     public List<Question> findAllQuestion() {
         return em.createQuery("select q from Question as q", Question.class).getResultList();
@@ -29,6 +35,13 @@ public class AdminRepository {
     public List<Notice> findAllImportantNotice() {
         return em.createQuery("select n from Notice as n " +
                         "where n.important = true " +
+                        "order by n.uploadDate desc", Notice.class)
+                .getResultList();
+    }
+
+    public List<Notice> findAllNormalNotice() {
+        return em.createQuery("select n from Notice as n " +
+                        "where n.important = false " +
                         "order by n.uploadDate desc", Notice.class)
                 .getResultList();
     }

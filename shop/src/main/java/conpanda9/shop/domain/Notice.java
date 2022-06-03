@@ -1,6 +1,7 @@
 package conpanda9.shop.domain;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
 public class Notice {
 
     @Id @GeneratedValue
@@ -25,5 +27,14 @@ public class Notice {
 
     public boolean isImportant() {
         return important;
+    }
+
+    public Notice(String title, String contents, LocalDateTime uploadDate, LocalDateTime lastModifiedDate, boolean important) {
+        this.title = title;
+        this.contents = contents;
+        this.uploadDate = uploadDate;
+        this.lastModifiedDate = lastModifiedDate;
+        this.important = important;
+        this.count = 0L;
     }
 }

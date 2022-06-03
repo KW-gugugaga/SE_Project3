@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="/menu_theme/css/style.css">
 
     <style>
-        .a-menu {
-            font-size: 16px;
+        .notice-title {
+            cursor: pointer;
         }
     </style>
 
@@ -28,6 +28,19 @@
         <h2>
             ADMIN NOTICE
         </h2>
+        <div>
+            <input type="button" value="새 공지 등록" onClick="location.href='/admin/add/notice'">
+        </div>
+        <table>
+            <tbody>
+            <tr class="notice-title" th:each="notice : ${notices}"
+                th:onclick="|location.href='@{/admin/notice/{pv1}(pv1=${notice.id})}'|">
+                <td th:text="${notice.title}">title</a></td>
+                <td th:text="${notice.uploadDate}">updateDate</td>
+                <td th:text="${notice.count}">count</td>
+            </tr>
+            </tbody>
+        </table>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 
