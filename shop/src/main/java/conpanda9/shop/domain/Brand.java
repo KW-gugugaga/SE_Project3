@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -28,4 +30,18 @@ public class Brand {
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
+
+    /**
+     * 하나의 브랜드에 속한 여러 상품들을 담은 리스트
+     * 양방향으로 저장
+     * 가져오기 쉽게하려고
+     */
+    @OneToMany(mappedBy = "brand")
+    private List<Gifticon> gifticonList = new ArrayList<>();
+
+    public Brand(String name, Category category) {
+        this.name = name;
+        this.category = category;   // 양방향으로 연결
+        category.getBrandList().add(this);
+    }
 }

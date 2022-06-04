@@ -97,7 +97,7 @@
                 <div>
                     <h1 style="text-align: center">LOGIN</h1>
 
-                    <form th:object="${loginDTO}" th:action="@{/login}" method="post"
+                    <form th:object="${loginDTO}" th:action="@{/}" method="post"
                           style="padding: 0px 100px 50px 100px">
                         <div th:if="${#fields.hasGlobalErrors()}">
                             <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">

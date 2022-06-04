@@ -1,11 +1,9 @@
 package conpanda9.shop.service;
 
-import conpanda9.shop.DTO.LoginDTO;
-import conpanda9.shop.DTO.NoticeUpdateDTO;
+import conpanda9.shop.DTO.NoticeDTO;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
-import conpanda9.shop.domain.User;
 import conpanda9.shop.repository.AdminRepository;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +14,6 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -45,7 +42,7 @@ public class AdminService {
     }
 
     @Transactional
-    public void updateNotice(Long id, NoticeUpdateDTO updateDTO, boolean important) {
+    public void updateNotice(Long id, NoticeDTO updateDTO, boolean important) {
         Notice notice = adminRepository.findNotice(id);
         notice.setTitle(updateDTO.getTitle());
         notice.setContents(updateDTO.getContents());
@@ -55,5 +52,10 @@ public class AdminService {
 
     public void deleteNotice(Long id) {
         adminRepository.deleteNotice(id);
+    }
+
+    public void addNotice(NoticeDTO noticeDTO, boolean important) {
+        Notice notice = new Notice(noticeDTO.getTitle(), noticeDTO.getContents(), LocalDateTime.now(), LocalDateTime.now(), important);
+        adminRepository.saveNotice(notice);
     }
 }

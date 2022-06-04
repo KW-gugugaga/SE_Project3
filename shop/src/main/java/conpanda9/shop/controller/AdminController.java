@@ -1,6 +1,6 @@
 package conpanda9.shop.controller;
 
-import conpanda9.shop.DTO.NoticeUpdateDTO;
+import conpanda9.shop.DTO.NoticeDTO;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
@@ -14,7 +14,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.BinaryOperator;
 
 @Controller
 @RequiredArgsConstructor
@@ -61,22 +60,42 @@ public class AdminController {
 
     @GetMapping("/notice/add")
     public String getNoticeAdd(Model model) {
+        model.addAttribute("noticeDTO", new NoticeDTO());
         return "admin/notices/add";
+    }
+
+    @PostMapping("/notice/add")
+    public String postNoticeAdd(@Validated @ModelAttribute("noticeDTO") NoticeDTO noticeDTO, BindingResult bindingResult,
+                                @RequestParam(value = "important", required = false) String important,
+                                Model model) {
+
+        if(bindingResult.hasErrors()) {   // 필드 오류
+            model.addAttribute("important", important);
+            return "admin/notices/add";
+        }
+
+        if(important == null) {
+            adminService.addNotice(noticeDTO, false);
+        } else {
+            adminService.addNotice(noticeDTO, true);
+        }
+
+        return "redirect:/admin/notice";
     }
 
     @GetMapping("/notice/edit/{noticeId}")
     public String getNoticeEdit(@PathVariable("noticeId") Long id, Model model) {
         Notice notice = adminService.findNotice(id);
         log.info("edit notice id={}", id);
-        NoticeUpdateDTO form = new NoticeUpdateDTO(notice.getTitle(), notice.getContents());
-        model.addAttribute("form", form);
+        NoticeDTO noticeDTO = new NoticeDTO(notice.getTitle(), notice.getContents());
+        model.addAttribute("noticeDTO", noticeDTO);
         model.addAttribute("important", notice.isImportant());
         return "admin/notices/edit";
     }
 
     @PostMapping("/notice/edit/{noticeId}")
     public String postNoticeEdit(@PathVariable("noticeId") Long id,
-                                 @Validated @ModelAttribute("form") NoticeUpdateDTO form, BindingResult bindingResult,
+                                 @Validated @ModelAttribute("noticeDTO") NoticeDTO noticeDTO, BindingResult bindingResult,
                                  @RequestParam(value = "important", required = false) String importantValue,
                                  Model model) {
         log.info("edit notice id={}", id);
@@ -91,9 +110,9 @@ public class AdminController {
         }
 
         if(importantValue == null) {
-            adminService.updateNotice(id, form, false);
+            adminService.updateNotice(id, noticeDTO, false);
         } else {
-            adminService.updateNotice(id, form, true);
+            adminService.updateNotice(id, noticeDTO, true);
         }
         return "redirect:/admin/notice";
     }

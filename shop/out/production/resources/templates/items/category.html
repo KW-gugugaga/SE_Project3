@@ -107,10 +107,11 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        BRAND LIST
     </h2>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
+    <h3 th:value="${category.name}"></h3>
+    <div th:each="brand : ${brands}">
+        <input type="button" th:value="${brand.name}" th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${brand.id})}'|">
     </div>
 </section>
 

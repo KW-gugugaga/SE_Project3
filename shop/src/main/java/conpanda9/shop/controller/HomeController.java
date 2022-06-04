@@ -1,8 +1,10 @@
 package conpanda9.shop.controller;
 
 import conpanda9.shop.DTO.LoginDTO;
+import conpanda9.shop.domain.Category;
 import conpanda9.shop.domain.User;
 import conpanda9.shop.service.AdminService;
+import conpanda9.shop.service.ItemService;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,32 +17,24 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
 public class HomeController {
 
     private final UserService userService;
-    private final AdminService adminService;
+    private final ItemService itemService;
 
     @GetMapping("/")
-    public String defaultMain() {
-        return "login";
-    }
-
-    @GetMapping("/main")
-    public String main() {
-        return "main";
-    }
-
-    @GetMapping("/login")
     public String home(Model model) {
         log.info("get login");
         model.addAttribute("loginDTO", new LoginDTO());
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("/")
     public String home(@Validated @ModelAttribute("loginDTO") LoginDTO loginDTO, BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {   // 필드 오류
@@ -64,6 +58,13 @@ public class HomeController {
         } else {
             return "redirect:/main";   // 로그인 계정이 일반 회원이라면 main page로 이동
         }
+    }
+
+    @GetMapping("/main")
+    public String main(Model model) {
+        List<Category> categories = itemService.findAllCategory();
+        model.addAttribute("categories", categories);
+        return "main";
     }
 
 }

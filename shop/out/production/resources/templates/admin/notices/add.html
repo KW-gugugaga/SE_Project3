@@ -12,12 +12,15 @@
     <link rel="stylesheet" href="/menu_theme/css/style.css">
 
     <style>
-        .notice-title {
-            cursor: pointer;
-        }
-
         .a-menu {
             font-size: 16px;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
         }
     </style>
 
@@ -45,6 +48,35 @@
         <h2>
             ADMIN NOTICE ADD
         </h2>
+        <form th:object="${noticeDTO}" th:action="@{/admin/notice/add}" th:method="post">
+            <table>
+                <tbody>
+                <tr>
+                    <td th:unless="${important == null}">
+                        <input type='checkbox' name='important' value='important' checked/>중요공지
+                    </td>
+                    <td th:if="${important == null}">
+                        <input type='checkbox' name='important' value='important'/>중요공지
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label th:for="title">제목</label>
+                        <input type="text" style="width: 663px;" th:field="*{title}" th:value="*{title}"/>
+                        <div class="field-error" th:errors="*{title}">제목 입력 오류</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label th:for="contents" style="vertical-align: top;">내용</label>
+                        <textarea cols="80" rows="7" th:field="*{contents}" th:value="*{contents}"></textarea>
+                        <div class="field-error" th:errors="*{contents}">내용 입력 오류</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit">등록하기</button>
+        </form>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 

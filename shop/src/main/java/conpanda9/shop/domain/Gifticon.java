@@ -48,10 +48,22 @@ public class Gifticon {
     private String description;   // 상품 설명
     private Long originalPrice;   // 원가
     private Long sellingPrice;   // 판매가
-    private Date expireDate;   // 유효기간
+    private LocalDate expireDate;   // 유효기간
     private LocalDateTime uploadDate;   // 판매글 업로드 날짜(시간, 초 까지)
     private LocalDateTime lastModifiedDate;   // 판매글 마지막 수정 날짜(시간, 초 까지)
 
-    //private int state;   ??
-
+    public Gifticon(String name, User user, Category category, Brand brand, String image, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
+        this.name = name;
+        this.user = user;
+        this.category = category;
+        this.brand = brand;   // 상품에 브랜드 연결
+        brand.getGifticonList().add(this);   // 브랜드에 상품 연결
+        this.image = image;
+        this.description = description;
+        this.originalPrice = originalPrice;
+        this.sellingPrice = sellingPrice;
+        this.expireDate = expireDate;
+        this.uploadDate = uploadDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
 }

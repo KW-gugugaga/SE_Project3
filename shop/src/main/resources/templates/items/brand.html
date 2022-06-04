@@ -107,11 +107,28 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        ITEM LIST
     </h2>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-    </div>
+    <table>
+        <tr>
+            <td>최신순 정렬</td>
+            <td>가격 오름차순</td>
+            <td>가격 내림차순</td>
+            <td>할인율 내림차순</td>
+            <td>이름순</td>
+        </tr>
+
+    </table>
+    <table>
+        <tbody>
+        <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
+            <td th:text="${gifticon.name}">name</a></td>
+            <td th:text="${gifticon.originalPrice}">originalPrice</td>
+            <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
+            <td th:text="${gifticon.expireDate}">expireDate</td>
+        </tr>
+        </tbody>
+    </table>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>
