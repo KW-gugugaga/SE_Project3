@@ -1,8 +1,10 @@
 package conpanda9.shop;
 
+import conpanda9.shop.domain.Category;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.User;
 import conpanda9.shop.repository.AdminRepository;
+import conpanda9.shop.repository.ItemRepository;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +20,7 @@ public class TestDataInit {
 
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
+    private final ItemRepository itemRepository;
 
     @PostConstruct
     public void dataInit() {
@@ -32,5 +35,14 @@ public class TestDataInit {
         Notice notice2 = new Notice("notice2", "contents2", LocalDateTime.now(), LocalDateTime.now(), true);
         adminRepository.saveNotice(notice1);
         adminRepository.saveNotice(notice2);
+
+        Category cate1 = new Category("음식");
+        Category cate2 = new Category("음료");
+        Category cate3 = new Category("생활");
+        Category cate4 = new Category("식품");
+        itemRepository.saveCategory(cate1);
+        itemRepository.saveCategory(cate2);
+        itemRepository.saveCategory(cate3);
+        itemRepository.saveCategory(cate4);
     }
 }
