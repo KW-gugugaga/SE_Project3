@@ -91,7 +91,7 @@
                     </ul>
                 </li>
                 <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
+                <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
                 <li><a class="nav-link scrollto" href="#faq">내 정보</a></li>
                 <li>
@@ -107,11 +107,21 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        QUESTION LIST
     </h2>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
+    <div>
+        <input type="button" value="문의하기">
     </div>
+    <table>
+        <tbody>
+        <tr th:each="question : ${questions}"
+            th:onclick="|location.href='@{/question/{pv1}(pv1=${question.id})}'|">
+            <td th:text="${question.id}">question_id</td>
+            <td th:text="${question.title}">title</td>
+            <td th:text="${question.user.nickname}">user_nickname</td>
+        </tr>
+        </tbody>
+    </table>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

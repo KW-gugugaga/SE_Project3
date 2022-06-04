@@ -3,6 +3,7 @@ package conpanda9.shop;
 import conpanda9.shop.domain.*;
 import conpanda9.shop.repository.AdminRepository;
 import conpanda9.shop.repository.ItemRepository;
+import conpanda9.shop.repository.QuestionRepository;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class TestDataInit {
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
     private final ItemRepository itemRepository;
+    private final QuestionRepository questionRepository;
 
     @PostConstruct
     public void dataInit() {
@@ -104,5 +106,13 @@ public class TestDataInit {
         itemRepository.saveGifticon(g7); itemRepository.saveGifticon(g8);
         itemRepository.saveGifticon(g9); itemRepository.saveGifticon(g10);
         itemRepository.saveGifticon(g11); itemRepository.saveGifticon(g12);
+
+
+        Question question1 = new Question("question1","text1",user);
+        Question question2 = new Question("question2","text2",user);
+
+        questionRepository.saveQuestion(question1);
+        questionRepository.saveQuestion(question2);
+
     }
 }
