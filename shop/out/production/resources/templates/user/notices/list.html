@@ -4,7 +4,6 @@
 
 <head>
     <style>
-
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -32,6 +31,10 @@
             user-select: none;
             -webkit-user-select: none;
             vertical-align: middle;
+        }
+
+        .notice-title {
+            cursor: pointer;
         }
     </style>
     <meta charset="utf-8">
@@ -79,7 +82,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto" href="/main">Home</a></li>
                 <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">나의 판매내역</a></li>
@@ -90,10 +93,10 @@
                         <li><a href="#">내 상점 리뷰</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
+                <li><a class="nav-link scrollto active" href="/notice">공지사항</a></li>
                 <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href="/user/info/myinfo">내 정보</a></li>
+                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
                 <li>
                     <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
                 </li>
@@ -107,11 +110,19 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        BRAND LIST
+        USER NOTICE LIST
     </h2>
-    <h3 th:value="${category.name}"></h3>
-    <div th:each="brand : ${brands}">
-        <input type="button" th:value="${brand.name}" th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${brand.id})}'|">
+    <div style="text-align: center; margin: 0 auto">
+        <table>
+            <tbody>
+            <tr class="notice-title" th:each="notice : ${notices}"
+                th:onclick="|location.href='@{/notice/{pv1}(pv1=${notice.id})}'|">
+                <td th:text="${notice.title}">title</a></td>
+                <td th:text="${notice.uploadDate}">updateDate</td>
+                <td th:text="${notice.count}">count</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 

@@ -90,10 +90,10 @@
                         <li><a href="#">내 상점 리뷰</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
+                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
                 <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href="#faq">내 정보</a></li>
+                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
                 <li>
                     <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
                 </li>
@@ -110,7 +110,7 @@
         CATEGORY LIST
     </h2>
     <div>
-        <input type="button" value="특가상품" th:onclick="|location.href='@{/items/spceial}'|">
+        <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
         <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
     </div>
     <div th:each="category : ${categories}">

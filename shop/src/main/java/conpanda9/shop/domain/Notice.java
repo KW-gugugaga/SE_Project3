@@ -37,4 +37,8 @@ public class Notice {
         this.important = important;
         this.count = 0L;
     }
+
+    public void addCount() {
+        this.count++;
+    }
 }

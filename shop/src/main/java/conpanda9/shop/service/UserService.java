@@ -2,6 +2,7 @@ package conpanda9.shop.service;
 
 import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.LoginDTO;
+import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.domain.User;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,10 @@ public class UserService {
 
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public User findUser(Long id) {
+        return userRepository.find(id);
     }
 
     public User login(LoginDTO loginDTO) {
@@ -48,5 +53,26 @@ public class UserService {
         if(!userRepository.findOneByEmail(joinDTO.getEmail()).isEmpty()) {
             bindingResult.addError(new FieldError("joinDTO", "email", joinDTO.getPhoneNumber(), false, null, null, "중복 이메일이 존재합니다."));
         }
+    }
+
+    //회원정보 수정 시 중복 확인 메서드
+    public void existCheck(MyInfoEditDTO editDTO, BindingResult bindingResult) {
+        if(!userRepository.findOneById(editDTO.getLoginId()).isEmpty()) {
+            bindingResult.addError(new FieldError("joinDTO", "loginId", editDTO.getLoginId(), false, null, null,  "중복 아이디가 존재합니다."));
+        }
+        if(!userRepository.findOneByNickname(editDTO.getNickname()).isEmpty()) {
+            bindingResult.addError(new FieldError("joinDTO", "nickname", editDTO.getNickname(), false, null, null, "중복 닉네임이 존재합니다."));
+        }
+        if(!userRepository.findOneByEmail(editDTO.getEmail()).isEmpty()) {
+            bindingResult.addError(new FieldError("joinDTO", "email", editDTO.getPhoneNumber(), false, null, null, "중복 이메일이 존재합니다."));
+        }
+    }
+
+    public void editUser(Long id, MyInfoEditDTO editDTO) {
+        userRepository.editUser(id, editDTO);
+    }
+
+    public void editPw(Long id, String newPw) {
+        userRepository.editPw(id, newPw);
     }
 }

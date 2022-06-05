@@ -56,4 +56,10 @@ public class AdminRepository {
     }
 
 
+    @Transactional
+    public void addNoticeCount(Long id) {
+        Notice notice = em.find(Notice.class, id);
+        Long count = notice.getCount();
+        notice.setCount(++count);
+    }
 }
