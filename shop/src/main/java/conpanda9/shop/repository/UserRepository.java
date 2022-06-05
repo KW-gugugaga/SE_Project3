@@ -1,5 +1,6 @@
 package conpanda9.shop.repository;
 
+import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.domain.Review;
 import conpanda9.shop.domain.Sold;
 import conpanda9.shop.domain.User;
@@ -58,5 +59,19 @@ public class UserRepository {
         return findAll().stream()
                 .filter(m ->m.getEmail().equals(email))
                 .findAny();
+    }
+
+    @Transactional
+    public void editUser(Long id, MyInfoEditDTO editDTO) {
+        User user = em.find(User.class, id);
+        user.setLoginId(editDTO.getLoginId());
+        user.setNickname(editDTO.getNickname());
+        user.setEmail(editDTO.getEmail());
+        user.setPhoneNumber(editDTO.getPhoneNumber());
+    }
+
+    @Transactional
+    public void editPw(Long id, String newPw) {
+        em.find(User.class, id).setLoginPw(newPw);
     }
 }

@@ -53,6 +53,9 @@ public class Gifticon{
     private LocalDateTime uploadDate;   // 판매글 업로드 날짜(시간, 초 까지)
     private LocalDateTime lastModifiedDate;   // 판매글 마지막 수정 날짜(시간, 초 까지)
 
+    @Enumerated(EnumType.STRING)
+    private GifticonState state;
+
     public Gifticon(String name, User user, Category category, Brand brand, String image, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
         this.name = name;
         this.user = user;
@@ -67,5 +70,6 @@ public class Gifticon{
         this.uploadDate = uploadDate;
         this.lastModifiedDate = lastModifiedDate;
         this.discountRate = Math.round(sellingPrice.doubleValue() / originalPrice.doubleValue() * 1000) / 10.0;
+        this.state = GifticonState.Selling;   // 기본은 판매중
     }
 }

@@ -4,7 +4,6 @@
 
 <head>
     <style>
-
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -32,6 +31,16 @@
             user-select: none;
             -webkit-user-select: none;
             vertical-align: middle;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+        }
+
+        .edit-input {
+            margin-bottom: 10px;
         }
     </style>
     <meta charset="utf-8">
@@ -79,7 +88,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto" href="/main">Home</a></li>
                 <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">나의 판매내역</a></li>
@@ -90,10 +99,10 @@
                         <li><a href="#">내 상점 리뷰</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
+                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
                 <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href="/user/info/myinfo">내 정보</a></li>
+                <li><a class="nav-link scrollto active" href='/user/info/myinfo'>내 정보</a></li>
                 <li>
                     <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
                 </li>
@@ -107,11 +116,43 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        BRAND LIST
+        MY INFO EDIT
     </h2>
-    <h3 th:value="${category.name}"></h3>
-    <div th:each="brand : ${brands}">
-        <input type="button" th:value="${brand.name}" th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${brand.id})}'|">
+    <div style="text-align: center; margin: 0 auto">
+        <form th:object="${editDTO}" th:action="@{/user/info/edit/{pv1}(pv1=${id})}" method="post">
+            <div style="padding: 0px 100px 50px 100px">
+                <div class="edit-input">
+                    <label for="loginId">아이디</label>
+                    <input type="text" id="loginId" th:field="*{loginId}">
+                    <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
+                </div>
+                <div class="edit-input">
+                    <label for="nickname">닉네임</label>
+                    <input type="text" id="nickname" th:field="*{nickname}">
+                    <div class="field-error" th:errors="*{nickname}">닉네임 입력 오류</div>
+                </div>
+                <div class="edit-input">
+                    <label for="email">이메일</label>
+                    <input type="email" id="email" th:field="*{email}">
+                    <div class="field-error" th:errors="*{email}">이메일 입력 오류</div>
+                </div>
+                <div class="edit-input">
+                    <label for="phoneNumber">핸드폰 번호</label>
+                    <input type="text" id="phoneNumber" th:field="*{phoneNumber}">
+                    <div class="field-error" th:errors="*{phoneNumber}">핸드폰번호 입력 오류</div>
+                </div>
+                <div class="edit-input">
+                    <p style="margin-bottom: 1px;">정보 수정을 위해서는 비밀번호 확인이 필요합니다.</p>
+                    <label for="loginPwCheck">비밀번호 확인</label>
+                    <input type="password" id="loginPwCheck" th:field="*{loginPwCheck}">
+                    <div class="field-error" th:errors="*{loginPwCheck}">비밀번호 입력 오류</div>
+                </div>
+                <div style="text-align: center; margin: 0 auto">
+                    <button class="button-18" type="submit">내 정보 수정하기</button>
+                    <input type="button" class="button-18" onclick="location.href='/user/info/myinfo'" value="뒤로가기">
+                </div>
+            </div>
+        </form>
     </div>
 </section>
 

@@ -58,4 +58,8 @@ public class AdminService {
         Notice notice = new Notice(noticeDTO.getTitle(), noticeDTO.getContents(), LocalDateTime.now(), LocalDateTime.now(), important);
         adminRepository.saveNotice(notice);
     }
+
+    public void addNoticeCount(Long id) {
+        adminRepository.addNoticeCount(id);
+    }
 }

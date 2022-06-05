@@ -2,6 +2,7 @@ package conpanda9.shop.controller;
 
 import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.domain.Category;
+import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.User;
 import conpanda9.shop.service.AdminService;
 import conpanda9.shop.service.ItemService;
@@ -15,8 +16,12 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -26,6 +31,7 @@ public class HomeController {
 
     private final UserService userService;
     private final ItemService itemService;
+    private final AdminService adminService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -35,7 +41,8 @@ public class HomeController {
     }
 
     @PostMapping("/")
-    public String home(@Validated @ModelAttribute("loginDTO") LoginDTO loginDTO, BindingResult bindingResult) {
+    public String home(@Validated @ModelAttribute("loginDTO") LoginDTO loginDTO, BindingResult bindingResult,
+                       HttpServletRequest request) {
 
         if(bindingResult.hasErrors()) {   // 필드 오류
             return "login";
@@ -56,6 +63,8 @@ public class HomeController {
         if(loginUser.getLoginId().equals("admin") && loginUser.getLoginPw().equals("admin!")) {
             return "redirect:admin/main";   // 로그인 계정이 admin이라면 admin page로 이동
         } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("user", loginUser.getId());   // 세션 생성
             return "redirect:/main";   // 로그인 계정이 일반 회원이라면 main page로 이동
         }
     }
@@ -67,4 +76,18 @@ public class HomeController {
         return "main";
     }
 
+    @GetMapping("/notice")
+    public String getNotices(Model model) {
+        List<Notice> notices = adminService.findAllNotice();
+        model.addAttribute("notices", notices);
+        return "user/notices/list";
+    }
+
+    @GetMapping("/notice/{noticeId}")
+    public String getNotice(@PathVariable("noticeId") Long id, Model model) {
+        Notice notice = adminService.findNotice(id);
+        adminService.addNoticeCount(id);   // 조회수 1 증가
+        model.addAttribute("notice", notice);
+        return "user/notices/notice";
+    }
 }
