@@ -11,7 +11,7 @@ import java.util.Date;
 @Entity
 @Data
 @NoArgsConstructor
-public class Gifticon {
+public class Gifticon{
 
     @Id @GeneratedValue
     @Column(name = "gifticon_id")
@@ -48,6 +48,7 @@ public class Gifticon {
     private String description;   // 상품 설명
     private Long originalPrice;   // 원가
     private Long sellingPrice;   // 판매가
+    private Double discountRate;   // 할인율
     private LocalDate expireDate;   // 유효기간
     private LocalDateTime uploadDate;   // 판매글 업로드 날짜(시간, 초 까지)
     private LocalDateTime lastModifiedDate;   // 판매글 마지막 수정 날짜(시간, 초 까지)
@@ -65,5 +66,6 @@ public class Gifticon {
         this.expireDate = expireDate;
         this.uploadDate = uploadDate;
         this.lastModifiedDate = lastModifiedDate;
+        this.discountRate = Math.round(sellingPrice.doubleValue() / originalPrice.doubleValue() * 1000) / 10.0;
     }
 }

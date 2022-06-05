@@ -60,43 +60,43 @@ public class TestDataInit {
         프랜차이즈
          */
         //맘터
-        Gifticon g1 = new Gifticon("싸이버거", user, cate1, brand1, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
-        Gifticon g2 = new Gifticon("할라피뇨", user, cate1, brand1, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
+        Gifticon g1 = new Gifticon("싸이버거", user, cate1, brand1, null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 7),
+                LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 2, 3, 3));
+        Gifticon g2 = new Gifticon("할라피뇨", user, cate1, brand1, null, "des", 4000L, 1000L, LocalDate.of(2022, 8, 3),
+                LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 3, 3, 3));
         //맥날
-        Gifticon g3 = new Gifticon("더블불고기", user, cate1, brand2, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
-        Gifticon g4 = new Gifticon("상하이", user, cate1, brand2, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
+        Gifticon g3 = new Gifticon("더블불고기", user, cate1, brand2, null, "des", 3000L, 2000L, LocalDate.of(2022, 6, 6),
+                LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 3, 3, 3));
+        Gifticon g4 = new Gifticon("상하이", user, cate1, brand2, null, "des", 3000L, 1000L, LocalDate.of(2022, 8, 5),
+                LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 4, 3, 3));
 
         /*
         음료
          */
         //스벅
-        Gifticon g5 = new Gifticon("자허블", user, cate2, brand3, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
-        Gifticon g6 = new Gifticon("콜드브루", user, cate2, brand3, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
+        Gifticon g5 = new Gifticon("자허블", user, cate2, brand3, null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 9),
+                LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 2, 4, 4));
+        Gifticon g6 = new Gifticon("콜드브루", user, cate2, brand3, null, "des", 4000L, 1000L, LocalDate.of(2022, 8, 7),
+                LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
         //이디야
-        Gifticon g7 = new Gifticon("꿀복숭아플랫치노", user, cate2, brand4, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
-        Gifticon g8 = new Gifticon("아이스아메리카노", user, cate2, brand4, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
+        Gifticon g7 = new Gifticon("꿀복숭아플랫치노", user, cate2, brand4, null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 12),
+                LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
+        Gifticon g8 = new Gifticon("아이스아메리카노", user, cate2, brand4, null, "des", 4000L, 1000L, LocalDate.of(2022, 8, 9),
+                LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 4, 4, 4));
 
         /*
         생활
          */
         //올영
-        Gifticon g9 = new Gifticon("랑방 향수", user, cate3, brand5, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
-        Gifticon g10 = new Gifticon("30,000원권", user, cate3, brand5, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
+        Gifticon g9 = new Gifticon("랑방 향수", user, cate3, brand5, null, "des", 4000L, 2000L, LocalDate.of(2022, 8, 10),
+                LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 2, 5, 5));
+        Gifticon g10 = new Gifticon("30,000원권", user, cate3, brand5, null, "des", 4000L, 1000L, LocalDate.of(2022, 8, 11),
+                LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 3, 5, 5));
         //신세계
-        Gifticon g11 = new Gifticon("100,000원권", user, cate3, brand6, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
-        Gifticon g12 = new Gifticon("50,000원권", user, cate3, brand6, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 2),
-                LocalDateTime.now(), LocalDateTime.now());
+        Gifticon g11 = new Gifticon("100,000원권", user, cate3, brand6, null, "des", 3000L, 2000L, LocalDate.of(2022, 8, 12),
+                LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 4, 5, 5));
+        Gifticon g12 = new Gifticon("50,000원권", user, cate3, brand6, null, "des", 3000L, 1000L, LocalDate.of(2022, 8, 13),
+                LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 5, 5, 5));
 
         itemRepository.saveGifticon(g1); itemRepository.saveGifticon(g2);
         itemRepository.saveGifticon(g3); itemRepository.saveGifticon(g4);
