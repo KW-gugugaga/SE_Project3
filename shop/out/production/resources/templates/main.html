@@ -74,7 +74,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href="index.html">Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda9</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -109,6 +109,10 @@
     <h2>
         CATEGORY LIST
     </h2>
+    <div>
+        <input type="button" value="특가상품" th:onclick="|location.href='@{/items/spceial}'|">
+        <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
+    </div>
     <div th:each="category : ${categories}">
         <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
     </div>

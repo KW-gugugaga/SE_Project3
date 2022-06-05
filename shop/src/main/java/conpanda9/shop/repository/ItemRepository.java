@@ -42,4 +42,8 @@ public class ItemRepository {
     public void saveGifticon(Gifticon gifticon) {
         em.persist(gifticon);
     }
+
+    public List<Gifticon> findAllGifticon() {
+        return em.createQuery("select g from Gifticon as g", Gifticon.class).getResultList();
+    }
 }

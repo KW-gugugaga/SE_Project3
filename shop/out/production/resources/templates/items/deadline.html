@@ -33,6 +33,15 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
+
+        .deadline-button {
+            border-radius: 10px;
+            background-color: #b20425;
+            color: white;
+            width: 80px;
+            font-size: 12px;
+            border: none;
+        }
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -107,15 +116,73 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        DEADLINE LIST
     </h2>
     <div>
-        <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-        <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
+        <button type="button" class="deadline-button">마감임박 상품</button>
     </div>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-    </div>
+    <table>
+        <tr>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|latest|)}'|">
+                    최신순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|price-asc|)}'|">
+                    가격 오름차순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|price-desc|)}'|">
+                    가격 내림차순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|discount-desc|)}'|">
+                    할인율 내림차순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|name|)}'|">
+                    이름순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|deadline|)}'|">
+                    마감임박순
+                </button>
+            </td>
+        </tr>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <td>이름</td>
+            <td>원가</td>
+            <td>판매가</td>
+            <td>할인율</td>
+            <td>만료날짜</td>
+            <td>업로드 날짜(최신 수정 날짜)</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
+            <td th:text="${gifticon.name}">name</a></td>
+            <td th:text="${gifticon.originalPrice}">originalPrice</td>
+            <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
+            <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
+            <td th:text="${gifticon.expireDate}">expireDate</td>
+            <td th:text="${gifticon.lastModifiedDate}">lastModifiedDate</td>
+        </tr>
+        </tbody>
+    </table>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>
