@@ -1,18 +1,18 @@
 package conpanda9.shop.repository;
 
 import conpanda9.shop.DTO.MyInfoEditDTO;
-import conpanda9.shop.domain.Review;
-import conpanda9.shop.domain.Seller;
-import conpanda9.shop.domain.Sold;
-import conpanda9.shop.domain.User;
+import conpanda9.shop.DTO.QuestionDTO;
+import conpanda9.shop.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Repository
 @RequiredArgsConstructor
@@ -79,5 +79,34 @@ public class UserRepository {
     @Transactional
     public void saveSeller(Seller seller) {
         em.persist(seller);
+    }
+
+    public List<Question> findQuestionByUser(Long id) {
+        //user id로 user가 남긴 문의사항들 보기
+        return em.createQuery("select q from Question as q order by q.lastModifiedDate desc", Question.class)
+                .getResultList().stream()
+                .filter(q -> q.getUser().getId().equals(id)).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void saveQuestion(Question question) {
+        em.persist(question);
+    }
+
+    public Question findQuestion(Long id) {
+        return em.find(Question.class, id);
+    }
+
+    @Transactional
+    public void editQuestion(Long id, QuestionDTO questionDTO) {
+        Question question = em.find(Question.class, id);
+        question.setTitle(questionDTO.getTitle());
+        question.setText(questionDTO.getText());
+        question.setLastModifiedDate(LocalDateTime.now());
+    }
+
+    @Transactional
+    public void deleteQuestion(Long id) {
+        em.remove(em.find(Question.class, id));
     }
 }

@@ -79,7 +79,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto" href="#hero">Home</a></li>
                 <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">나의 판매내역</a></li>
@@ -91,7 +91,7 @@
                     </ul>
                 </li>
                 <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
+                <li><a class="nav-link scrollto active" href="/question">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
                 <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
                 <li>
@@ -107,15 +107,29 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        USER QUESTION LIST
     </h2>
-    <div>
-        <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-        <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
-        <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
+    <input class="button-18" type="button" th:onclick="|location.href='@{/question/add}'|" value="문의사항 등록하기">
+    <div th:if="${questions.isEmpty()}">
+        <p>등록한 문의사항이 없습니다.</p>
     </div>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
+    <div th:unless="${questions.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <td>제목</td>
+                <td>등록날짜</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="question : ${questions}"
+                th:onclick="|location.href='@{/question/{pv1}(pv1=${question.id})}'|"
+                style="cursor: pointer;"><!--기프티콘 상품 페이지로 이동-->
+                <td th:text="${question.title}">name</a></td>
+                <td th:text="${question.uploadDate}">uploadDate</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 

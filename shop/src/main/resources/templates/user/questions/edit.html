@@ -33,6 +33,13 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+        }
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -79,7 +86,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto" href="#hero">Home</a></li>
                 <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">나의 판매내역</a></li>
@@ -91,7 +98,7 @@
                     </ul>
                 </li>
                 <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
+                <li><a class="nav-link scrollto active" href="/question">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
                 <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
                 <li>
@@ -107,16 +114,29 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        USER QUESTION EDIT
     </h2>
-    <div>
-        <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-        <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
-        <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
-    </div>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-    </div>
+    <form th:object="${questionDTO}" th:method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <label th:for="title">제목</label>
+                    <input type="text" style="width: 663px;" th:field="*{title}" th:value="*{title}"/>
+                    <div class="field-error" th:errors="*{title}">제목 입력 오류</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:for="contents" style="vertical-align: top;">내용</label>
+                    <textarea cols="80" rows="7" th:field="*{text}" th:value="*{text}"></textarea>
+                    <div class="field-error" th:errors="*{text}">내용 입력 오류</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">수정하기</button>
+    </form>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

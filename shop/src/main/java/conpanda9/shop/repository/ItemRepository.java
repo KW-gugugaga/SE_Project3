@@ -116,4 +116,9 @@ public class ItemRepository {
     public void saveShared(Shared shared) {
         em.persist(shared);
     }
+
+    @Transactional
+    public void saveQuestion(Question question) {
+        em.persist(question);
+    }
 }
