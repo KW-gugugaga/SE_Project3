@@ -1,8 +1,10 @@
 package conpanda9.shop.controller;
 
 import conpanda9.shop.DTO.LoginDTO;
+import conpanda9.shop.DTO.QuestionDTO;
 import conpanda9.shop.domain.Category;
 import conpanda9.shop.domain.Notice;
+import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.User;
 import conpanda9.shop.service.AdminService;
 import conpanda9.shop.service.ItemService;
@@ -22,6 +24,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -89,5 +92,69 @@ public class HomeController {
         adminService.addNoticeCount(id);   // 조회수 1 증가
         model.addAttribute("notice", notice);
         return "user/notices/notice";
+    }
+
+    @GetMapping("/question")
+    public String getQuestions(HttpServletRequest request, Model model) {
+        Long id = (Long) request.getSession().getAttribute("user");
+        if(id == null) {
+            return "redirect:/";
+        }
+        List<Question> questions = userService.findQuestionByUser(id);
+        model.addAttribute("questions", questions);
+        return "user/questions/list";
+    }
+
+    @GetMapping("/question/{questionId}")
+    public String getQuestion(@PathVariable("questionId") Long id, Model model) {
+        Question question = userService.findQuestion(id);
+        model.addAttribute("question", question);
+        return "user/questions/question";
+    }
+
+    @GetMapping("/question/add")
+    public String getQuestionAdd(Model model) {
+        model.addAttribute("questionDTO", new QuestionDTO());
+        return "user/questions/add";
+    }
+
+    @PostMapping("/question/add")
+    public String postQuestionAdd(HttpServletRequest request,
+                                  @Validated @ModelAttribute("questionDTO") QuestionDTO questionDTO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "user/questions/add";
+        }
+
+        Long id = (Long) request.getSession().getAttribute("user");
+        User user = userService.findUser(id);
+        Question question = new Question(questionDTO.getTitle(), questionDTO.getText(), user, LocalDateTime.now(), LocalDateTime.now(), null);
+        userService.saveQuestion(question);
+        return "redirect:/question";
+    }
+
+    @GetMapping("/question/edit/{questionId}")
+    public String getQuestionEdit(@PathVariable("questionId") Long id, Model model) {
+        Question question = userService.findQuestion(id);
+        model.addAttribute("question", question);
+        model.addAttribute("questionDTO", new QuestionDTO(question.getTitle(), question.getText()));
+        return "user/questions/edit";
+    }
+
+    @PostMapping("/question/edit/{questionId}")
+    public String postQuestionEdit(@PathVariable("questionId") Long id,
+                                   @Validated @ModelAttribute("questionDTO") QuestionDTO questionDTO, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            return "user/questions/edit";
+        }
+        log.info("origin title={}", userService.findQuestion(id).getTitle());
+        log.info("new title={}", questionDTO.getTitle());
+        userService.editQuestion(id, questionDTO);   // 문의사항 수정
+        return "redirect:/question";
+    }
+
+    @GetMapping("/question/delete/{questionId}")
+    public String getQuestionDelete(@PathVariable("questionId") Long id) {
+        userService.deleteQuestion(id);   // 문의사항 삭제
+        return "redirect:/question";
     }
 }

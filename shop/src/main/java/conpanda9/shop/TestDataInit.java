@@ -125,6 +125,11 @@ public class TestDataInit {
         itemRepository.saveShared(shared1);
         itemRepository.saveShared(shared2);
 
+        Question question1 = new Question("question1", "text1", user, LocalDateTime.now(), LocalDateTime.now(), null);
+        Question question2 = new Question("question2", "text2", user, LocalDateTime.now(), LocalDateTime.now(), null);
+        itemRepository.saveQuestion(question1);
+        itemRepository.saveQuestion(question2);
+
         log.info("test data init");
     }
 }

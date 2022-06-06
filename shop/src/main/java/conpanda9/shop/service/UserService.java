@@ -3,6 +3,8 @@ package conpanda9.shop.service;
 import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.DTO.MyInfoEditDTO;
+import conpanda9.shop.DTO.QuestionDTO;
+import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.User;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -74,5 +77,25 @@ public class UserService {
 
     public void editPw(Long id, String newPw) {
         userRepository.editPw(id, newPw);
+    }
+
+    public List<Question> findQuestionByUser(Long id) {
+        return userRepository.findQuestionByUser(id);
+    }
+
+    public void saveQuestion(Question question) {
+        userRepository.saveQuestion(question);
+    }
+
+    public Question findQuestion(Long id) {
+        return userRepository.findQuestion(id);
+    }
+
+    public void editQuestion(Long id, QuestionDTO questionDTO) {
+        userRepository.editQuestion(id, questionDTO);
+    }
+
+    public void deleteQuestion(Long id) {
+        userRepository.deleteQuestion(id);
     }
 }
