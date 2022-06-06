@@ -20,4 +20,10 @@ public class Seller {
 
     private Long heart;   // 찜
     private Long share;   // 나눔 횟수
+
+    public Seller(User user) {
+        this.user = user;
+        this.heart = 0L;
+        this.share = 0L;
+    }
 }
