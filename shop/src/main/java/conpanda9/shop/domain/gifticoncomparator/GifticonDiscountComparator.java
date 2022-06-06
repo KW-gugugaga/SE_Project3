@@ -1,4 +1,4 @@
-package conpanda9.shop.domain.datecomparator;
+package conpanda9.shop.domain.gifticoncomparator;
 
 import conpanda9.shop.domain.Gifticon;
 

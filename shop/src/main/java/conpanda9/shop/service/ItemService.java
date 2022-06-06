@@ -1,9 +1,10 @@
 package conpanda9.shop.service;
 
-import conpanda9.shop.domain.Brand;
-import conpanda9.shop.domain.Category;
-import conpanda9.shop.domain.Gifticon;
-import conpanda9.shop.domain.datecomparator.*;
+import conpanda9.shop.domain.*;
+import conpanda9.shop.domain.gifticoncomparator.*;
+import conpanda9.shop.domain.sharecomparator.ShareDateComparator;
+import conpanda9.shop.domain.sharecomparator.ShareExpiredDateComparator;
+import conpanda9.shop.domain.sharecomparator.ShareNameComparator;
 import conpanda9.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,9 @@ public class ItemService {
 
     private final ItemRepository itemRepository;
 
+    /**
+     * category
+     */
     public List<Category> findAllCategory() {
         return itemRepository.findAllCategory();
     }
@@ -24,12 +28,26 @@ public class ItemService {
         return itemRepository.findCategory(id);
     }
 
+    /**
+     * brand
+     */
     public Brand findBrand(Long id) {
         return itemRepository.findBrand(id);
     }
 
+    /**
+     * gifticon
+     */
     public List<Gifticon> findAllGifticon() {
         return itemRepository.findAllGifticon();
+    }
+
+    public List<Gifticon> findAllGitfitonSelling() {
+        return itemRepository.findAllGifticonSelling();
+    }
+
+    public List<Gifticon> findAllGitficonSold() {
+        return itemRepository.findAllGifticonSelling();
     }
 
     public void sortGifticons(String sort, List<Gifticon> gifticons) {
@@ -47,6 +65,31 @@ public class ItemService {
             gifticons.sort(new GitficonNameComparator());
         } else if(sort.equals("deadline")) {
             gifticons.sort(new GifticonExpiredDateComparator());
+        }
+    }
+
+    /**
+     * share
+     */
+    public List<Share> findAllShare() {
+        return itemRepository.findAllShare();
+    }
+
+    public List<Share> findAllShareSharing() {
+        return itemRepository.findAllShareSharing();
+    }
+
+    public List<Share> findAllShareShared() {
+        return itemRepository.findAllShareShared();
+    }
+
+    public void sortShares(String sort, List<Share> shares) {
+        if(sort.equals("latest")) {
+            shares.sort(new ShareDateComparator());   // 최신순으로 정렬
+        } else if(sort.equals("name")) {
+            shares.sort(new ShareNameComparator());   // 이름순 정렬
+        } else if(sort.equals("deadline")) {
+            shares.sort(new ShareExpiredDateComparator());   // 마감기한 순 정렬
         }
     }
 }

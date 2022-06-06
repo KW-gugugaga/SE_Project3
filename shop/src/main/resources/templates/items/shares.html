@@ -34,7 +34,7 @@
             vertical-align: middle;
         }
 
-        .special-button {
+        .deadline-button {
             border-radius: 10px;
             background-color: #b20425;
             color: white;
@@ -116,46 +116,28 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        SPECIAL LIST
+        SHARE LIST
     </h2>
     <div>
-        <button type="button" class="special-button">특가상품</button>
+        <button type="button" class="deadline-button">마감임박 상품</button>
     </div>
     <table>
         <tr>
             <td>
                 <button type="button"
-                        th:onclick="|location.href='@{/items/special/{pv1}(pv1=|latest|)}'|">
+                        th:onclick="|location.href='@{/items/share/{pv1}(pv1=|latest|)}'|">
                     최신순
                 </button>
             </td>
             <td>
                 <button type="button"
-                        th:onclick="|location.href='@{/items/special/{pv1}(pv1=|price-asc|)}'|">
-                    가격 오름차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/special/{pv1}(pv1=|price-desc|)}'|">
-                    가격 내림차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/special/{pv1}(pv1=|discount-desc|)}'|">
-                    할인율 내림차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/special/{pv1}(pv1=|name|)}'|">
+                        th:onclick="|location.href='@{/items/share/{pv1}(pv1=|name|)}'|">
                     이름순
                 </button>
             </td>
             <td>
                 <button type="button"
-                        th:onclick="|location.href='@{/items/special/{pv1}(pv1=|deadline|)}'|">
+                        th:onclick="|location.href='@{/items/share/{pv1}(pv1=|deadline|)}'|">
                     마감임박순
                 </button>
             </td>
@@ -167,21 +149,17 @@
             <td>이름</td>
             <td>브랜드</td>
             <td>원가</td>
-            <td>판매가</td>
-            <td>할인율</td>
             <td>만료날짜</td>
             <td>업로드 날짜(최신 수정 날짜)</td>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
-            <td th:text="${gifticon.name}">name</a></td>
-            <td th:text="${gifticon.brand.name}">brand name</a></td>
-            <td th:text="${gifticon.originalPrice}">originalPrice</td>
-            <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
-            <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
-            <td th:text="${gifticon.expireDate}">expireDate</td>
-            <td th:text="${gifticon.lastModifiedDate}">lastModifiedDate</td>
+        <tr th:each="share : ${shares}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
+            <td th:text="${share.name}">name</a></td>
+            <td th:text="${share.brand.name}">brand name</a></td>
+            <td th:text="${share.originalPrice}">originalPrice</td>
+            <td th:text="${share.expireDate}">expireDate</td>
+            <td th:text="${share.lastModifiedDate}">lastModifiedDate</td>
         </tr>
         </tbody>
     </table>

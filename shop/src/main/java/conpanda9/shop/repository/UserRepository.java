@@ -2,6 +2,7 @@ package conpanda9.shop.repository;
 
 import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.domain.Review;
+import conpanda9.shop.domain.Seller;
 import conpanda9.shop.domain.Sold;
 import conpanda9.shop.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -73,5 +74,10 @@ public class UserRepository {
     @Transactional
     public void editPw(Long id, String newPw) {
         em.find(User.class, id).setLoginPw(newPw);
+    }
+
+    @Transactional
+    public void saveSeller(Seller seller) {
+        em.persist(seller);
     }
 }

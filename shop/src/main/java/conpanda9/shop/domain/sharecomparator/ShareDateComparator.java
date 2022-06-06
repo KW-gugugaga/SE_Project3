@@ -1,12 +1,12 @@
-package conpanda9.shop.domain.datecomparator;
+package conpanda9.shop.domain.sharecomparator;
 
-import conpanda9.shop.domain.Gifticon;
+import conpanda9.shop.domain.Share;
 
 import java.util.Comparator;
 
-public class GifticonDateComparator implements Comparator<Gifticon> {
+public class ShareDateComparator implements Comparator<Share> {
     @Override
-    public int compare(Gifticon o1, Gifticon o2) {
+    public int compare(Share o1, Share o2) {
         if(o1.getLastModifiedDate().isBefore(o2.getLastModifiedDate())) {
             return 1;   // 더 최신순인 상품이 더 앞으로
         } else {

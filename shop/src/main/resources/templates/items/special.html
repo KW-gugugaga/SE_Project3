@@ -165,6 +165,7 @@
         <thead>
         <tr>
             <td>이름</td>
+            <td>브랜드</td>
             <td>원가</td>
             <td>판매가</td>
             <td>할인율</td>
@@ -175,6 +176,7 @@
         <tbody>
         <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
             <td th:text="${gifticon.name}">name</a></td>
+            <td th:text="${gifticon.brand.name}">brand name</a></td>
             <td th:text="${gifticon.originalPrice}">originalPrice</td>
             <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
             <td th:text="${gifticon.discountRate} + '%'">discountRate</td>

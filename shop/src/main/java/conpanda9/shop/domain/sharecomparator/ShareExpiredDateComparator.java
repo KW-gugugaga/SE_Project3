@@ -1,14 +1,14 @@
-package conpanda9.shop.domain.datecomparator;
+package conpanda9.shop.domain.sharecomparator;
 
-import conpanda9.shop.domain.Gifticon;
+import conpanda9.shop.domain.Share;
 
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Comparator;
 
-public class GifticonExpiredDateComparator implements Comparator<Gifticon> {
+public class ShareExpiredDateComparator implements Comparator<Share> {
     @Override
-    public int compare(Gifticon o1, Gifticon o2) {
+    public int compare(Share o1, Share o2) {
         Duration o1Duration = Duration.between(o1.getExpireDate().atStartOfDay(), LocalDate.now().atStartOfDay());
         Duration o2Duration = Duration.between(o2.getExpireDate().atStartOfDay(), LocalDate.now().atStartOfDay());
         if(o1Duration.getSeconds() < o2Duration.getSeconds()) {
