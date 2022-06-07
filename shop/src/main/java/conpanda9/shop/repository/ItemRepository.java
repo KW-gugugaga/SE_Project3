@@ -121,4 +121,12 @@ public class ItemRepository {
     public void saveQuestion(Question question) {
         em.persist(question);
     }
+
+    /**
+     * sold(거래 내역)
+     */
+    @Transactional
+    public void saveSold(Sold sold) {
+        em.persist(sold);
+    }
 }

@@ -4,15 +4,13 @@ import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.QuestionDTO;
-import conpanda9.shop.domain.Question;
-import conpanda9.shop.domain.User;
+import conpanda9.shop.domain.*;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 
 import java.util.List;
 import java.util.Optional;
@@ -71,6 +69,10 @@ public class UserService {
         }
     }
 
+    public Optional<Seller> existCheck(String name) {
+        return userRepository.findAllStore().stream().filter(s -> s.getName().equals(name)).findAny();
+    }
+
     public void editUser(Long id, MyInfoEditDTO editDTO) {
         userRepository.editUser(id, editDTO);
     }
@@ -97,5 +99,31 @@ public class UserService {
 
     public void deleteQuestion(Long id) {
         userRepository.deleteQuestion(id);
+    }
+
+
+    public Optional<Seller> findStore(Long id) {
+        return userRepository.findStore(id);
+    }
+
+    public List<Sold> findSolds(Long id) {
+        return userRepository.findSolds(id);
+    }
+
+    public List<Gifticon> findSellings(Long id) {
+        return userRepository.findSellings(id);
+    }
+
+    public Long getTotalSellPrice(Long id) {
+        Long total = 0L;
+        List<Sold> solds = userRepository.findSolds(id);
+        for (Sold sold : solds) {
+            total += sold.getSoldPrice();
+        }
+        return total;
+    }
+
+    public void saveStore(Seller store) {
+        userRepository.saveStore(store);
     }
 }

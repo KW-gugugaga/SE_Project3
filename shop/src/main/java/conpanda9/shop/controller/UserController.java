@@ -3,7 +3,11 @@ package conpanda9.shop.controller;
 import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.PwEditDTO;
+import conpanda9.shop.domain.Gifticon;
+import conpanda9.shop.domain.Seller;
+import conpanda9.shop.domain.Sold;
 import conpanda9.shop.domain.User;
+import conpanda9.shop.domain.soldcomparator.SoldDateComparator;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +20,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/user")
@@ -149,5 +156,87 @@ public class UserController {
 
         userService.editPw(id, editDTO.getNewPw());
         return "redirect:/user/myinfo";
+    }
+
+    @GetMapping("/store")
+    public String getStore(HttpServletRequest request, Model model) {
+        // TODO
+        // 상점 정보 띄우기
+        Long totalSellPrice = 0L;
+        Optional<Seller> storeOptional = userService.findStore((Long) request.getSession().getAttribute("user"));
+        if(storeOptional.isPresent()) {   // 상점이 있을 경우 총 판매 금액 계산
+            totalSellPrice = userService.getTotalSellPrice(storeOptional.get().getId());
+            model.addAttribute("store", storeOptional.get());
+        } else {
+            model.addAttribute("store", null);
+        }
+        model.addAttribute("totalSellPrice", totalSellPrice);
+        return "user/store/info";
+    }
+
+    @GetMapping("/store/add")
+    public String getStoreAdd(Model model) {
+        model.addAttribute("error", null);
+        return "user/store/add";
+    }
+
+    @PostMapping("/store/add")
+    public String postStoreAdd(HttpServletRequest request,
+                               @RequestParam("name") String name, Model model) {
+
+        log.info("add store name={}", name);
+        String error = null;
+
+        if(name.equals("")) {
+            log.info("no store name");
+            error = "상점 이름을 입력하세요";
+            model.addAttribute("error", error);
+            return "/user/store/add";
+        }
+
+        Optional<Seller> seller = userService.existCheck(name);
+        if(seller.isPresent()) {   // 중복 상점이 존재할 경우
+            error = "상점 이름이 이미 존재합니다.";
+            model.addAttribute("error", error);
+            return "/user/store/add";
+        }
+
+        Seller store = new Seller(name, userService.findUser((Long) request.getSession().getAttribute("user")));
+        userService.saveStore(store);   // 상점 등록
+        model.addAttribute("error", error);
+        return "redirect:/user/store";
+    }
+
+    @GetMapping("/store/selling")
+    public String getSelling(HttpServletRequest request, Model model) {
+        Long id = (Long) request.getSession().getAttribute("user");
+        Optional<Seller> store = userService.findStore(id);
+        // TODO
+        // 판매내역에서 총 판매 금액 계산해서 띄워야함
+        Long totalSellPrice = 0L;
+        if(store.isPresent()) {
+            List<Gifticon> sellings = userService.findSellings(store.get().getId());
+            model.addAttribute("sellings", sellings);   // 판매중 내역
+            // 판매중인 내역이 있다면 판매 완료 아이템 있을 가능성도 있는 것
+            // 일단 계산
+            totalSellPrice = userService.getTotalSellPrice(store.get().getId());
+        }
+        model.addAttribute("totalSellPrice", totalSellPrice);
+        model.addAttribute("store", store);
+        return "user/store/sellinghistory";
+    }
+
+    @GetMapping("/store/sold")
+    public String getSold(HttpServletRequest request, Model model) {
+        Long id = (Long) request.getSession().getAttribute("user");
+        Optional<Seller> store = userService.findStore(id);
+        // TODO
+        // 일단 팔린 상품 팔린 날짜 최신순 정렬
+        List<Sold> solds = userService.findSolds(store.get().getId());   // 팔린 상품
+        solds.sort(new SoldDateComparator());
+        Long totalSellPrice = userService.getTotalSellPrice(store.get().getId());
+        model.addAttribute("solds", solds);   // 판매 완료 내역
+        model.addAttribute("totalSellPrice", totalSellPrice);
+        return "user/store/soldhistory";
     }
 }
