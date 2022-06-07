@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+
+        .button-18 {
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Con Panda 9</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    * Template Name: Appland - v4.7.0
+    * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top  header-transparent ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+        <div class="logo">
+            <h1><a href='/main'>Conpanda9</a></h1>
+        </div>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
+                    <ul>
+                        <li><a href="#">나의 판매내역</a></li>
+                        <li><a href="#">나의 구매내역</a></li>
+                        <li><a href="#">나의 찜</a></li>
+                        <li><a href="#">나의 지갑</a></li>
+                        <li><a href="#">내 상점 리뷰</a></li>
+                    </ul>
+                </li>
+                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
+                <li><a class="nav-link scrollto active" href="/question">문의 게시판</a></li>
+                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
+                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
+                <li>
+                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
+                </li>
+            </ul>
+
+            <i class="bi bi-list mobile-nav-toggle"></i>
+        </nav><!-- .navbar -->
+
+    </div>
+</header><!-- End Header -->
+
+<section style="margin-top: 40px;">
+    <h2>
+        USER QUESTION EDIT
+    </h2>
+    <form th:object="${questionDTO}" th:method="post">
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <label th:for="title">제목</label>
+                    <input type="text" style="width: 663px;" th:field="*{title}" th:value="*{title}"/>
+                    <div class="field-error" th:errors="*{title}">제목 입력 오류</div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label th:for="contents" style="vertical-align: top;">내용</label>
+                    <textarea cols="80" rows="7" th:field="*{text}" th:value="*{text}"></textarea>
+                    <div class="field-error" th:errors="*{text}">내용 입력 오류</div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">수정하기</button>
+    </form>
+</section>
+
+<script src="/vendor/aos/aos.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

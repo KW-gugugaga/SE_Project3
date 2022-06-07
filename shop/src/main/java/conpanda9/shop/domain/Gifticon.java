@@ -6,12 +6,11 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class Gifticon {
+public class Gifticon{
 
     @Id @GeneratedValue
     @Column(name = "gifticon_id")
@@ -24,8 +23,8 @@ public class Gifticon {
      * 한명의 사용자가 여러개의 상품을 판매할 수 있음
      */
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "seller_id")
+    private Seller seller;
 
     /**
      * 상품의 카테고리
@@ -49,13 +48,17 @@ public class Gifticon {
     private String description;   // 상품 설명
     private Long originalPrice;   // 원가
     private Long sellingPrice;   // 판매가
+    private Double discountRate;   // 할인율
     private LocalDate expireDate;   // 유효기간
     private LocalDateTime uploadDate;   // 판매글 업로드 날짜(시간, 초 까지)
     private LocalDateTime lastModifiedDate;   // 판매글 마지막 수정 날짜(시간, 초 까지)
 
-    public Gifticon(String name, User user, Category category, Brand brand, String image, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
+    @Enumerated(EnumType.STRING)
+    private GifticonState state;
+
+    public Gifticon(String name, Seller seller, Category category, Brand brand, String image, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
         this.name = name;
-        this.user = user;
+        this.seller = seller;
         this.category = category;
         this.brand = brand;   // 상품에 브랜드 연결
         brand.getGifticonList().add(this);   // 브랜드에 상품 연결
@@ -66,5 +69,7 @@ public class Gifticon {
         this.expireDate = expireDate;
         this.uploadDate = uploadDate;
         this.lastModifiedDate = lastModifiedDate;
+        this.discountRate = Math.round(sellingPrice.doubleValue() / originalPrice.doubleValue() * 1000) / 10.0;
+        this.state = GifticonState.Selling;   // 기본은 판매중으로 설정
     }
 }

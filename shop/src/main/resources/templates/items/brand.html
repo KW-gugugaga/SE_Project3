@@ -74,7 +74,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href="index.html">Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda9</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -93,7 +93,7 @@
                 <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
                 <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href="#faq">내 정보</a></li>
+                <li><a class="nav-link scrollto" href="/user/info/myinfo">내 정보</a></li>
                 <li>
                     <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
                 </li>
@@ -111,21 +111,63 @@
     </h2>
     <table>
         <tr>
-            <td>최신순 정렬</td>
-            <td>가격 오름차순</td>
-            <td>가격 내림차순</td>
-            <td>할인율 내림차순</td>
-            <td>이름순</td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|latest|)}'|">
+                    최신순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|price-asc|)}'|">
+                    가격 오름차순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|price-desc|)}'|">
+                    가격 내림차순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|discount-desc|)}'|">
+                    할인율 내림차순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|name|)}'|">
+                    이름순
+                </button>
+            </td>
+            <td>
+                <button type="button"
+                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|deadline|)}'|">
+                    마감임박순
+                </button>
+            </td>
         </tr>
-
     </table>
     <table>
+        <thead>
+        <tr>
+            <td>이름</td>
+            <td>원가</td>
+            <td>판매가</td>
+            <td>할인율</td>
+            <td>만료날짜</td>
+            <td>업로드 날짜(최신 수정 날짜)</td>
+        </tr>
+        </thead>
         <tbody>
         <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
             <td th:text="${gifticon.name}">name</a></td>
             <td th:text="${gifticon.originalPrice}">originalPrice</td>
             <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
+            <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
             <td th:text="${gifticon.expireDate}">expireDate</td>
+            <td th:text="${gifticon.lastModifiedDate}">lastModifiedDate</td>
         </tr>
         </tbody>
     </table>

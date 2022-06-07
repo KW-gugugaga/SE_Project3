@@ -4,6 +4,9 @@
 
 <head>
     <style>
+        #wrap {
+            margin: 0px auto;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -33,6 +36,31 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
+
+        #categories {
+            display: grid;
+            grid-template-rows: 100px 100px 100px;
+            grid-template-columns: 100px 100px 100px;
+        }
+
+        #categories .category {
+            background: #444;
+            border: 1px solid #555;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #AAA;
+        }
+
+        body {
+            display: flex;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -74,26 +102,26 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href="index.html">Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda9</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
             <ul>
                 <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
+                <li class="dropdown"><a href="/user/store"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li><a href="#">나의 판매내역</a></li>
+                        <li><a href="/user/store/selling">나의 판매내역</a></li>
                         <li><a href="#">나의 구매내역</a></li>
-                        <li><a href="#">나의 거래내역</a></li>
                         <li><a href="#">나의 찜</a></li>
                         <li><a href="#">나의 지갑</a></li>
                         <li><a href="#">내 상점 리뷰</a></li>
                     </ul>
                 </li>
-                <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
+
+                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
                 <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href="#faq">내 정보</a></li>
+                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
                 <li>
                     <button class="button-18" type="button" value="Join" style="margin-left:20px" onClick="location.href='/upload'">상품등록</button>
                 </li>
@@ -105,13 +133,24 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
+<section style="margin: 30px auto;">
     <h2>
         CATEGORY LIST
     </h2>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-    </div>
+    <wrap id="wrap">
+        <div id="btn">
+            <input type="button" value="카테고리" th:onclick="|location.href='@{/main}'|">
+            <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
+            <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
+            <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
+        </div>
+        <div id="categories">
+            <div class="category" th:each="category : ${categories}">
+                <input type="button" th:value="${category.name}"
+                       th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
+            </div>
+        </div>
+    </wrap>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

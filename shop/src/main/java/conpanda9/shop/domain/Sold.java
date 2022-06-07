@@ -38,5 +38,11 @@ public class Sold {
     private Long soldPrice;   // 거래 완료 가격
     private LocalDateTime soldDate;   // 거래 완료 날짜
 
-
+    public Sold(Gifticon gifticon, Seller seller, User user, Long soldPrice, LocalDateTime soldDate) {
+        this.gifticon = gifticon;
+        this.seller = seller;
+        this.user = user;
+        this.soldPrice = soldPrice;
+        this.soldDate = soldDate;
+    }
 }

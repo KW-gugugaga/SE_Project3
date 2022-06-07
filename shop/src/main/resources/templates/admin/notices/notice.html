@@ -50,31 +50,33 @@
         <h2>
             ADMIN NOTICE EACH NOTICE
         </h2>
-            <table>
-                <tbody>
-                <tr>
-                    <td th:if="${notice.important == true}">
-                        <button type="button" class="important-button">중요 공지</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td th:text="${notice.title}">title</td>
-                </tr>
-                <tr>
-                    <td th:text="${notice.contents}">contents</td>
-                </tr>
-                <tr>
-                    <td th:text="${notice.uploadDate}">uploadDate</td>
-                </tr>
-                <tr>
-                    <td th:text="${notice.count}">count</td>
-                </tr>
-                </tbody>
-            </table>
+        <table>
+            <tbody>
+            <tr>
+                <td th:if="${notice.important == true}">
+                    <button type="button" class="important-button">중요 공지</button>
+                </td>
+            </tr>
+            <tr>
+                <td th:text="${notice.title}">title</td>
+            </tr>
+            <tr>
+                <td th:text="${notice.contents}">contents</td>
+            </tr>
+            <tr>
+                <td th:text="${notice.uploadDate}">uploadDate</td>
+            </tr>
+            <tr>
+                <td th:text="${notice.count}">count</td>
+            </tr>
+            </tbody>
+        </table>
         <button type="button"
-                th:onclick="|location.href='@{/admin/notice/edit/{pv1}(pv1=${notice.id})}'|">공지 수정하기</button>
+                th:onclick="|location.href='@{/admin/notice/edit/{pv1}(pv1=${notice.id})}'|">공지 수정하기
+        </button>
         <button type="button"
-                th:onclick="|location.href='@{/admin/notice/delete/{pv1}(pv1=${notice.id})}'|">공지 삭제하기</button>
+                th:onclick="|location.href='@{/admin/notice/delete/{pv1}(pv1=${notice.id})}'|">공지 삭제하기
+        </button>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 
