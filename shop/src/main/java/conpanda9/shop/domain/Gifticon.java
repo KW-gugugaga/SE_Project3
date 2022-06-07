@@ -45,6 +45,7 @@ public class Gifticon {
     private Brand brand;   // 상품의 브랜드(여러 상품이 하나의 브랜드에 속할 수 있음)
 
     private String image;   // 이미지 저장 경로
+    private String imageGifticon;   //실제 기프티콘 저장 경로
     private String description;   // 상품 설명
     private Long originalPrice;   // 원가
     private Long sellingPrice;   // 판매가

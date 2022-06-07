@@ -91,11 +91,11 @@
                     </ul>
                 </li>
                 <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
+                <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
                 <li><a class="nav-link scrollto" href="#faq">알림</a></li>
                 <li><a class="nav-link scrollto" href="#faq">내 정보</a></li>
                 <li>
-                    <button class="button-18" type="button" value="Join" style="margin-left:20px" onClick="location.href='/upload'">상품등록</button>
+                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
                 </li>
             </ul>
 
@@ -107,11 +107,27 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        UPLOAD GIFTICON
+        <form th:object="${uploadDTO}" th:action="@{/upload}" th:method="post">
+            <table>
+                <tbody>
+                <select name="categories" id="categories">
+                    <tr th:each="categorySelect : *{category}">
+                        <option value="${categorySelect.name}">1</option>
+                    </tr>
+                </select>
+                <tr>
+                    <td>
+                        <label th:for="description" style="vertical-align: top;">상품설명</label>
+                        <textarea cols="80" rows="7" th:field="*{description}" th:value="*{description}"></textarea>
+                        <div class="field-error" th:errors="*{description}">내용 입력 오류</div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit">등록하기</button>
+        </form>
     </h2>
-    <div th:each="category : ${categories}">
-        <input type="button" th:value="${category.name}" th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-    </div>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

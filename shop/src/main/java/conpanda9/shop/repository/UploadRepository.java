@@ -1,5 +1,6 @@
 package conpanda9.shop.repository;
 
+import conpanda9.shop.domain.Gifticon;
 import conpanda9.shop.domain.Question;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -13,18 +14,12 @@ import java.util.List;
 @Repository
 @Slf4j
 @RequiredArgsConstructor
-public class QuestionRepository {
+public class UploadRepository {
 
     private final EntityManager em;
 
     @Transactional
-    public void saveQuestion(Question question) {
-        em.persist(question);
+    public void saveGifticon(Gifticon gifticon) {
+        em.persist(gifticon);
     }
-    public List<Question> findAllQuestion() {
-        log.info("QuestionRepository findAllQuestion");
-        return em.createQuery("select q from Question as q", Question.class).getResultList();
-    }
-
-
 }

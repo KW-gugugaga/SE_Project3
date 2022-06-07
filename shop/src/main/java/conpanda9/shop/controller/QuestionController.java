@@ -1,14 +1,10 @@
 package conpanda9.shop.controller;
 
-import conpanda9.shop.domain.Brand;
-import conpanda9.shop.domain.Category;
-import conpanda9.shop.domain.Gifticon;
+
 import conpanda9.shop.domain.Question;
-import conpanda9.shop.service.ItemService;
 import conpanda9.shop.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Required;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
