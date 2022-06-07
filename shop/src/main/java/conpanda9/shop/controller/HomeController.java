@@ -2,10 +2,9 @@ package conpanda9.shop.controller;
 
 import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.DTO.QuestionDTO;
-import conpanda9.shop.domain.Category;
-import conpanda9.shop.domain.Notice;
-import conpanda9.shop.domain.Question;
-import conpanda9.shop.domain.User;
+import conpanda9.shop.DTO.SearchDTO;
+import conpanda9.shop.domain.*;
+import conpanda9.shop.domain.gifticoncomparator.GifticonDateComparator;
 import conpanda9.shop.service.AdminService;
 import conpanda9.shop.service.ItemService;
 import conpanda9.shop.service.UserService;
@@ -156,5 +155,28 @@ public class HomeController {
     public String getQuestionDelete(@PathVariable("questionId") Long id) {
         userService.deleteQuestion(id);   // 문의사항 삭제
         return "redirect:/question";
+    }
+
+    @GetMapping("/search")
+    public String getSearch(Model model) {
+        model.addAttribute("searchDTO", new SearchDTO());
+        return "search/search";
+    }
+    
+
+    @PostMapping("/search")
+    public String postSearch(@Validated @ModelAttribute("searchDTO") SearchDTO searchDTO, BindingResult bindingResult,
+                             HttpServletRequest request, Model model) {
+
+        if(bindingResult.hasErrors()) {   // 필드 오류
+            return "search/search";
+        }
+        String searchBrand = searchDTO.getSearchBrand();
+        List<Gifticon> gifticons = itemService.searchByBrand(searchBrand);
+        for (Gifticon gifticon : gifticons) {
+            log.info(gifticon.getName());
+        }
+        model.addAttribute("gifticons", gifticons);
+        return "search/search_result";
     }
 }

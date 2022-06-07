@@ -1,5 +1,6 @@
 package conpanda9.shop.service;
 
+import conpanda9.shop.DTO.SearchDTO;
 import conpanda9.shop.domain.*;
 import conpanda9.shop.domain.gifticoncomparator.*;
 import conpanda9.shop.domain.sharecomparator.ShareDateComparator;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -90,6 +92,18 @@ public class ItemService {
             shares.sort(new ShareNameComparator());   // 이름순 정렬
         } else if(sort.equals("deadline")) {
             shares.sort(new ShareExpiredDateComparator());   // 마감기한 순 정렬
+        }
+    }
+    public List<Gifticon> searchByBrand(String str){
+        return itemRepository.searchByBrand(str);
+    }
+    public Optional<List<Gifticon>> search(SearchDTO searchDTO) {
+        Optional<List<Gifticon>> oneByBrand = Optional.ofNullable(itemRepository.searchByBrand(searchDTO.getSearchBrand()));
+        if(oneByBrand.isEmpty()) {   // 일치 브랜드 없을 경우
+            return null;
+        }
+        else {
+            return oneByBrand;
         }
     }
 }

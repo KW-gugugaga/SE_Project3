@@ -121,4 +121,12 @@ public class ItemRepository {
     public void saveQuestion(Question question) {
         em.persist(question);
     }
+    /*
+     * search
+     * */
+    public List<Gifticon> searchByBrand(String str){
+        return em.createQuery("select g from Gifticon as g where g.brand.name = :searchBrand", Gifticon.class)
+                .setParameter("searchBrand",str)
+                .getResultList();
+    }
 }
