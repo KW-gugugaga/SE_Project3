@@ -50,8 +50,6 @@ public class HomeController {
             return "login";
         }
 
-        //TODO
-        //아이디 비밀번호 일치 여부 확인
         User loginUser = userService.login(loginDTO);
 
         if(loginUser == null) {   // 아이디, 비밀번호 일치 회원이 없을 경우

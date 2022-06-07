@@ -31,10 +31,13 @@ public class UserRepository {
         return user;
     }
 
-    public User findSeller(Long id) {
-        Sold sold = em.find(Sold.class, id);   // 거래 내역 찾고
-        User user = sold.getUser();   // 해당 거래내역에 연결된 판매자(user) 객체 가져오기
-        return user;
+    public List<Seller> findAllStore() {
+        return em.createQuery("select s from Seller as s", Seller.class).getResultList();
+    }
+
+
+    public Optional<Seller> findStore(Long id) {
+        return findAllStore().stream().filter(s -> s.getUser().getId().equals(id)).findAny();
     }
 
     public List<User> findAll() {
@@ -77,8 +80,8 @@ public class UserRepository {
     }
 
     @Transactional
-    public void saveSeller(Seller seller) {
-        em.persist(seller);
+    public void saveStore(Seller store) {
+        em.persist(store);
     }
 
     public List<Question> findQuestionByUser(Long id) {
@@ -108,5 +111,18 @@ public class UserRepository {
     @Transactional
     public void deleteQuestion(Long id) {
         em.remove(em.find(Question.class, id));
+    }
+
+
+    public List<Sold> findSolds(Long id) {
+        return em.createQuery("select s from Sold as s where s.seller.id = :id", Sold.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    public List<Gifticon> findSellings(Long id) {
+        return em.createQuery("select g from Gifticon as g where g.seller.id = :id and g.state = conpanda9.shop.domain.GifticonState.Selling", Gifticon.class)
+                .setParameter("id", id)
+                .getResultList();
     }
 }

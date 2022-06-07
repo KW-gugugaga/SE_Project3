@@ -11,9 +11,14 @@ import javax.persistence.*;
 public class Seller {
 
     @Id @GeneratedValue
-    @Column(name = "seller_id")
+    @Column(name = "store_id")
     private Long id;
 
+    private String name;   // 상품 이름
+
+    /**
+     * 상품 주인
+     */
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -21,7 +26,8 @@ public class Seller {
     private Long heart;   // 찜
     private Long share;   // 나눔 횟수
 
-    public Seller(User user) {
+    public Seller(String name, User user) {
+        this.name = name;
         this.user = user;
         this.heart = 0L;
         this.share = 0L;
