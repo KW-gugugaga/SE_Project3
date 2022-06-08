@@ -153,6 +153,12 @@ public class HomeController {
         return "redirect:/question";
     }
 
+    @GetMapping("/search")
+    public String getSearch(Model model) {
+        model.addAttribute("searchDTO", new SearchDTO());
+        return "search/search";
+    }
+
     @PostMapping("/search")
     public String postSearch(@Validated @ModelAttribute("searchDTO") SearchDTO searchDTO, BindingResult bindingResult,
                              HttpServletRequest request, Model model) {
