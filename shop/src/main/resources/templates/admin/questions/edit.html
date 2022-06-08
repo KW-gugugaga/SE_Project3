@@ -45,6 +45,13 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+        }
     </style>
 
 </head>
@@ -69,7 +76,7 @@
 
     <div id="colorlib-main" style="margin-top: 40px;">
         <h2>
-            ADMIN QUESTION
+            ADMIN QUESTION EDIT ANSWER
         </h2>
         <table>
             <tbody>
@@ -88,23 +95,15 @@
             </tbody>
         </table>
         <hr style="border: 1px solid gray;">
-        <div th:if="${question.answer == null}">
-            <p>답변이 없습니다. 답변을 달아주세요!</p>
-            <form th:action="@{/admin/question/add/answer/{pv1}(pv1=${question.id})}" method="post">
-                <label for="answer" style="vertical-align: top;">답변</label>
-                <textarea cols="80" rows="7" name="answer" id="answer"></textarea>
-                <div th:if="${error != null}">
-                    <p th:text="${error}"></p>
-                </div>
-                <button class="button-18" type="submit">답변 등록하기</button>
-            </form>
-        </div>
-        <div th:unless="${question.answer == null}">
-            <td th:text="${question.answer}">count</td>
-            <button type="button" class="button-18"
-                    th:onclick="|location.href='@{/admin/question/edit/answer/{pv1}(pv1=${question.id})}'|">답변 수정하기
-            </button>
-        </div>
+        <form th:action="@{/admin/question/edit/answer/{pv1}(pv1=${question.id})}" method="post">
+            <label for="answer" style="vertical-align: top;">답변</label>
+            <textarea cols="80" rows="7" name="answer" id="answer">[[${question.answer}]]</textarea>
+            <div th:if="${error != null}">
+                <p class="field-error" th:text="${error}"></p>
+            </div>
+            <button class="button-18" type="submit">답변 수정하기</button>
+        </form>
+
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 

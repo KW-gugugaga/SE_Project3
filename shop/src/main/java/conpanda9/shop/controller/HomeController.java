@@ -4,7 +4,6 @@ import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.DTO.QuestionDTO;
 import conpanda9.shop.DTO.SearchDTO;
 import conpanda9.shop.domain.*;
-import conpanda9.shop.domain.gifticoncomparator.GifticonDateComparator;
 import conpanda9.shop.service.AdminService;
 import conpanda9.shop.service.ItemService;
 import conpanda9.shop.service.UserService;
@@ -20,7 +19,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -124,7 +122,7 @@ public class HomeController {
 
         Long id = (Long) request.getSession().getAttribute("user");
         User user = userService.findUser(id);
-        Question question = new Question(questionDTO.getTitle(), questionDTO.getText(), user, LocalDateTime.now(), LocalDateTime.now(), null);
+        Question question = new Question(questionDTO.getTitle(), questionDTO.getText(), user, LocalDateTime.now(), LocalDateTime.now());
         userService.saveQuestion(question);
         return "redirect:/question";
     }

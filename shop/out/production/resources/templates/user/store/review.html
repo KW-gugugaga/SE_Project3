@@ -4,10 +4,6 @@
 
 <head>
     <style>
-        #wrap {
-            margin: 0px auto;
-        }
-
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -37,30 +33,15 @@
             vertical-align: middle;
         }
 
-        #categories {
-            display: grid;
-            grid-template-rows: 100px 100px 100px;
-            grid-template-columns: 100px 100px 100px;
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
         }
 
-        #categories .category {
-            background: #444;
-            border: 1px solid #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #AAA;
+        .edit-input {
+            margin-bottom: 10px;
         }
-
-        body {
-            display: flex;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -100,56 +81,37 @@
 <!-- ======= Header ======= -->
 <header id="header" class="fixed-top  header-transparent ">
     <div class="container d-flex align-items-center justify-content-between">
-
         <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
+            <h1><a href='#'>Review</a></h1>
         </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li class="dropdown"><a href="/user/store"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/user/store/selling">나의 판매내역</a></li>
-                        <li><a href="/user/store/buy">나의 구매내역</a></li>
-                        <li><a href="#">나의 찜</a></li>
-                        <li><a href="#">나의 지갑</a></li>
-                        <li><a href="#">내 상점 리뷰</a></li>
-                    </ul>
-                </li>
-                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
-                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
-                <li>
-                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
-                </li>
-            </ul>
-
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
     </div>
 </header><!-- End Header -->
 
-<section style="margin: 30px auto;">
+<section style="margin-top: 20px;">
     <h2>
-        CATEGORY LIST
+        STORE REVIEW
     </h2>
-    <wrap id="wrap">
-        <div id="btn">
-            <input type="button" value="카테고리" th:onclick="|location.href='@{/main}'|">
-            <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-            <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
-            <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
-        </div>
-        <div id="categories">
-            <div class="category" th:each="category : ${categories}">
-                <input type="button" th:value="${category.name}"
-                       th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-            </div>
-        </div>
-    </wrap>
+    <div th:if="${reviews.isEmpty()}">
+        <p>등록된 리뷰가 없습니다.</p>
+    </div>
+    <div th:unless="${reviews.isEmpty()}">
+        <table>
+            <thead>
+            <tr>
+                <td>작성자</td>
+                <td>내용</td>
+                <td>별점</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="review : ${reviews}">
+                <td th:text="${review.user.nickname}">작성자</td>
+                <td th:text="${review.text}">내용</td>
+                <td th:text="${review.star}">별점</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

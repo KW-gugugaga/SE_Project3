@@ -3,10 +3,7 @@ package conpanda9.shop.controller;
 import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.PwEditDTO;
-import conpanda9.shop.domain.Gifticon;
-import conpanda9.shop.domain.Seller;
-import conpanda9.shop.domain.Sold;
-import conpanda9.shop.domain.User;
+import conpanda9.shop.domain.*;
 import conpanda9.shop.domain.soldcomparator.SoldDateComparator;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -238,5 +235,27 @@ public class UserController {
         model.addAttribute("solds", solds);   // 판매 완료 내역
         model.addAttribute("totalSellPrice", totalSellPrice);
         return "user/store/soldhistory";
+    }
+
+    @GetMapping("/store/buy")
+    public String getBuy(HttpServletRequest request, Model model) {   // 구매내역
+        // user id의 구매내역
+        List<Sold> buys = userService.findBuys((Long) request.getSession().getAttribute("user"));
+        buys.sort(new SoldDateComparator());   // 더 최신에 구매한 내역
+        model.addAttribute("buys", buys);
+        return "user/store/buyhistory";
+    }
+
+    @GetMapping("/store/review")
+    public String getStoreReview(HttpServletRequest request, Model model) {
+        Long id = (Long) request.getSession().getAttribute("user");
+        Optional<Seller> store = userService.findStore(id);
+        if(store.isPresent()) {
+            List<Review> reviews = userService.findReviews(store.get().getId());   // 상점에 달린 리뷰들
+            model.addAttribute("reviews", reviews);
+            return "user/store/review";
+        } else {
+            return "redirect:/";
+        }
     }
 }

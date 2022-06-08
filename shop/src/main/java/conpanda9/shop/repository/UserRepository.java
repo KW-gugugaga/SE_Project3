@@ -125,4 +125,18 @@ public class UserRepository {
                 .setParameter("id", id)
                 .getResultList();
     }
+
+    public List<Sold> findBuys(Long id) {
+        return em.createQuery("select s from Sold as s", Sold.class).getResultList()
+                .stream().filter(s -> s.getUser().getId().equals(id)).collect(Collectors.toList());
+    }
+
+    public List<Review> findAllReview() {
+        return em.createQuery("select r from Review as r", Review.class).getResultList();
+    }
+
+    public List<Review> findReviews(Long id) {
+        return findAllReview().stream().filter(r -> r.getSeller().getId().equals(id))
+                .collect(Collectors.toList());
+    }
 }

@@ -4,6 +4,14 @@
 
 <head>
     <style>
+        body{
+            margin:0;
+            padding:0;
+        }
+        #wrap{
+            width: 1200px;
+            margin: 30px auto;
+        }
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -33,8 +41,26 @@
             vertical-align: middle;
         }
 
+        table{
+            border-collapse: collapse;
+            width: 1200px;
+        }
+
+        .top-tr{
+            border-top: 2px solid #CECFCB;
+            border-bottom: 2px solid #CECFCB;
+        }
+        tr:nth-child(odd){
+            background-color: #E7E7E4;
+        }
         .notice-title {
             cursor: pointer;
+            border-top: 1px solid #CECFCB;
+            border-bottom: 1px solid #CECFCB;
+        }
+
+        .a-menu {
+            font-size: 16px;
         }
     </style>
     <meta charset="utf-8">
@@ -107,15 +133,22 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
+<section id="wrap">
     <h2>
         USER NOTICE LIST
     </h2>
-    <div style="text-align: center; margin: 0 auto">
+    <div style="text-align: center;">
         <table>
             <tbody>
+            <tr class="top-tr">
+                <td></td>
+                <td>제목</td>
+                <td>날짜</td>
+                <td>조회수</td>
+            </tr>
             <tr class="notice-title" th:each="notice : ${notices}"
                 th:onclick="|location.href='@{/notice/{pv1}(pv1=${notice.id})}'|">
+                <td><img src="/static/" alt="중요공지"></td>
                 <td th:text="${notice.title}">title</a></td>
                 <td th:text="${notice.uploadDate}">updateDate</td>
                 <td th:text="${notice.count}">count</td>

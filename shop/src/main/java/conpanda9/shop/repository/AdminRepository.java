@@ -19,6 +19,14 @@ public class AdminRepository {
 
     private final EntityManager em;
 
+    public List<Question> findAllQuestion() {
+        return em.createQuery("select q from Question as q", Question.class).getResultList();
+    }
+
+    public Question findQuestion(Long id) {
+        return em.find(Question.class, id);
+    }
+
     @Transactional
     public void saveNotice(Notice notice) {
         em.persist(notice);
@@ -47,10 +55,6 @@ public class AdminRepository {
         em.remove(findNotice(id));
     }
 
-    public List<Question> findAllQuestion() {
-        return em.createQuery("select q from Question as q", Question.class).getResultList();
-    }
-
     public List<Report> findAllReport() {
         return em.createQuery("select r from Report as r", Report.class).getResultList();
     }
@@ -61,5 +65,16 @@ public class AdminRepository {
         Notice notice = em.find(Notice.class, id);
         Long count = notice.getCount();
         notice.setCount(++count);
+    }
+
+
+    @Transactional
+    public void addAnswer(Long id, String answer) {
+        em.find(Question.class, id).setAnswer(answer);
+    }
+
+    @Transactional
+    public void editAnswer(Long id, String answer) {
+        em.find(Question.class, id).setAnswer(answer);
     }
 }

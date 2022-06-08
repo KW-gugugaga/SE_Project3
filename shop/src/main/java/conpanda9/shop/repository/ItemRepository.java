@@ -148,4 +148,9 @@ public class ItemRepository {
     public void saveSold (Sold sold){
         em.persist(sold);
     }
+
+    @Transactional
+    public void saveReview(Review review) {
+        em.persist(review);
+    }
 }

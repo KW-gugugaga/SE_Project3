@@ -20,11 +20,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AdminService {
 
-    private final UserRepository userRepository;
     private final AdminRepository adminRepository;
 
     public List<Question> findAllQuestion() {
         return adminRepository.findAllQuestion();
+    }
+
+    public Question findQuestion(Long id) {
+        return adminRepository.findQuestion(id);
+    }
+
+    public void addAnswer(Long id, String answer) {
+        adminRepository.addAnswer(id, answer);
     }
 
     public List<Report> findAllReport() {
@@ -61,5 +68,9 @@ public class AdminService {
 
     public void addNoticeCount(Long id) {
         adminRepository.addNoticeCount(id);
+    }
+
+    public void editAnswer(Long id, String answer) {
+        adminRepository.editAnswer(id, answer);
     }
 }
