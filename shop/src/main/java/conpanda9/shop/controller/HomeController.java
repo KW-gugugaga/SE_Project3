@@ -183,9 +183,6 @@ public class HomeController {
             List<Gifticon> gifticons = itemService.searchByItem(searchWhat);
             model.addAttribute("gifticons", gifticons);
         }
-/*        for (Gifticon gifticon : gifticons) {
-            log.info(gifticon.getName());
-        }*/
         return "search/search_result";
     }
 }
