@@ -153,13 +153,6 @@ public class HomeController {
         return "redirect:/question";
     }
 
-    @GetMapping("/search")
-    public String getSearch(Model model) {
-        model.addAttribute("searchDTO", new SearchDTO());
-        return "search/search";
-    }
-    
-
     @PostMapping("/search")
     public String postSearch(@Validated @ModelAttribute("searchDTO") SearchDTO searchDTO, BindingResult bindingResult,
                              HttpServletRequest request, Model model) {
@@ -167,12 +160,20 @@ public class HomeController {
         if(bindingResult.hasErrors()) {   // 필드 오류
             return "search/search";
         }
-        String searchBrand = searchDTO.getSearchBrand();
-        List<Gifticon> gifticons = itemService.searchByBrand(searchBrand);
-        for (Gifticon gifticon : gifticons) {
-            log.info(gifticon.getName());
+        String searchKind = searchDTO.getSearchKind();
+        String searchWhat = searchDTO.getSearchWhat();
+        if(searchKind.equals("brand")){
+            List<Gifticon> gifticons = itemService.searchByBrand(searchWhat);
+            model.addAttribute("gifticons", gifticons);
         }
-        model.addAttribute("gifticons", gifticons);
+        else if(searchKind.equals("category")){
+            List<Gifticon> gifticons = itemService.searchByCategory(searchWhat);
+            model.addAttribute("gifticons", gifticons);
+        }
+        else if(searchKind.equals("itemname")){
+            List<Gifticon> gifticons = itemService.searchByItem(searchWhat);
+            model.addAttribute("gifticons", gifticons);
+        }
         return "search/search_result";
     }
 }
