@@ -12,6 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class SearchDTO {
 
     @NotBlank(message = "검색어를 입력하세요.")
-    private String searchBrand;
+    private String searchKind;
+    private String searchWhat;
 
 }

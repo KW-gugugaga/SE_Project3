@@ -110,7 +110,7 @@
 
 <section style="margin-top: 40px;">
     <h2>
-        브랜드로 검색
+        검색
     </h2>
     <form th:object="${searchDTO}" th:action="@{/search}" method="post">
         <div style="text-align: center; margin: 0 auto">
@@ -118,13 +118,13 @@
                 <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
                     글로벌 오류 메시지</p>
             </div>
-            <select th:field="*{searchBrand}">
+            <select th:field="*{searchKind}">
                 <option value="category">카테고리</option>
                 <option value="itemname">상품명</option>
                 <option value="brand">브랜드</option>
             </select>
-            <input type="text" placeholder="검색어를 입력해주세요." th:field="*{searchBrand}">
-            <div class="field-error" th:errors="*{searchBrand}">검색어를 입력 하세요</div>
+            <input type="text" placeholder="검색어를 입력해주세요." th:field="*{searchWhat}">
+            <div class="field-error" th:errors="*{searchWhat}">검색어를 입력 하세요</div>
 
             <button id="searchBtn" type="submit" class="button-18">검색</button>
         </div>

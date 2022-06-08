@@ -106,10 +106,10 @@
 </header><!-- End Header -->
 
 <section style="margin-top: 40px;">
+    <div th:if = "${!gifticons.isEmpty()}">
     <h2>
         ITEM LIST
     </h2>
-
     <table>
         <thead>
         <tr>
@@ -132,6 +132,8 @@
         </tr>
         </tbody>
     </table>
+    </div>
+    <h3 th:if = "${gifticons.isEmpty()}"> 찾으시는 항목이 존재하지 않습니다! </h3>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

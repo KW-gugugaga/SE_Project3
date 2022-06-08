@@ -169,12 +169,23 @@ public class HomeController {
         if(bindingResult.hasErrors()) {   // 필드 오류
             return "search/search";
         }
-        String searchBrand = searchDTO.getSearchBrand();
-        List<Gifticon> gifticons = itemService.searchByBrand(searchBrand);
-        for (Gifticon gifticon : gifticons) {
-            log.info(gifticon.getName());
+        String searchKind = searchDTO.getSearchKind();
+        String searchWhat = searchDTO.getSearchWhat();
+        if(searchKind.equals("brand")){
+            List<Gifticon> gifticons = itemService.searchByBrand(searchWhat);
+            model.addAttribute("gifticons", gifticons);
         }
-        model.addAttribute("gifticons", gifticons);
+        else if(searchKind.equals("category")){
+            List<Gifticon> gifticons = itemService.searchByCategory(searchWhat);
+            model.addAttribute("gifticons", gifticons);
+        }
+        else if(searchKind.equals("itemname")){
+            List<Gifticon> gifticons = itemService.searchByItem(searchWhat);
+            model.addAttribute("gifticons", gifticons);
+        }
+/*        for (Gifticon gifticon : gifticons) {
+            log.info(gifticon.getName());
+        }*/
         return "search/search_result";
     }
 }
