@@ -101,6 +101,9 @@ public class UserService {
         userRepository.deleteQuestion(id);
     }
 
+    public void saveStore(Seller store) {
+        userRepository.saveStore(store);
+    }
 
     public Optional<Seller> findStore(Long id) {
         return userRepository.findStore(id);
@@ -123,7 +126,12 @@ public class UserService {
         return total;
     }
 
-    public void saveStore(Seller store) {
-        userRepository.saveStore(store);
+    public List<Sold> findBuys(Long id) {
+        return userRepository.findBuys(id);
+    }
+
+
+    public List<Review> findReviews(Long id) {
+        return userRepository.findReviews(id);
     }
 }

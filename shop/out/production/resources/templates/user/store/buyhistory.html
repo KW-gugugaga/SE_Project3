@@ -4,10 +4,6 @@
 
 <head>
     <style>
-        #wrap {
-            margin: 0px auto;
-        }
-
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -37,30 +33,15 @@
             vertical-align: middle;
         }
 
-        #categories {
-            display: grid;
-            grid-template-rows: 100px 100px 100px;
-            grid-template-columns: 100px 100px 100px;
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
         }
 
-        #categories .category {
-            background: #444;
-            border: 1px solid #555;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #AAA;
+        .edit-input {
+            margin-bottom: 10px;
         }
-
-        body {
-            display: flex;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -107,11 +88,11 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li class="dropdown"><a href="/user/store"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
+                <li><a class="nav-link scrollto" href="/main">Home</a></li>
+                <li class="dropdown"><a class="active" href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
-                        <li><a href="/user/store/selling">나의 판매내역</a></li>
-                        <li><a href="/user/store/buy">나의 구매내역</a></li>
+                        <li><a href="/user/sell">나의 판매내역</a></li>
+                        <li><a href="/user/buy">나의 구매내역</a></li>
                         <li><a href="#">나의 찜</a></li>
                         <li><a href="#">나의 지갑</a></li>
                         <li><a href="#">내 상점 리뷰</a></li>
@@ -132,24 +113,48 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin: 30px auto;">
+<section style="margin-top: 40px;">
     <h2>
-        CATEGORY LIST
+        MY STORE BOUGHT
     </h2>
-    <wrap id="wrap">
-        <div id="btn">
-            <input type="button" value="카테고리" th:onclick="|location.href='@{/main}'|">
-            <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-            <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
-            <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
+    <div>
+        <div th:if="${buys.isEmpty()}">
+            <p>상품 구매 내역이 존재하지 않습니다.</p>
         </div>
-        <div id="categories">
-            <div class="category" th:each="category : ${categories}">
-                <input type="button" th:value="${category.name}"
-                       th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
-            </div>
+        <div th:unless="${buys.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <td>이름</td>
+                    <td>카테고리</td>
+                    <td>브랜드</td>
+                    <td>원가</td>
+                    <td>구매가</td>
+                    <td>구매날짜</td>
+                    <td>만료날짜</td>
+                    <td>판매 상점</td>
+                    <td>판매자</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="buy : ${buys}"
+                    th:onclick="|location.href='#'|" style="cursor: pointer;">
+                    <td th:text="${buy.gifticon.name}">name</td>
+                    <td th:text="${buy.gifticon.category.name}">category</td>
+                    <td th:text="${buy.gifticon.brand.name}">brand</td>
+                    <td th:text="${buy.gifticon.originalPrice}">originalPrice</td>
+                    <td th:text="${buy.soldPrice}">soldPrice</td>
+                    <td th:text="${buy.soldDate}">soldDate</td>
+                    <td th:text="${buy.gifticon.expireDate}">expireDate</td>
+                    <td th:text="${buy.seller.name}">seller store name</td>
+                    <td th:text="${buy.seller.user.nickname}">seller nickname</td>
+                    <td><input type="button" th:onclick="|location.href='@{/user/store/buy/${buy.id}'|" value="상품 확인"></td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </wrap>
+    </div>
+
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

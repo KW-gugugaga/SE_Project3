@@ -4,6 +4,15 @@
 
 <head>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #wrap {
+            width: 1200px;
+            margin: 30px auto;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -32,6 +41,30 @@
             user-select: none;
             -webkit-user-select: none;
             vertical-align: middle;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 1200px;
+        }
+
+        .top-tr {
+            border-top: 2px solid #CECFCB;
+            border-bottom: 2px solid #CECFCB;
+        }
+
+        tr:nth-child(even) {
+            background-color: #E7E7E4;
+        }
+
+        .notice-title {
+            cursor: pointer;
+            border-top: 1px solid #CECFCB;
+            border-bottom: 1px solid #CECFCB;
+        }
+
+        .a-menu {
+            font-size: 16px;
         }
     </style>
     <meta charset="utf-8">
@@ -79,7 +112,7 @@
 
         <nav id="navbar" class="navbar">
             <ul>
-                <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+                <li><a class="nav-link scrollto" href="/main">Home</a></li>
                 <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
                     <ul>
                         <li><a href="#">나의 판매내역</a></li>
@@ -104,31 +137,35 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
+<section id="wrap">
     <h2>
         USER QUESTION LIST
     </h2>
-    <input class="button-18" type="button" th:onclick="|location.href='@{/question/add}'|" value="문의사항 등록하기">
     <div th:if="${questions.isEmpty()}">
         <p>등록한 문의사항이 없습니다.</p>
     </div>
     <div th:unless="${questions.isEmpty()}">
-        <table>
+        <table style="text-align: center;">
             <thead>
-            <tr>
-                <td>제목</td>
-                <td>등록날짜</td>
+            <tr class="top-tr">
+                <td style="width: 40%; background-color: #E7E7E4;">제목</td>
+                <td style="background-color: #E7E7E4;">등록날짜</td>
+                <td style="background-color: #E7E7E4;">작성자</td>
             </tr>
             </thead>
             <tbody>
             <tr th:each="question : ${questions}"
                 th:onclick="|location.href='@{/question/{pv1}(pv1=${question.id})}'|"
-                style="cursor: pointer;"><!--기프티콘 상품 페이지로 이동-->
+                style="cursor: pointer;">
                 <td th:text="${question.title}">name</a></td>
                 <td th:text="${question.uploadDate}">uploadDate</td>
+                <td th:text="${question.user.nickname}">uploadDate</td>
             </tr>
             </tbody>
         </table>
+    </div>
+    <div style="text-align: center;">
+        <input class="button-18" type="button" th:onclick="|location.href='@{/question/add}'|" value="문의사항 등록하기">
     </div>
 </section>
 

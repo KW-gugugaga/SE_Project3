@@ -29,6 +29,7 @@ public class User {
 
     private String phoneNumber;
 
+
     public User(String loginId, String loginPw, String nickname, String email, String phoneNumber) {
         this.loginId = loginId;
         this.loginPw = loginPw;

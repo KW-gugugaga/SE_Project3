@@ -15,6 +15,36 @@
         .a-menu {
             font-size: 16px;
         }
+
+        .button-18 {
+            margin: 20px auto;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
     </style>
 
 </head>
@@ -23,11 +53,58 @@
     <h2>NAV BAR</h2>
 </div>
 <div id="colorlib-page">
-    <div th:replace="fragments/admin-menu :: admin-menu"></div>
+    <div class="admin-menu" th:fragment="admin-menu">
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul style="font-size: 16px;">
+                    <li class="colorlib-active"><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                    <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                    <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                    <li><a class="a-menu" href="/admin/users">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/">매물관리</a></li>
+                </ul>
+            </nav>
+        </aside> <!-- END COLORLIB-ASIDE -->
+    </div>
+
     <div id="colorlib-main" style="margin-top: 40px;">
         <h2>
             ADMIN QUESTION
         </h2>
+        <table>
+            <tbody>
+            <tr>
+                <td th:text="${question.title}">title</td>
+            </tr>
+            <tr>
+                <td th:text="${question.text}">contents</td>
+            </tr>
+            <tr>
+                <td th:text="${question.user.nickname}">uploadDate</td>
+            </tr>
+            <tr>
+                <td th:text="${question.uploadDate}">count</td>
+            </tr>
+            </tbody>
+        </table>
+        <hr style="border: 1px solid gray;">
+        <div th:if="${question.answer == null}">
+            <p>답변이 없습니다. 답변을 달아주세요!</p>
+            <form th:action="@{/admin/question/add/answer/{pv1}(pv1=${question.id})}" method="post">
+                <label for="answer" style="vertical-align: top;">답변</label>
+                <textarea cols="80" rows="7" name="answer" id="answer"></textarea>
+                <div th:if="${error != null}">
+                    <p th:text="${error}"></p>
+                </div>
+                <button class="button-18" type="submit">답변 등록하기</button>
+            </form>
+        </div>
+        <div th:unless="${question.answer == null}">
+            <td th:text="${question.answer}">count</td>
+            <button type="button" class="button-18"
+                    th:onclick="|location.href='@{/admin/question/edit/answer/{pv1}(pv1=${question.id})}'|">답변 수정하기
+            </button>
+        </div>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 
