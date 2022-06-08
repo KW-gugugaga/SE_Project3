@@ -94,6 +94,7 @@ public class ItemService {
             shares.sort(new ShareExpiredDateComparator());   // 마감기한 순 정렬
         }
     }
+
     public List<Gifticon> searchByBrand(String str){
         return itemRepository.searchByBrand(str);
     }
