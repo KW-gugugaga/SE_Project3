@@ -122,9 +122,6 @@ public class ItemRepository {
         em.persist(question);
     }
 
-    /*
-     * search
-     * */
     public List<Gifticon> searchByBrand(String str) {
         return em.createQuery("select g from Gifticon as g where g.brand.name = :searchWhat", Gifticon.class)
                 .setParameter("searchWhat", str)
