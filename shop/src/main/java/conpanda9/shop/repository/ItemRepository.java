@@ -122,12 +122,19 @@ public class ItemRepository {
         em.persist(question);
     }
 
-    /*
-     * search
-     * */
     public List<Gifticon> searchByBrand(String str) {
-        return em.createQuery("select g from Gifticon as g where g.brand.name = :searchBrand", Gifticon.class)
-                .setParameter("searchBrand", str)
+        return em.createQuery("select g from Gifticon as g where g.brand.name = :searchWhat", Gifticon.class)
+                .setParameter("searchWhat", str)
+                .getResultList();
+    }
+    public List<Gifticon> searchByCategory(String str) {
+        return em.createQuery("select g from Gifticon as g where g.category.name = :searchWhat", Gifticon.class)
+                .setParameter("searchWhat", str)
+                .getResultList();
+    }
+    public List<Gifticon> searchByItem(String str) {
+        return em.createQuery("select g from Gifticon as g where g.name = :searchWhat", Gifticon.class)
+                .setParameter("searchWhat", str)
                 .getResultList();
     }
 
