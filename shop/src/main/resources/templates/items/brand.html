@@ -4,6 +4,45 @@
 
 <head>
     <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -105,59 +144,50 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
-    <h2>
+<section style="margin-top: 40px; text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         ITEM LIST
-    </h2>
-    <table>
-        <tr>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|latest|)}'|">
-                    최신순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|price-asc|)}'|">
-                    가격 오름차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|price-desc|)}'|">
-                    가격 내림차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|discount-desc|)}'|">
-                    할인율 내림차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|name|)}'|">
-                    이름순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|deadline|)}'|">
-                    마감임박순
-                </button>
-            </td>
-        </tr>
-    </table>
+    </h2><br>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|latest|)}'|">
+        최신순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|price-asc|)}'|">
+        가격 오름차순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|price-desc|)}'|">
+        가격 내림차순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|discount-desc|)}'|">
+        할인율 내림차순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|name|)}'|">
+        이름순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|deadline|)}'|">
+        마감임박순
+    </button>
+    <br><br>
     <table>
         <thead>
         <tr>
-            <td>이름</td>
-            <td>원가</td>
-            <td>판매가</td>
-            <td>할인율</td>
-            <td>만료날짜</td>
-            <td>업로드 날짜(최신 수정 날짜)</td>
+            <th>이름</th>
+            <th>원가</th>
+            <th>판매가</th>
+            <th>할인율</th>
+            <th>만료날짜</th>
+            <th>업로드 날짜(최신 수정 날짜)</th>
         </tr>
         </thead>
         <tbody>
