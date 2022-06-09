@@ -4,6 +4,7 @@ import conpanda9.shop.DTO.NoticeDTO;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
+import conpanda9.shop.domain.User;
 import conpanda9.shop.domain.questioncomparator.QuestionComparator;
 import conpanda9.shop.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -174,4 +175,18 @@ public class AdminController {
         model.addAttribute("reports", reports);
         return "admin/report";
     }
+
+    @GetMapping("/user")
+    public String users(Model model) {
+        List<User> users = adminService.findAllUser();
+        model.addAttribute("users", users);
+        return "admin/user/userlist";
+    }
+    @GetMapping("user/delete/{userId}")
+    public String deleteUser(@PathVariable("userId") Long id){
+        log.info("delete user id={}", id);
+        adminService.deleteUser(id);
+        return ":admin/user";
+    }
+
 }

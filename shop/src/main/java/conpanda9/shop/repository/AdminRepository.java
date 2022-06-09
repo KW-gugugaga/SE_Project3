@@ -3,6 +3,7 @@ package conpanda9.shop.repository;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
+import conpanda9.shop.domain.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -18,6 +19,7 @@ import java.util.List;
 public class AdminRepository {
 
     private final EntityManager em;
+
 
     public List<Question> findAllQuestion() {
         return em.createQuery("select q from Question as q", Question.class).getResultList();
@@ -77,4 +79,18 @@ public class AdminRepository {
     public void editAnswer(Long id, String answer) {
         em.find(Question.class, id).setAnswer(answer);
     }
+
+    public List<User> findAllUser(){
+        return em.createQuery("select u from User as u", User.class).getResultList();
+    }
+    public User findUser(Long id) {
+        User user = em.find(User.class, id);   // pk id에 따라 객치(Data) 찾기
+        return user;
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+        em.remove(findUser(id));
+    }
+
 }

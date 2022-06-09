@@ -4,6 +4,7 @@ import conpanda9.shop.DTO.NoticeDTO;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
+import conpanda9.shop.domain.User;
 import conpanda9.shop.repository.AdminRepository;
 import conpanda9.shop.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -73,4 +74,15 @@ public class AdminService {
     public void editAnswer(Long id, String answer) {
         adminRepository.editAnswer(id, answer);
     }
+
+    public List<User> findAllUser(){
+        return adminRepository.findAllUser();
+    }
+    public User findUser(Long id) {
+        return adminRepository.findUser(id);
+    }
+    public void deleteUser(Long id) {
+        adminRepository.deleteUser(id);
+    }
+
 }
