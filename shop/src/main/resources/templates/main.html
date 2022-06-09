@@ -56,10 +56,7 @@
             display: flex;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-        }
+        
 
     </style>
     <meta charset="utf-8">
@@ -132,17 +129,17 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin: 30px auto;">
-    <h2>
+<section style="margin: 30px auto;text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         CATEGORY LIST
-    </h2>
+    </h2><br>
     <wrap id="wrap">
         <div id="btn">
-            <input type="button" value="카테고리" th:onclick="|location.href='@{/main}'|">
-            <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-            <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
-            <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
-        </div>
+            <input type="button" class="button-18" value="카테고리" th:onclick="|location.href='@{/main}'|">
+            <input type="button" class="button-18" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
+            <input type="button" class="button-18" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
+            <input type="button" class="button-18" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
+        </div><br><br>
         <div id="categories">
             <div class="category" th:each="category : ${categories}">
                 <input type="button" th:value="${category.name}"

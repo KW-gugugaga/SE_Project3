@@ -105,10 +105,10 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
-    <h2>
+<section style="margin-top: 40px;text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         BRAND LIST
-    </h2>
+    </h2><br>
     <h3 th:value="${category.name}"></h3>
     <div th:each="brand : ${brands}">
         <input type="button" th:value="${brand.name}" th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${brand.id})}'|">
