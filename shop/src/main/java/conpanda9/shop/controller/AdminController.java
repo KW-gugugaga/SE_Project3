@@ -105,7 +105,7 @@ public class AdminController {
         return "redirect:/admin/notice";
     }
 
-    @GetMapping("notice/delete/{noticeId}")
+    @GetMapping("/notice/delete/{noticeId}")
     public String deleteNotice(@PathVariable("noticeId") Long id) {
         log.info("delete notice id={}", id);
         adminService.deleteNotice(id);
@@ -175,18 +175,17 @@ public class AdminController {
         model.addAttribute("reports", reports);
         return "admin/report";
     }
-
     @GetMapping("/user")
     public String users(Model model) {
         List<User> users = adminService.findAllUser();
         model.addAttribute("users", users);
         return "admin/user/userlist";
     }
-    @GetMapping("user/delete/{userId}")
+    @GetMapping("/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long id){
         log.info("delete user id={}", id);
         adminService.deleteUser(id);
-        return ":admin/user";
+        return "redirect:/admin/user";
     }
 
 }
