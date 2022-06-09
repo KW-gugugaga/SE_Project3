@@ -4,6 +4,39 @@
 
 <head>
     <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+        th {
+            text-align: left;
+            background: #b3c3d5;
+        }
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -83,7 +116,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -115,28 +148,32 @@
 </header><!-- End Header -->
 
 <section style="margin-top: 40px;">
-    <h2>
-        PW EDIT
-    </h2>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        비밀번호 수정
+    </h2><br>
     <div style="text-align: center; margin: 0 auto">
         <form th:object="${editDTO}" th:action="@{/user/info/edit/pw/{pv1}(pv1=${id})}" method="post">
             <div style="padding: 0px 100px 50px 100px">
-                <div class="edit-input">
-                    <label for="newPw">새 비밀번호</label>
-                    <input type="password" id="newPw" th:field="*{newPw}">
-                    <div class="field-error" th:errors="*{newPw}">새 비밀번호 오류</div>
-                </div>
-                <div class="edit-input">
-                    <label for="newPwCheck">새 비밀번호 확인</label>
-                    <input type="password" id="newPwCheck" th:field="*{newPwCheck}">
-                    <div class="field-error" th:errors="*{newPwCheck}">새 비밀번호 확인 오류</div>
-                </div>
-                <div class="edit-input">
-                    <p style="margin-bottom: 1px;">비밀번호 수정을 위해서는 비밀번호 확인이 필요합니다.</p>
-                    <label for="originalPwCheck">비밀번호 확인</label>
-                    <input type="password" id="originalPwCheck" th:field="*{originalPwCheck}">
-                    <div class="field-error" th:errors="*{originalPwCheck}">비밀번호 입력 오류</div>
-                </div>
+                <table>
+                    <tbody>
+                    <tr class="edit-input">
+                        <th for="newPw">새 비밀번호</th>
+                        <td><input type="password" id="newPw" th:field="*{newPw}"></td>
+                        <div class="field-error" th:errors="*{newPw}">새 비밀번호 오류</div>
+                    </tr>
+                    <tr class="edit-input">
+                        <th for="newPwCheck">새 비밀번호 확인</th>
+                        <td><input type="password" id="newPwCheck" th:field="*{newPwCheck}"></td>
+                        <div class="field-error" th:errors="*{newPwCheck}">새 비밀번호 확인 오류</div>
+                    </tr>
+                    <tr class="edit-input">
+                        <th for="originalPwCheck">비밀번호 확인</th>
+                        <td><input type="password" id="originalPwCheck" th:field="*{originalPwCheck}"></td>
+                        <div class="field-error" th:errors="*{originalPwCheck}">비밀번호 입력 오류</div>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
                 <div style="text-align: center; margin: 0 auto">
                     <button class="button-18" type="submit">비밀번호 수정하기</button>
                     <input type="button" class="button-18" onclick="location.href='/user/info/myinfo'" value="뒤로가기">
