@@ -4,6 +4,39 @@
 
 <head>
     <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+        th {
+            text-align: center;
+            background: #6DA6D9;
+        }
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #6DA6D9;
+        }
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -46,7 +79,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Con Panda 9</title>
+    <title>Con Panda</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -83,7 +116,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -113,14 +146,15 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
-    <h2>
+<section style="margin-top: 40px; text-align: center;">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         MY STORE SOLD
-    </h2>
-    <div>
-        <p th:text="'총 판매금액은' + ${totalSellPrice} + '원 입니다.'"></p>
+    </h2><br>
+    <div style="margin: 0 auto">
+        <p th:text="'총 판매금액은 ' + ${totalSellPrice} + '원 입니다.'"></p>
         <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/selling}'|" value="판매 중 내역">
         <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/sold}'|" value="판매 완료 내역">
+        <br><br>
         <div th:if="${solds.isEmpty()}">
             <p>판매 완료 상품 내역이 존재하지 않습니다.</p>
         </div>
@@ -128,13 +162,13 @@
             <table>
                 <thead>
                 <tr>
-                    <td>이름</td>
-                    <td>카테고리</td>
-                    <td>브랜드</td>
-                    <td>원가</td>
-                    <td>거래가</td>
-                    <td>판매날짜</td>
-                    <td>만료날짜</td>
+                    <th>이름</th>
+                    <th>카테고리</th>
+                    <th>브랜드</th>
+                    <th>원가</th>
+                    <th>거래가</th>
+                    <th>판매날짜</th>
+                    <th>만료날짜</th>
                 </tr>
                 </thead>
                 <tbody>

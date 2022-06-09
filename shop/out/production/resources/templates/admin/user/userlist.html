@@ -20,6 +20,39 @@
             cursor: pointer;
         }
 
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+        th {
+            text-align: center;
+            background: #6DA6D9;
+        }
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #6DA6D9;
+        }
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
         .answer-complete {
             font-family: "nanum";
             font-size: 12px;
@@ -49,20 +82,20 @@
         </aside> <!-- END COLORLIB-ASIDE -->
     </div>
 
-    <div id="colorlib-main" style="margin-top: 40px;">
-        <h2>
+    <div id="colorlib-main" style="text-align: center">
+        <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
             ADMIN USER LIST
-        </h2>
+        </h2><br>
         <table>
             <thead>
             <tr>
-                <td>회원번호</td>
-                <td>아이디</td>
-                <td>비밀번호</td>
-                <td>닉네임</td>
-                <td>이메일</td>
-                <td>핸드폰 번호</td>
-                <td>강퇴</td>
+                <th>회원번호</th>
+                <th>아이디</th>
+                <th>비밀번호</th>
+                <th>닉네임</th>
+                <th>이메일</th>
+                <th>핸드폰 번호</th>
+                <th>강퇴</th>
             </tr>
             </thead>
             <tbody>
