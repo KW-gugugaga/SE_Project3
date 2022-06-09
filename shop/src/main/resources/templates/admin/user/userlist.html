@@ -73,13 +73,19 @@
                 <td th:text="${user.nickname}">닉네임</td>
                 <td th:text="${user.email}">이메일</td>
                 <td th:text="${user.phoneNumber}">핸드폰 번호</td>
-                <td><button type="submit" class="button-18" th:onclick="|location.href='@{/admin/user/delete/{userId}(userId=${user.id})}'|">강퇴하기</button></td>
+                <td><button type="submit" class="button-18" th:onclick="|javascript:clickEvent('${user.id}')|">강퇴하기</button></td>
+            <!-- |location.href='@{/admin/user/delete/{userId}(userId=${user.id})}'| -->
             </tr>
             </tbody>
         </table>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
-
+<script>
+    function clickEvent(userid){
+        alert('강퇴 완료');
+        var uid = userid;
+        location.href="/admin/user/delete/"+uid;}
+</script>
 <script src="/menu_theme/js/jquery.min.js"></script>
 <script src="//js/popper.js"></script>
 <script src="/menu_theme/js/bootstrap.min.js"></script>
