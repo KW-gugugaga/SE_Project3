@@ -19,13 +19,54 @@
         .question-list {
             cursor: pointer;
         }
+        .a-menu {
+            font-size: 16px;
+        }
 
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+        th {
+            text-align: center;
+            background: #6DA6D9;
+        }
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #6DA6D9;
+        }
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
         .answer-complete {
             font-family: "nanum";
             font-size: 12px;
             color: darkred;
             margin-left: 40px;
-            padding-left: 20px;
+        }
+        .answer-no {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
         }
     </style>
 
@@ -49,16 +90,17 @@
         </aside> <!-- END COLORLIB-ASIDE -->
     </div>
 
-    <div id="colorlib-main" style="margin-top: 40px;">
-        <h2>
+    <div id="colorlib-main" style="text-align: center;margin-top: 40px;">
+        <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
             ADMIN QUESTION LIST
-        </h2>
+        </h2><br>
         <table>
             <thead>
             <tr>
-                <td>제목</td>
-                <td>업로드 날짜</td>
-                <td>작성자</td>
+                <th>제목</th>
+                <th>업로드 날짜</th>
+                <th>작성자</th>
+                <th>답변</th>
             </tr>
             </thead>
             <tbody>
@@ -68,6 +110,7 @@
                 <td th:text="${question.uploadDate}">question</td>
                 <td th:text="${question.user.nickname}">nickname</td>
                 <td class="answer-complete" th:if="${question.answer != null}" th:text="'답변 완료'"></td>
+                <td class="answer-no" th:if="${question.answer == null}" th:text="'답변 대기'"></td>
             </tr>
             </tbody>
         </table>
