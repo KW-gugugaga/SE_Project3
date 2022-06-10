@@ -31,8 +31,8 @@
         }
         thead {
             font-weight: bold;
-            color: #000000;
-            background: #c7d1d7;
+            color: #58595b;
+            background: #d5dbe0;
         }
         td, th {
             vertical-align: middle;
@@ -116,12 +116,12 @@
                 <td th:text="${question.text}">contents</td>
             </tr>
             <tr>
-                <th>업로드일</th>
-                <td th:text="${question.user.nickname}">uploadDate</td>
+                <th>작성자</th>
+                <td th:text="${question.user.nickname}">nickname</td>
             </tr>
             <tr>
-                <th>조회수</th>
-                <td th:text="${question.uploadDate}">count</td>
+                <th>작성일</th>
+                <td th:text="${question.uploadDate}">uploadDate</td>
             </tr>
             </tbody>
         </table>
@@ -138,7 +138,7 @@
             </form>
         </div>
         <div th:unless="${question.answer == null}">
-            <td th:text="${question.answer}">count</td>
+            <td th:text="${question.answer}">answer</td>
             <button type="button" class="button-18"
                     th:onclick="|location.href='@{/admin/question/edit/answer/{pv1}(pv1=${question.id})}'|">답변 수정하기
             </button>
