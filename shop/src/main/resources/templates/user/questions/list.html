@@ -9,11 +9,25 @@
             padding: 0;
         }
 
-        #wrap {
-            width: 1200px;
-            margin: 30px auto;
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid !important;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid !important;
         }
-
+        table {
+            margin: auto;font-size: .9em;width: 60%;overflow: hidden;
+        }
+        th {
+            text-align: center;background: rgba(232, 237, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;color: #58595b;background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+        }
+        td {
+            background: #fff;
+        }
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -42,27 +56,6 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
-
-        table {
-            border-collapse: collapse;
-            width: 1200px;
-        }
-
-        .top-tr {
-            border-top: 2px solid #CECFCB;
-            border-bottom: 2px solid #CECFCB;
-        }
-
-        tr:nth-child(even) {
-            background-color: #E7E7E4;
-        }
-
-        .notice-title {
-            cursor: pointer;
-            border-top: 1px solid #CECFCB;
-            border-bottom: 1px solid #CECFCB;
-        }
-
         .a-menu {
             font-size: 16px;
         }
@@ -107,7 +100,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -137,20 +130,20 @@
     </div>
 </header><!-- End Header -->
 
-<section id="wrap">
-    <h2>
-        USER QUESTION LIST
-    </h2>
+<section>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        문의사항
+    </h2><br>
     <div th:if="${questions.isEmpty()}">
         <p>등록한 문의사항이 없습니다.</p>
     </div>
     <div th:unless="${questions.isEmpty()}">
         <table style="text-align: center;">
             <thead>
-            <tr class="top-tr">
-                <td style="width: 40%; background-color: #E7E7E4;">제목</td>
-                <td style="background-color: #E7E7E4;">등록날짜</td>
-                <td style="background-color: #E7E7E4;">작성자</td>
+            <tr>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>작성자</th>
             </tr>
             </thead>
             <tbody>
@@ -163,7 +156,7 @@
             </tr>
             </tbody>
         </table>
-    </div>
+    </div><br>
     <div style="text-align: center;">
         <input class="button-18" type="button" th:onclick="|location.href='@{/question/add}'|" value="문의사항 등록하기">
     </div>

@@ -5,33 +5,32 @@
 <head>
     <style>
 
-        .button-18 {
-            font-family: "nanum";
-            align-items: center;
-            background-color: #6DA6D9;
-            border: 0;
-            border-radius: 100px;
-            box-sizing: border-box;
-            color: #ffffff;
-            cursor: pointer;
-            display: inline-flex;
-            font-size: 16px;
-            font-weight: 600;
-            justify-content: center;
-            line-height: 20px;
-            max-width: 480px;
-            min-height: 40px;
-            min-width: 0px;
-            overflow: hidden;
-            padding: 0px;
-            padding-left: 20px;
-            padding-right: 20px;
-            text-align: center;
-            touch-action: manipulation;
-            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-            user-select: none;
-            -webkit-user-select: none;
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid !important;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid !important;
+        }
+        table {
+            margin: auto;font-size: .9em;width: 40%;overflow: hidden;
+        }
+        th {
+            text-align: center;background: rgba(232, 237, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;color: #58595b;background: #d5dbe0;
+        }
+        td, th {
             vertical-align: middle;
+        }
+        td {
+            background: #fff;
+        }
+        .button-18 {
+            font-family: "nanum";align-items: center;background-color: #6DA6D9;border: 0;
+            border-radius: 100px;box-sizing: border-box;color: #ffffff;
+            cursor: pointer;display: inline-flex;font-size: 16px;font-weight: 600;justify-content: center;line-height: 20px;max-width: 480px;min-height: 40px;min-width: 0px;overflow: hidden;
+            padding: 0px;padding-left: 20px;padding-right: 20px;text-align: center;
+            touch-action: manipulation;transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;-webkit-user-select: none;vertical-align: middle;
         }
     </style>
     <meta charset="utf-8">
@@ -74,7 +73,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -105,28 +104,32 @@
 </header><!-- End Header -->
 
 <section style="margin-top: 40px;">
-    <h2>
-        USER QUESTION PER QUESTION
-    </h2>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        문의사항
+    </h2><br>
     <table>
         <tbody>
         <tr>
+            <th>제목</th>
             <td th:text="${question.title}">title</td>
         </tr>
         <tr>
+            <th>내용</th>
             <td th:text="${question.text}">text</td>
         </tr>
         <tr>
+            <th>작성일</th>
             <td th:text="${question.lastModifiedDate}">lastModifiedDate</td>
         </tr>
         </tbody>
-    </table>
-    <button type="button"
+    </table><br>
+    <div style="text-align: center;">
+    <button type="button" class="button-18"
             th:onclick="|location.href='@{/question/edit/{pv1}(pv1=${question.id})}'|">공지 수정하기
     </button>
-    <button type="button"
+    <button type="button" class="button-18"
             th:onclick="|location.href='@{/question/delete/{pv1}(pv1=${question.id})}'|">공지 삭제하기
-    </button>
+    </button></div>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

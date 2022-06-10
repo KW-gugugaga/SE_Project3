@@ -12,29 +12,50 @@
     <link rel="stylesheet" href="/menu_theme/css/style.css">
 
     <style>
-        table{
-            border-collapse: collapse;
-            width: 1200px;
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
         }
 
-        .top-tr{
-            border-top: 2px solid #CECFCB;
-            border-bottom: 2px solid #CECFCB;
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
         }
-        tr:nth-child(odd){
-            background-color: #E7E7E4;
+
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
         }
-        .notice-title {
-            cursor: pointer;
-            border-top: 1px solid #CECFCB;
-            border-bottom: 1px solid #CECFCB;
+
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
         }
+
+        td, th {
+            vertical-align: middle;
+
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
+
         body {
             font-family: "nanum";
         }
+
         .a-menu {
             font-size: 16px;
         }
+
         .button-18 {
             margin: 20px auto;
             font-family: "nanum";
@@ -84,27 +105,29 @@
         </nav>
     </aside> <!-- END COLORLIB-ASIDE -->
 
-    <section id="colorlib-main" style="margin: 30px auto;">
-        <h2>
-            ADMIN NOTICE LIST
-        </h2>
-
+    <section id="colorlib-main" style="margin: 30px auto;text-align: center;">
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b5bbbe;border-left: 5px solid #b5bbbe; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            공지사항 목록
+        </h3><br>
         <table>
-            <tbody>
-            <tr class="top-tr">
-                <td>제목</td>
-                <td>날짜</td>
-                <td>조회수</td>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>조회수</th>
             </tr>
-            <tr class="notice-title" th:each="notice : ${notices}"
+            </thead>
+            <tbody>
+
+            <tr th:each="notice : ${notices}"
                 th:onclick="|location.href='@{/admin/notice/{pv1}(pv1=${notice.id})}'|">
-                <td th:text="${notice.title}">title</a></td>
-                <td th:text="${notice.uploadDate}">updateDate</td>
-                <td th:text="${notice.count}">count</td>
+                <td th:text="${notice.title}">제목</a></td>
+                <td th:text="${notice.uploadDate}">날짜</td>
+                <td th:text="${notice.count}">조회수</td>
             </tr>
             </tbody>
         </table>
-        <div style="width:1200px; text-align: center;">
+        <div style="text-align: center;">
             <input type="button" class="button-18" value="새 공지 등록" onClick="location.href='/admin/notice/add'">
         </div>
     </section><!-- END COLORLIB-MAIN -->
