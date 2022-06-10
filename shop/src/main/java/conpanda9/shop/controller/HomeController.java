@@ -71,6 +71,8 @@ public class HomeController {
     public String main(Model model) {
         List<Category> categories = itemService.findAllCategory();
         model.addAttribute("categories", categories);
+        model.addAttribute("searchDTO", new SearchDTO());
+
         return "main";
     }
 
