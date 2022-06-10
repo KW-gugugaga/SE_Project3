@@ -52,33 +52,28 @@
             color: darkred;
             margin-left: 40px;
         }
+        table,th,td{
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
         table {
             margin: auto;
             font-size: .9em;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 57%;
+            width: 90%;
             overflow: hidden;
-            border-style: dashed !important;
-            border-width: 1px !important;
-            border-color: #7f878d !important;
-            border-radius: 5px;
         }
         th {
             text-align: center;
-            background: #6DA6D9;
-            color:#fff;
+            background: rgba(232, 236, 238, 0.71);
         }
         thead {
             font-weight: bold;
-            color: #fff;
-            background: #6DA6D9;
+            color: #000000;
+            background: #c7d1d7;
         }
         td, th {
-            padding: 1em .5em;
             vertical-align: middle;
-            border-style: dashed !important;
-            border-width: 1px !important;
-            border-color: #7f878d !important;
+
         }
         td {
             background: #fff;
@@ -109,9 +104,9 @@
     </div>
 
     <div id="colorlib-main" style="margin-top: 40px;text-align: center">
-        <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-            ADMIN QUESTION EDIT ANSWER
-        </h2><br>
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b3c3d5;border-left: 5px solid #b3c3d5; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            문의사항 답변 수정
+        </h3><br>
         <table>
             <tbody>
             <tr>
@@ -120,7 +115,7 @@
             </tr>
             <tr>
                 <th>내용</th>
-                <td th:text="${question.text}">contents</td>
+      가         <td th:text="${question.text}">contents</td>
             </tr>
             <tr>
                 <th>업로드일</th>

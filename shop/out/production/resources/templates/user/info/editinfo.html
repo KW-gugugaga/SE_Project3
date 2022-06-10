@@ -160,28 +160,34 @@
                     <tbody>
                     <tr class="edit-input">
                         <th for="loginId">아이디</th>
-                        <td><input type="text" id="loginId" th:field="*{loginId}"></td>
-                        <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
+                        <td><input type="text" id="loginId" th:field="*{loginId}">
+                            <div class="field-error" th:errors="*{loginId}">아이디 입력 오류</div>
+                        </td>
                     </tr>
                     <tr class="edit-input">
                         <th for="nickname">닉네임</th>
-                        <td><input type="text" id="nickname" th:field="*{nickname}"></td>
-                        <div class="field-error" th:errors="*{nickname}">닉네임 입력 오류</div>
+                        <td><input type="text" id="nickname" th:field="*{nickname}">
+                            <div class="field-error" th:errors="*{nickname}">닉네임 입력 오류</div>
+                        </td>
+
                     </tr>
                     <tr class="edit-input">
                         <th for="email">이메일</th>
-                        <td><input type="email" id="email" th:field="*{email}"></td>
-                        <div class="field-error" th:errors="*{email}">이메일 입력 오류</div>
+                        <td><input type="email" id="email" th:field="*{email}">
+                            <div class="field-error" th:errors="*{email}">이메일 입력 오류</div>
+                        </td>
                     </tr>
                     <tr class="edit-input">
                         <th for="phoneNumber">핸드폰 번호</th>
-                        <td><input type="text" id="phoneNumber" th:field="*{phoneNumber}"></td>
-                        <div class="field-error" th:errors="*{phoneNumber}">핸드폰번호 입력 오류</div>
+                        <td><input type="text" id="phoneNumber" th:field="*{phoneNumber}">
+                            <div class="field-error" th:errors="*{phoneNumber}">핸드폰번호 입력 오류</div>
+                        </td>
                     </tr>
                     <tr class="edit-input">
                         <th for="loginPwCheck">비밀번호 확인</th>
-                        <td><input type="password" id="loginPwCheck" th:field="*{loginPwCheck}"></td>
-                        <div class="field-error" th:errors="*{loginPwCheck}">비밀번호 입력 오류</div>
+                        <td><input type="password" id="loginPwCheck" th:field="*{loginPwCheck}">
+                            <div class="field-error" th:errors="*{loginPwCheck}">비밀번호 입력 오류</div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>

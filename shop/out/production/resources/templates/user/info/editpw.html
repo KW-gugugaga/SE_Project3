@@ -159,18 +159,21 @@
                     <tbody>
                     <tr class="edit-input">
                         <th for="newPw">새 비밀번호</th>
-                        <td><input type="password" id="newPw" th:field="*{newPw}"></td>
-                        <div class="field-error" th:errors="*{newPw}">새 비밀번호 오류</div>
+                        <td><input type="password" id="newPw" th:field="*{newPw}">
+                            <div class="field-error" th:errors="*{newPw}">새 비밀번호 오류</div>
+                        </td>
                     </tr>
                     <tr class="edit-input">
                         <th for="newPwCheck">새 비밀번호 확인</th>
-                        <td><input type="password" id="newPwCheck" th:field="*{newPwCheck}"></td>
-                        <div class="field-error" th:errors="*{newPwCheck}">새 비밀번호 확인 오류</div>
+                        <td><input type="password" id="newPwCheck" th:field="*{newPwCheck}">
+                            <div class="field-error" th:errors="*{newPwCheck}">새 비밀번호 확인 오류</div>
+                        </td>
                     </tr>
                     <tr class="edit-input">
                         <th for="originalPwCheck">비밀번호 확인</th>
-                        <td><input type="password" id="originalPwCheck" th:field="*{originalPwCheck}"></td>
-                        <div class="field-error" th:errors="*{originalPwCheck}">비밀번호 입력 오류</div>
+                        <td><input type="password" id="originalPwCheck" th:field="*{originalPwCheck}">
+                            <div class="field-error" th:errors="*{originalPwCheck}">비밀번호 입력 오류</div>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
