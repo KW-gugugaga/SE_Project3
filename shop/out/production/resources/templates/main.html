@@ -121,18 +121,40 @@
                 <li>
                     <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
                 </li>
+
             </ul>
 
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav><!-- .navbar -->
 
     </div>
+
 </header><!-- End Header -->
 
 <section style="margin: 30px auto;text-align: center">
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-        CATEGORY LIST
+        CONPANDA
     </h2><br>
+
+    <div style="text-align: right">
+        <form th:object="${searchDTO}" th:action="@{/search}" method="post">
+            <div style="text-align: center; margin: 0 auto">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                        글로벌 오류 메시지</p>
+                </div>
+                <select th:field="*{searchKind}">
+                    <option value="category">카테고리</option>
+                    <option value="itemname">상품명</option>
+                    <option value="brand">브랜드</option>
+                </select>
+                <input type="text" placeholder="검색어를 입력해주세요." th:field="*{searchWhat}">
+                <div class="field-error" th:errors="*{searchWhat}">검색어를 입력 하세요</div>
+
+                <button id="searchBtn" type="submit" class="button-18">검색</button>
+            </div>
+        </form>
+    </div><br>
     <wrap id="wrap">
         <div id="btn">
             <input type="button" class="button-18" value="카테고리" th:onclick="|location.href='@{/main}'|">

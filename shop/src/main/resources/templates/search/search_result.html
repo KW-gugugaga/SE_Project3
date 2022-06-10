@@ -4,6 +4,41 @@
 
 <head>
     <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 60%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -74,7 +109,7 @@
     <div class="container d-flex align-items-center justify-content-between">
 
         <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
+            <h1><a href='/main'>Conpanda</a></h1>
         </div>
 
         <nav id="navbar" class="navbar">
@@ -105,35 +140,36 @@
     </div>
 </header><!-- End Header -->
 
-<section style="margin-top: 40px;">
-    <div th:if = "${!gifticons.isEmpty()}">
-    <h2>
-        ITEM LIST
-    </h2>
-    <table>
-        <thead>
-        <tr>
-            <td>이름</td>
-            <td>원가</td>
-            <td>판매가</td>
-            <td>할인율</td>
-            <td>만료날짜</td>
-            <td>업로드 날짜(최신 수정 날짜)</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
-            <td th:text="${gifticon.name}">name</a></td>
-            <td th:text="${gifticon.originalPrice}">originalPrice</td>
-            <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
-            <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
-            <td th:text="${gifticon.expireDate}">expireDate</td>
-            <td th:text="${gifticon.lastModifiedDate}">lastModifiedDate</td>
-        </tr>
-        </tbody>
-    </table>
+<section style="margin-top: 40px; text-align: center">
+    <div th:if="${!gifticons.isEmpty()}" style="text-align: center;">
+        <h2 style="margin: auto;width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            검색 결과</h2><br>
+        <table>
+            <thead>
+            <tr>
+                <th>상품명</th>
+                <th>원가</th>
+                <th>판매가</th>
+                <th>할인율</th>
+                <th>만료날짜</th>
+                <th>업로드 날짜(최신 수정 날짜)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
+                <td th:text="${gifticon.name}">name</a></td>
+                <td th:text="${gifticon.originalPrice}">originalPrice</td>
+                <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
+                <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
+                <td th:text="${gifticon.expireDate}">expireDate</td>
+                <td th:text="${gifticon.lastModifiedDate}">lastModifiedDate</td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <h3 th:if = "${gifticons.isEmpty()}"> 찾으시는 항목이 존재하지 않습니다! </h3>
+    <h3 th:if="${gifticons.isEmpty()}"> 찾으시는 항목이 존재하지 않습니다! </h3>
+    <br>
+    <input type="button" class="button-18" onclick="location.href='/main'" value="뒤로가기">
 </section>
 
 <script src="/vendor/aos/aos.js"></script>
