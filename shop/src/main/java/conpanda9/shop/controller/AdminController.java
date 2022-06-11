@@ -178,6 +178,7 @@ public class AdminController {
     @GetMapping("/user")
     public String users(Model model) {
         List<User> users = adminService.findAllUser();
+        users.remove(0);   // admin 삭제
         model.addAttribute("users", users);
         return "admin/user/userlist";
     }

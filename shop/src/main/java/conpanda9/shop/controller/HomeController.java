@@ -14,10 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,9 +31,11 @@ public class HomeController {
     private final AdminService adminService;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, @ModelAttribute("joinSuccess") String joinSuccess) {
         log.info("get login");
         model.addAttribute("loginDTO", new LoginDTO());
+        model.addAttribute("joinSuccess", joinSuccess);
+        log.info("joinSuccess={}", joinSuccess);
         return "login";
     }
 
