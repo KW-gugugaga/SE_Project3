@@ -184,7 +184,18 @@ public class AdminController {
     @GetMapping("/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long id){
         log.info("delete user id={}", id);
+        /**
+         * 회원과 관련한 거래내역 먼저 처리
+         * sold, shared, seller에서 user만 null로 변경
+         * 회원 삭제해도 거래내역은 다른 사람이랑 연결된거라 남겨놓아야 할듯
+         */
+        // TODO
+        // 강퇴당한 회원이 팔고있는 상품들은 지워야하는데 상점을 지울 수가 없어서 일단 나중에 처리
         adminService.setNullUserActHistory(id);
+        /**
+         * 관련 거래 내역 다 처리 후에 user 지움
+         * 여기서 review, question, alarm, review는 삭제됨!
+         */
         adminService.deleteUser(id);
         return "redirect:/admin/user";
     }
