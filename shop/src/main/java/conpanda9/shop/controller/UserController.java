@@ -16,11 +16,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.model.IModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -302,5 +300,24 @@ public class UserController {
         } else {
             return "redirect:/";
         }
+    }
+    @GetMapping("/alarms")
+    public String getAlarm(HttpServletRequest request, Model model){
+        Long id = (Long) request.getSession().getAttribute("user");
+        if(id == null) {
+            return "redirect:/";
+        }
+        log.info("id={}",id);
+
+        List<Alarm> alarm = userService.findAlarm(id);
+        for (Alarm alarm1 : alarm) {
+            log.info("alarm={}",alarm1.getText());
+        }
+        Long a_cnt = userService.countAlarm(id);
+        log.info("안읽은거 ;={} ",a_cnt);
+
+        model.addAttribute("alarms",alarm);
+        model.addAttribute("a_cnt",a_cnt);
+        return "user/alarms/alarm";
     }
 }

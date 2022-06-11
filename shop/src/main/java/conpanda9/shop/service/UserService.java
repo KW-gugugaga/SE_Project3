@@ -130,7 +130,6 @@ public class UserService {
         return userRepository.findBuys(id);
     }
 
-
     public List<Review> findReviews(Long id) {
         return userRepository.findReviews(id);
     }
@@ -141,5 +140,12 @@ public class UserService {
 
     public Optional<User> findPw(String loginId, String email) {
         return userRepository.findPw(loginId, email);
+    }
+
+    public Long countAlarm(Long id){
+        return userRepository.countAlarm(id);
+    }
+    public List<Alarm> findAlarm(Long id) { //유저의 정보 받아와서 알람 찾아옴
+        return userRepository.findAlarm(id);
     }
 }

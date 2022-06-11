@@ -159,6 +159,15 @@ public class TestDataInit {
         Review review = new Review(user2, store, "review1", 1);
         itemRepository.saveReview(review);
 
+        Alarm alarm1 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘을 판매해보세요!", false);
+        Alarm alarm2 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘이 판매되었습니다!", false);
+        Alarm alarm3 = new Alarm(user, LocalDateTime.now(), "환영합니다!", true);
+        Alarm alarm4 = new Alarm(user, LocalDateTime.now(), "상점을 개설해보세요!", true);
+        userRepository.saveAlarm(alarm1);
+        userRepository.saveAlarm(alarm2);
+        userRepository.saveAlarm(alarm3);
+        userRepository.saveAlarm(alarm4);
+
         log.info("test data init");
     }
 }
