@@ -1,9 +1,6 @@
 package conpanda9.shop.repository;
 
-import conpanda9.shop.domain.Notice;
-import conpanda9.shop.domain.Question;
-import conpanda9.shop.domain.Report;
-import conpanda9.shop.domain.User;
+import conpanda9.shop.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -12,6 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Repository
 @Slf4j
@@ -93,4 +92,23 @@ public class AdminRepository {
         em.remove(findUser(id));
     }
 
+    public List<Seller> findAllSeller() {
+        return em.createQuery("select s from Seller as s", Seller.class).getResultList();
+    }
+
+    public Optional<Seller> findSellerByUserId(Long id) {
+        return findAllSeller().stream().filter(s -> Objects.equals(s.getUser().getId(), id)).findAny();
+    }
+
+    public List<Shared> findSharedByUserId(Long id) {
+        return em.createQuery("select s from Shared as s where s.user.id = :id", Shared.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    public List<Sold> findSoldByUserId(Long id) {
+        return em.createQuery("select s from Sold as s where s.user.id = :id", Sold.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
 }

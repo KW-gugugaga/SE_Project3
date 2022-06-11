@@ -17,14 +17,14 @@ public class Review {
     /**
      * 한 사람이 여러개의 리뷰를 달 수 있음
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private User user;
 
     /**
      * 하나의 상점에 여러개의 리뷰가 달릴 수 있음
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
@@ -37,5 +37,6 @@ public class Review {
         this.seller = seller;
         this.text = text;
         this.star = star;
+        user.getReviewList().add(this);
     }
 }

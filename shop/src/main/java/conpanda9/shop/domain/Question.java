@@ -35,5 +35,6 @@ public class Question {
         this.uploadDate = uploadDate;
         this.lastModifiedDate = lastModifiedDate;
         this.answer = null;
+        user.getQuestionList().add(this);
     }
 }

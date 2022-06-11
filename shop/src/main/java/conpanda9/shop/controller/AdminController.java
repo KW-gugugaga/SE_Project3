@@ -184,8 +184,8 @@ public class AdminController {
     @GetMapping("/user/delete/{userId}")
     public String deleteUser(@PathVariable("userId") Long id){
         log.info("delete user id={}", id);
+        adminService.setNullUserActHistory(id);
         adminService.deleteUser(id);
         return "redirect:/admin/user";
     }
-
 }

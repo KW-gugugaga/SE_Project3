@@ -127,10 +127,10 @@
         </table>
         <hr style="border: 1px solid gray;">
         <div th:if="${question.answer == null}">
-            <p>답변이 없습니다. 답변을 달아주세요!</p>
+            <p style="font-size: 15px; color: black;">답변이 없습니다. 답변을 달아주세요!</p>
             <form th:action="@{/admin/question/add/answer/{pv1}(pv1=${question.id})}" method="post">
                 <label for="answer" style="vertical-align: top;">답변</label>
-                <textarea cols="80" rows="7" name="answer" id="answer"></textarea>
+                <textarea cols="80" rows="5" name="answer" id="answer"></textarea>
                 <div th:if="${error != null}">
                     <p th:text="${error}"></p>
                 </div>

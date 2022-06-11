@@ -109,10 +109,15 @@
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 <script>
-    function clickEvent(userid){
-        alert('강퇴 완료');
-        var uid = userid;
-        location.href="/admin/user/delete/"+uid;}
+    function clickEvent(userid) {
+        if (confirm("정말 강퇴하시겠습니까? 관련된 회원 정보(ex. 상점, 판매 내역)가 모두 삭제됩니다.")) {
+            alert("강퇴 완료");
+            var uid = userid;
+            location.href = "/admin/user/delete/" + uid;
+        } else {
+            return false;
+        }
+    }
 </script>
 <script src="/menu_theme/js/jquery.min.js"></script>
 <script src="//js/popper.js"></script>
