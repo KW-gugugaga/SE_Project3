@@ -161,7 +161,7 @@ public class ItemController {
          */
 
         if (bindingResult.hasErrors()) {   // 필드 에러
-            return "/upload";
+            return "user/upload";
         }
         Long id = (Long) request.getSession().getAttribute("user");
         User user = userService.findUser(id);
