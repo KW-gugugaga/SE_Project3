@@ -1,17 +1,22 @@
 package conpanda9.shop.controller;
 
+import conpanda9.shop.DTO.UploadDTO;
 import conpanda9.shop.domain.*;
 import conpanda9.shop.domain.gifticoncomparator.*;
 import conpanda9.shop.service.ItemService;
+import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,6 +27,7 @@ import java.util.stream.Collectors;
 public class ItemController {
 
     private final ItemService itemService;
+    private final UserService userService;
 
     @GetMapping("/category/{categoryId}")
     public String getCategory(@PathVariable("categoryId") Long id, Model model) {
@@ -115,5 +121,62 @@ public class ItemController {
         itemService.sortShares(sort, shares);
         model.addAttribute("shares", shares);
         return "items/shares";
+    }
+
+    @GetMapping("/upload")
+    public String upload(Model model) {
+
+        List<Category> categories = itemService.findAllCategory();
+        model.addAttribute("uploadDTO", new UploadDTO());
+        model.addAttribute("categories", categories);
+        model.addAttribute("brands", new Brand());
+        return "user/upload";
+    }
+
+    @PostMapping("SelectedCategory")
+    @ResponseBody
+    public List<String> selectedCategoryCheck(@RequestParam("cate_id") String cate_id) {
+        System.out.println("UploadController.SelectedCategory");
+        long id = Long.parseLong(cate_id);
+        System.out.println(cate_id);
+        Category category = itemService.findCategory(id);
+        List<Brand> brands = category.getBrandList();
+        List<String> brandNameOnly = new ArrayList<String>();
+        for (Brand brand : brands) {
+            System.out.println("brand = " + brand.getName());
+            brandNameOnly.add(brand.getName());
+        }
+//        List<Brand> brand=itemService.findBrandbyCategory(category.getId());
+//        System.out.println(brand);
+        return brandNameOnly;
+    }
+
+    @PostMapping("/upload")
+    public String upload(HttpServletRequest request, @Validated @ModelAttribute("uploadDTO") UploadDTO uploadDTO, BindingResult bindingResult) {
+
+        /**
+         * @Validated, 검사 객체, BindingResult 세트로 같이 써야함
+         * 검사 객체에 Validation annotation으로 달아놓은 것 검사
+         * message에 등록한 문구 출력
+         */
+
+        if (bindingResult.hasErrors()) {   // 필드 에러
+            return "/upload";
+        }
+        Long id = (Long) request.getSession().getAttribute("user");
+        User user = userService.findUser(id);
+        Seller seller = new Seller(uploadDTO.getName(), user);
+        long categoryId = Long.parseLong(uploadDTO.getCategoryId());
+        Category category = itemService.findCategory(categoryId);
+        Brand brand = itemService.findBrandByName(uploadDTO.getBrandName());
+        long originalPrice = Long.parseLong(uploadDTO.getOriginalPrice());
+        long sellingPrice = Long.parseLong(uploadDTO.getSellingPrice());
+
+        Gifticon newGifticon = new Gifticon(uploadDTO.getName(), seller, category, brand, null, uploadDTO.getDescription(),
+                originalPrice, sellingPrice, uploadDTO.getExpireDate(), LocalDateTime.now(), LocalDateTime.now());
+
+        itemService.saveGifticon(newGifticon);
+
+        return "redirect:/main";
     }
 }

@@ -44,6 +44,9 @@ public class ItemRepository {
     public Brand findBrand(Long id) {
         return em.find(Brand.class, id);
     }
+    public Brand findBrandByName(String name){
+        return em.find(Brand.class, name);
+    }
 
     /**
      * gifticon

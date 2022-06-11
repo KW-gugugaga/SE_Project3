@@ -36,7 +36,9 @@ public class ItemService {
     public Brand findBrand(Long id) {
         return itemRepository.findBrand(id);
     }
-
+    public Brand findBrandByName(String name){
+        return itemRepository.findBrandByName(name);
+    }
     /**
      * gifticon
      */
@@ -68,6 +70,10 @@ public class ItemService {
         } else if(sort.equals("deadline")) {
             gifticons.sort(new GifticonExpiredDateComparator());
         }
+    }
+
+    public void saveGifticon(Gifticon gifticon) {
+        itemRepository.saveGifticon(gifticon);
     }
 
     /**
