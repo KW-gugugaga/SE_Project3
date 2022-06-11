@@ -41,6 +41,26 @@
             font-size: 12px;
             border: none;
         }
+
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid !important;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid !important;
+        }
+        table {
+            margin: auto;font-size: .9em;width: 40%;overflow: hidden;
+        }
+        th {
+            text-align: center;background: rgba(232, 237, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;color: #58595b;background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+        }
+        td {
+            background: #fff;
+        }
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -77,67 +97,37 @@
 
 <body>
 
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
+<header th:replace="navbar :: navbarFragment"></header>
 
-        <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
-        </div>
 
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto" href="/main">Home</a></li>
-                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="#">나의 판매내역</a></li>
-                        <li><a href="#">나의 구매내역</a></li>
-                        <li><a href="#">나의 찜</a></li>
-                        <li><a href="#">나의 지갑</a></li>
-                        <li><a href="#">내 상점 리뷰</a></li>
-                    </ul>
-                </li>
-                <li><a class="nav-link scrollto active" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
-                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
-                <li>
-                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
-                </li>
-            </ul>
-
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-    </div>
-</header><!-- End Header -->
-
-<section style="margin-top: 40px;">
-    <h2>
-        USER NOTICE PER NOTICE
-    </h2>
+<section style="margin-top: 40px;text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        공지사항
+    </h2><br>
     <div style="text-align: center; margin: 0 auto">
+        <p th:if="${notice.important == true}">
+            <button type="button" class="important-button">중요 공지</button>
+        </p>
         <table>
             <tbody>
             <tr>
-                <td th:if="${notice.important == true}">
-                    <button type="button" class="important-button">중요 공지</button>
-                </td>
-            </tr>
-            <tr>
+                <th>제목</th>
                 <td th:text="${notice.title}">title</td>
             </tr>
             <tr>
+                <th>내용</th>
                 <td th:text="${notice.contents}">contents</td>
             </tr>
             <tr>
+                <th>작성일</th>
                 <td th:text="${notice.uploadDate}">uploadDate</td>
             </tr>
             <tr>
+                <th>조회수</th>
                 <td th:text="${notice.count}">count</td>
             </tr>
             </tbody>
-        </table>
+        </table><br>
         <input type="button" class="button-18" onclick="location.href='/notice'" value="뒤로가기">
     </div>
 </section>

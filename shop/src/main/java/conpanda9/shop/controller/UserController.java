@@ -1,12 +1,10 @@
 package conpanda9.shop.controller;
 
+import conpanda9.shop.DTO.FindIdPwDTO;
 import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.PwEditDTO;
-import conpanda9.shop.domain.Gifticon;
-import conpanda9.shop.domain.Seller;
-import conpanda9.shop.domain.Sold;
-import conpanda9.shop.domain.User;
+import conpanda9.shop.domain.*;
 import conpanda9.shop.domain.soldcomparator.SoldDateComparator;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -17,10 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -40,8 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(@Validated @ModelAttribute("joinDTO") JoinDTO joinDTO, BindingResult bindingResult) {
-
+    public String join(@Validated @ModelAttribute("joinDTO") JoinDTO joinDTO, BindingResult bindingResult,
+                       RedirectAttributes rttr) {
         /**
          * @Validated, 검사 객체, BindingResult 세트로 같이 써야함
          * 검사 객체에 Validation annotation으로 달아놓은 것 검사
@@ -67,8 +65,50 @@ public class UserController {
         User newUser = new User(joinDTO.getLoginId(), joinDTO.getLoginPw(), joinDTO.getNickname(), joinDTO.getEmail(), joinDTO.getPhoneNumber());
 
         userService.save(newUser);
-
+        rttr.addFlashAttribute("joinSuccess", "true");
         return "redirect:/";
+    }
+
+    @GetMapping("/find/id")
+    public String getFindUserId(Model model) {
+        model.addAttribute("findIdDTO", new FindIdPwDTO());
+        return "user/findid";
+    }
+
+    @PostMapping("/find/id")
+    public String postFindUserId(@Validated @ModelAttribute("findIdDTO") FindIdPwDTO findIdDTO, BindingResult bindingResult,
+                                 Model model) {
+        if(bindingResult.hasErrors()) {
+            return "user/findid";
+        }
+        Optional<User> findUser = userService.findId(findIdDTO.getInputFirst(), findIdDTO.getInputSecond());
+        if(findUser.isPresent()) {
+            model.addAttribute("findUser", findUser.get());
+        } else {
+            model.addAttribute("findUser", null);
+        }
+        return "user/findidresult";
+    }
+
+    @GetMapping("/find/pw")
+    public String getFindUserPw(Model model) {
+        model.addAttribute("findPwDTO", new FindIdPwDTO());
+        return "user/findpw";
+    }
+
+    @PostMapping("/find/pw")
+    public String postFindPw(@Validated @ModelAttribute("findPwDTO") FindIdPwDTO findPwDTO, BindingResult bindingResult,
+                             Model model) {
+        if(bindingResult.hasErrors()) {
+            return "user/findpw";
+        }
+        Optional<User> findUser = userService.findPw(findPwDTO.getInputFirst(), findPwDTO.getInputSecond());
+        if(findUser.isPresent()) {
+            model.addAttribute("findUser", findUser.get());
+        } else {
+            model.addAttribute("findUser", null);
+        }
+        return "user/findpwresult";
     }
 
     @GetMapping("/info/myinfo")
@@ -238,5 +278,46 @@ public class UserController {
         model.addAttribute("solds", solds);   // 판매 완료 내역
         model.addAttribute("totalSellPrice", totalSellPrice);
         return "user/store/soldhistory";
+    }
+
+    @GetMapping("/store/buy")
+    public String getBuy(HttpServletRequest request, Model model) {   // 구매내역
+        // user id의 구매내역
+        List<Sold> buys = userService.findBuys((Long) request.getSession().getAttribute("user"));
+        buys.sort(new SoldDateComparator());   // 더 최신에 구매한 내역
+        model.addAttribute("buys", buys);
+        return "user/store/buyhistory";
+    }
+
+    @GetMapping("/store/review")
+    public String getStoreReview(HttpServletRequest request, Model model) {
+        Long id = (Long) request.getSession().getAttribute("user");
+        Optional<Seller> store = userService.findStore(id);
+        if(store.isPresent()) {
+            List<Review> reviews = userService.findReviews(store.get().getId());   // 상점에 달린 리뷰들
+            model.addAttribute("reviews", reviews);
+            return "user/store/review";
+        } else {
+            return "redirect:/";
+        }
+    }
+    @GetMapping("/alarms")
+    public String getAlarm(HttpServletRequest request, Model model){
+        Long id = (Long) request.getSession().getAttribute("user");
+        if(id == null) {
+            return "redirect:/";
+        }
+        log.info("id={}",id);
+
+        List<Alarm> alarm = userService.findAlarm(id);
+        for (Alarm alarm1 : alarm) {
+            log.info("alarm={}",alarm1.getText());
+        }
+        Long a_cnt = userService.countAlarm(id);
+        log.info("안읽은거 ;={} ",a_cnt);
+
+        model.addAttribute("alarms",alarm);
+        model.addAttribute("a_cnt",a_cnt);
+        return "user/alarms/alarm";
     }
 }

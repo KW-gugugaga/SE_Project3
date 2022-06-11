@@ -22,7 +22,7 @@ public class Gifticon{
      * 상품의 판매자
      * 한명의 사용자가 여러개의 상품을 판매할 수 있음
      */
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "seller_id")
     private Seller seller;
 
@@ -56,6 +56,9 @@ public class Gifticon{
     @Enumerated(EnumType.STRING)
     private GifticonState state;
 
+    @OneToOne(mappedBy = "gifticon", cascade = CascadeType.REMOVE)
+    private Sold sold;
+
     public Gifticon(String name, Seller seller, Category category, Brand brand, String image, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
         this.name = name;
         this.seller = seller;
@@ -71,5 +74,6 @@ public class Gifticon{
         this.lastModifiedDate = lastModifiedDate;
         this.discountRate = Math.round(sellingPrice.doubleValue() / originalPrice.doubleValue() * 1000) / 10.0;
         this.state = GifticonState.Selling;   // 기본은 판매중으로 설정
+        seller.getGifticonList().add(this);
     }
 }

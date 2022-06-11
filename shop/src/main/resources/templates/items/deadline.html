@@ -4,6 +4,45 @@
 
 <head>
     <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -77,100 +116,57 @@
 </head>
 
 <body>
+<header th:replace="navbar :: navbarFragment"></header>
 
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="#">나의 판매내역</a></li>
-                        <li><a href="#">나의 구매내역</a></li>
-                        <li><a href="#">나의 거래내역</a></li>
-                        <li><a href="#">나의 찜</a></li>
-                        <li><a href="#">나의 지갑</a></li>
-                        <li><a href="#">내 상점 리뷰</a></li>
-                    </ul>
-                </li>
-                <li><a class="nav-link scrollto" href="#gallery">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="#pricing">문의 게시판</a></li>
-                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href="/user/info/myinfo">내 정보</a></li>
-                <li>
-                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
-                </li>
-            </ul>
-
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-    </div>
-</header><!-- End Header -->
-
-<section style="margin-top: 40px;">
-    <h2>
+<section style="margin-top: 40px;text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         DEADLINE LIST
-    </h2>
+    </h2><br>
     <div>
         <button type="button" class="deadline-button">마감임박 상품</button>
     </div>
-    <table>
-        <tr>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|latest|)}'|">
-                    최신순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|price-asc|)}'|">
-                    가격 오름차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|price-desc|)}'|">
-                    가격 내림차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|discount-desc|)}'|">
-                    할인율 내림차순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|name|)}'|">
-                    이름순
-                </button>
-            </td>
-            <td>
-                <button type="button"
-                        th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|deadline|)}'|">
-                    마감임박순
-                </button>
-            </td>
-        </tr>
-    </table>
+    <br>
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|latest|)}'|">
+        최신순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|price-asc|)}'|">
+        가격 오름차순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|price-desc|)}'|">
+        가격 내림차순
+    </button>
+
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|discount-desc|)}'|">
+        할인율 내림차순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|name|)}'|">
+        이름순
+    </button>
+
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/deadline/{pv1}(pv1=|deadline|)}'|">
+        마감임박순
+    </button>
+    <br><br>
     <table>
         <thead>
         <tr>
-            <td>이름</td>
-            <td>브랜드</td>
-            <td>원가</td>
-            <td>판매가</td>
-            <td>할인율</td>
-            <td>만료날짜</td>
-            <td>업로드 날짜(최신 수정 날짜)</td>
+            <th>이름</th>
+            <th>브랜드</th>
+            <th>원가</th>
+            <th>판매가</th>
+            <th>할인율</th>
+            <th>만료날짜</th>
+            <th>업로드 날짜(최신 수정 날짜)</th>
         </tr>
         </thead>
         <tbody>

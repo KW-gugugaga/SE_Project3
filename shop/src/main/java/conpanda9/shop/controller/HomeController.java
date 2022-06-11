@@ -4,7 +4,6 @@ import conpanda9.shop.DTO.LoginDTO;
 import conpanda9.shop.DTO.QuestionDTO;
 import conpanda9.shop.DTO.SearchDTO;
 import conpanda9.shop.domain.*;
-import conpanda9.shop.domain.gifticoncomparator.GifticonDateComparator;
 import conpanda9.shop.service.AdminService;
 import conpanda9.shop.service.ItemService;
 import conpanda9.shop.service.UserService;
@@ -15,12 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
@@ -36,9 +31,11 @@ public class HomeController {
     private final AdminService adminService;
 
     @GetMapping("/")
-    public String home(Model model) {
+    public String home(Model model, @ModelAttribute("joinSuccess") String joinSuccess) {
         log.info("get login");
         model.addAttribute("loginDTO", new LoginDTO());
+        model.addAttribute("joinSuccess", joinSuccess);
+        log.info("joinSuccess={}", joinSuccess);
         return "login";
     }
 
@@ -73,6 +70,8 @@ public class HomeController {
     public String main(Model model) {
         List<Category> categories = itemService.findAllCategory();
         model.addAttribute("categories", categories);
+        model.addAttribute("searchDTO", new SearchDTO());
+
         return "main";
     }
 
@@ -124,7 +123,7 @@ public class HomeController {
 
         Long id = (Long) request.getSession().getAttribute("user");
         User user = userService.findUser(id);
-        Question question = new Question(questionDTO.getTitle(), questionDTO.getText(), user, LocalDateTime.now(), LocalDateTime.now(), null);
+        Question question = new Question(questionDTO.getTitle(), questionDTO.getText(), user, LocalDateTime.now(), LocalDateTime.now());
         userService.saveQuestion(question);
         return "redirect:/question";
     }
@@ -160,7 +159,6 @@ public class HomeController {
         model.addAttribute("searchDTO", new SearchDTO());
         return "search/search";
     }
-    
 
     @PostMapping("/search")
     public String postSearch(@Validated @ModelAttribute("searchDTO") SearchDTO searchDTO, BindingResult bindingResult,
@@ -169,12 +167,20 @@ public class HomeController {
         if(bindingResult.hasErrors()) {   // 필드 오류
             return "search/search";
         }
-        String searchBrand = searchDTO.getSearchBrand();
-        List<Gifticon> gifticons = itemService.searchByBrand(searchBrand);
-        for (Gifticon gifticon : gifticons) {
-            log.info(gifticon.getName());
+        String searchKind = searchDTO.getSearchKind();
+        String searchWhat = searchDTO.getSearchWhat();
+        if(searchKind.equals("brand")){
+            List<Gifticon> gifticons = itemService.searchByBrand(searchWhat);
+            model.addAttribute("gifticons", gifticons);
         }
-        model.addAttribute("gifticons", gifticons);
+        else if(searchKind.equals("category")){
+            List<Gifticon> gifticons = itemService.searchByCategory(searchWhat);
+            model.addAttribute("gifticons", gifticons);
+        }
+        else if(searchKind.equals("itemname")){
+            List<Gifticon> gifticons = itemService.searchByItem(searchWhat);
+            model.addAttribute("gifticons", gifticons);
+        }
         return "search/search_result";
     }
 }

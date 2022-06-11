@@ -28,12 +28,13 @@ public class Question {
 
     private String answer;   // 관리자 답변 (null 가능, 없어도됨)
 
-    public Question(String title, String text, User user, LocalDateTime uploadDate, LocalDateTime lastModifiedDate, String answer) {
+    public Question(String title, String text, User user, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
         this.title = title;
         this.text = text;
         this.user = user;
         this.uploadDate = uploadDate;
         this.lastModifiedDate = lastModifiedDate;
-        this.answer = answer;
+        this.answer = null;
+        user.getQuestionList().add(this);
     }
 }

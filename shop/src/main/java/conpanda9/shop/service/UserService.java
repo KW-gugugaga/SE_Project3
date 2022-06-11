@@ -101,6 +101,9 @@ public class UserService {
         userRepository.deleteQuestion(id);
     }
 
+    public void saveStore(Seller store) {
+        userRepository.saveStore(store);
+    }
 
     public Optional<Seller> findStore(Long id) {
         return userRepository.findStore(id);
@@ -123,7 +126,26 @@ public class UserService {
         return total;
     }
 
-    public void saveStore(Seller store) {
-        userRepository.saveStore(store);
+    public List<Sold> findBuys(Long id) {
+        return userRepository.findBuys(id);
+    }
+
+    public List<Review> findReviews(Long id) {
+        return userRepository.findReviews(id);
+    }
+
+    public Optional<User> findId(String nickname, String email) {
+        return userRepository.findId(nickname, email);
+    }
+
+    public Optional<User> findPw(String loginId, String email) {
+        return userRepository.findPw(loginId, email);
+    }
+
+    public Long countAlarm(Long id){
+        return userRepository.countAlarm(id);
+    }
+    public List<Alarm> findAlarm(Long id) { //유저의 정보 받아와서 알람 찾아옴
+        return userRepository.findAlarm(id);
     }
 }

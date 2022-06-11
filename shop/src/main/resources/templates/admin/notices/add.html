@@ -16,19 +16,82 @@
             font-size: 16px;
         }
 
+        body {
+            font-family: "nanum";
+        }
+
         .field-error {
             font-family: "nanum";
             font-size: 12px;
             color: darkred;
             margin-left: 40px;
         }
+        table,th,td{
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
+        }
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
+        .button-18 {
+            margin: 20px auto;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
     </style>
 
 </head>
 <body>
 <div>
-    <h2>NAV BAR</h2>
+    <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
 </div>
+</header><!-- End Header --></div>
 <div id="colorlib-page">
     <div class="admin-menu" th:fragment="admin-menu">
         <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
@@ -37,7 +100,7 @@
                     <li class="colorlib-active"><a class="a-menu" href="/admin/notice">공지사항</a></li>
                     <li><a class="a-menu" href="/admin/question">문의사항</a></li>
                     <li><a class="a-menu" href="/admin/report">신고사항</a></li>
-                    <li><a class="a-menu" href="/admin/users">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/user">회원관리</a></li>
                     <li><a class="a-menu" href="/admin/">매물관리</a></li>
                 </ul>
             </nav>
@@ -45,9 +108,9 @@
     </div>
 
     <div id="colorlib-main" style="margin-top: 40px;">
-        <h2>
-            ADMIN NOTICE ADD
-        </h2>
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b3c3d5;border-left: 5px solid #b3c3d5; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            공지사항 추가
+        </h3><br>
         <form th:object="${noticeDTO}" th:action="@{/admin/notice/add}" th:method="post">
             <table>
                 <tbody>
@@ -75,7 +138,7 @@
                 </tr>
                 </tbody>
             </table>
-            <button type="submit">등록하기</button>
+            <button style="text-align: center" class="button-18" type="submit">등록하기</button>
         </form>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->

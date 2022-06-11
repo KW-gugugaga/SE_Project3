@@ -4,7 +4,30 @@
 
 <head>
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
 
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid !important;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid !important;
+        }
+        table {
+            margin: auto;font-size: .9em;width: 60%;overflow: hidden;
+        }
+        th {
+            text-align: center;background: rgba(232, 237, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;color: #58595b;background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+        }
+        td {
+            background: #fff;
+        }
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -32,6 +55,9 @@
             user-select: none;
             -webkit-user-select: none;
             vertical-align: middle;
+        }
+        .a-menu {
+            font-size: 16px;
         }
     </style>
     <meta charset="utf-8">
@@ -68,67 +94,37 @@
 </head>
 
 <body>
+<header th:replace="navbar :: navbarFragment"></header>
 
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto" href="#hero">Home</a></li>
-                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="#">나의 판매내역</a></li>
-                        <li><a href="#">나의 구매내역</a></li>
-                        <li><a href="#">나의 찜</a></li>
-                        <li><a href="#">나의 지갑</a></li>
-                        <li><a href="#">내 상점 리뷰</a></li>
-                    </ul>
-                </li>
-                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto active" href="/question">문의 게시판</a></li>
-                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
-                <li>
-                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
-                </li>
-            </ul>
-
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-    </div>
-</header><!-- End Header -->
-
-<section style="margin-top: 40px;">
-    <h2>
-        USER QUESTION LIST
-    </h2>
-    <input class="button-18" type="button" th:onclick="|location.href='@{/question/add}'|" value="문의사항 등록하기">
+<section>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        문의사항
+    </h2><br>
     <div th:if="${questions.isEmpty()}">
         <p>등록한 문의사항이 없습니다.</p>
     </div>
     <div th:unless="${questions.isEmpty()}">
-        <table>
+        <table style="text-align: center;">
             <thead>
             <tr>
-                <td>제목</td>
-                <td>등록날짜</td>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>작성자</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="question : ${questions}"
                 th:onclick="|location.href='@{/question/{pv1}(pv1=${question.id})}'|"
-                style="cursor: pointer;"><!--기프티콘 상품 페이지로 이동-->
+                style="cursor: pointer;">
                 <td th:text="${question.title}">name</a></td>
                 <td th:text="${question.uploadDate}">uploadDate</td>
+                <td th:text="${question.user.nickname}">uploadDate</td>
             </tr>
             </tbody>
         </table>
+    </div><br>
+    <div style="text-align: center;">
+        <input class="button-18" type="button" th:onclick="|location.href='@{/question/add}'|" value="문의사항 등록하기">
     </div>
 </section>
 

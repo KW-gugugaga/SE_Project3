@@ -2,8 +2,12 @@ package conpanda9.shop.domain;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -19,12 +23,21 @@ public class Seller {
     /**
      * 상품 주인
      */
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     private Long heart;   // 찜
     private Long share;   // 나눔 횟수
+
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
+    private List<Gifticon> gifticonList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
+    private List<Share> shareList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.REMOVE)
+    private List<Shared> sharedList = new ArrayList<>();
 
     public Seller(String name, User user) {
         this.name = name;

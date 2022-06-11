@@ -1,0 +1,119 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Question</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+
+    <style>
+        .a-menu {
+            font-size: 16px;
+        }
+
+        .question-list {
+            cursor: pointer;
+        }
+        table,th,td{
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
+        }
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
+        .answer-complete {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+            font-weight: bold;
+        }
+        .answer-no {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
+</div>
+<div id="colorlib-page">
+    <div class="admin-menu" th:fragment="admin-menu">
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul style="font-size: 16px;">
+                    <li><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                    <li class="colorlib-active"><a class="a-menu" href="/admin/question">문의사항</a></li>
+                    <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                    <li><a class="a-menu" href="/admin/user">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/">매물관리</a></li>
+                </ul>
+            </nav>
+        </aside> <!-- END COLORLIB-ASIDE -->
+    </div>
+
+    <div id="colorlib-main" style="text-align: center;margin-top: 40px;">
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b5bbbe;border-left: 5px solid #b5bbbe; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            문의사항 목록
+        </h3><br>
+        <table>
+            <thead>
+            <tr>
+                <th>제목</th>
+                <th>작성일</th>
+                <th>작성자</th>
+                <th>답변</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="question-list" th:each="question : ${questions}"
+                th:onclick="|location.href='@{/admin/question/{pv1}(pv1=${question.id})}'|">
+                <td th:text="${question.title}">title</td>
+                <td th:text="${question.uploadDate}">question</td>
+                <td th:text="${question.user.nickname}">nickname</td>
+                <td class="answer-complete" th:if="${question.answer != null}" th:text="'답변 완료'"></td>
+                <td class="answer-no" th:if="${question.answer == null}" th:text="'답변 대기'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
+</body>
+</html>
+

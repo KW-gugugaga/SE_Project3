@@ -125,4 +125,45 @@ public class UserRepository {
                 .setParameter("id", id)
                 .getResultList();
     }
+
+    public List<Sold> findBuys(Long id) {
+        return em.createQuery("select s from Sold as s", Sold.class).getResultList()
+                .stream().filter(s -> s.getUser().getId().equals(id)).collect(Collectors.toList());
+    }
+
+    public List<Review> findAllReview() {
+        return em.createQuery("select r from Review as r", Review.class).getResultList();
+    }
+
+    public List<Review> findReviews(Long id) {
+        return findAllReview().stream().filter(r -> r.getSeller().getId().equals(id))
+                .collect(Collectors.toList());
+    }
+
+    public Optional<User> findId(String nickname, String email) {
+        return findAll().stream()
+                .filter(u -> u.getNickname().equals(nickname) && u.getEmail().equals(email))
+                .findAny();
+    }
+
+    public Optional<User> findPw(String loginId, String email) {
+        return findAll().stream()
+                .filter(u -> u.getLoginId().equals(loginId) && u.getEmail().equals(email))
+                .findAny();
+    }
+
+    public Long countAlarm(Long id){
+        return (Long) em.createQuery("select count(a) from Alarm as a where a.user.id = :id and a.checked = false")
+                .setParameter("id",id)
+                .getSingleResult();
+    }
+    public List<Alarm> findAlarm(Long id) { //유저의 정보 받아와서 알람 찾아옴
+        return em.createQuery("select a from Alarm as a order by a.alarmDate desc", Alarm.class)
+                .getResultList().stream()
+                .filter(a -> a.getUser().getId().equals(id)).collect(Collectors.toList());
+    }
+    @Transactional
+    public void saveAlarm(Alarm Alarm) {
+        em.persist(Alarm);
+    }
 }

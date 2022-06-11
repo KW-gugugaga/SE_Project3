@@ -56,16 +56,13 @@
             display: flex;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-        }
+        
 
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Con Panda 9</title>
+    <title>Con Panda</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -98,12 +95,13 @@
 <body>
 
 <!-- ======= Header ======= -->
-<header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
+<header th:replace="navbar :: navbarFragment"></header>
 
-        <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
-        </div>
+<section style="margin: 30px auto;text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        CONPANDA
+    </h2><br>
+
 
         <nav id="navbar" class="navbar">
             <ul>
@@ -127,23 +125,32 @@
                 </li>
             </ul>
 
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
+    <div style="text-align: right">
+        <form th:object="${searchDTO}" th:action="@{/search}" method="post">
+            <div style="text-align: center; margin: 0 auto">
+                <div th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                        글로벌 오류 메시지</p>
+                </div>
+                <select th:field="*{searchKind}">
+                    <option value="category">카테고리</option>
+                    <option value="itemname">상품명</option>
+                    <option value="brand">브랜드</option>
+                </select>
+                <input type="text" placeholder="검색어를 입력해주세요." th:field="*{searchWhat}">
+                <div class="field-error" th:errors="*{searchWhat}">검색어를 입력 하세요</div>
 
-    </div>
-</header><!-- End Header -->
-
-<section style="margin: 30px auto;">
-    <h2>
-        CATEGORY LIST
-    </h2>
+                <button id="searchBtn" type="submit" class="button-18">검색</button>
+            </div>
+        </form>
+    </div><br>
     <wrap id="wrap">
         <div id="btn">
-            <input type="button" value="카테고리" th:onclick="|location.href='@{/main}'|">
-            <input type="button" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
-            <input type="button" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
-            <input type="button" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
-        </div>
+            <input type="button" class="button-18" value="카테고리" th:onclick="|location.href='@{/main}'|">
+            <input type="button" class="button-18" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
+            <input type="button" class="button-18" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
+            <input type="button" class="button-18" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
+        </div><br><br>
         <div id="categories">
             <div class="category" th:each="category : ${categories}">
                 <input type="button" th:value="${category.name}"

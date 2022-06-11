@@ -71,46 +71,11 @@
 </head>
 
 <body>
-
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
-
-        <div class="logo">
-            <h1><a href='/main'>Conpanda9</a></h1>
-        </div>
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto" href="/main">Home</a></li>
-                <li class="dropdown"><a href="#"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="#">나의 판매내역</a></li>
-                        <li><a href="#">나의 구매내역</a></li>
-                        <li><a href="#">나의 거래내역</a></li>
-                        <li><a href="#">나의 찜</a></li>
-                        <li><a href="#">나의 지갑</a></li>
-                        <li><a href="#">내 상점 리뷰</a></li>
-                    </ul>
-                </li>
-                <li><a class="nav-link scrollto active" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
-                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
-                <li>
-                    <button class="button-18" type="submit" value="Join" style="margin-left:20px ">상품등록</button>
-                </li>
-            </ul>
-
-            <i class="bi bi-list mobile-nav-toggle"></i>
-        </nav><!-- .navbar -->
-
-    </div>
-</header><!-- End Header -->
+<header th:replace="navbar :: navbarFragment"></header>
 
 <section style="margin-top: 40px;">
     <h2>
-        브랜드로 검색
+        검색
     </h2>
     <form th:object="${searchDTO}" th:action="@{/search}" method="post">
         <div style="text-align: center; margin: 0 auto">
@@ -118,8 +83,14 @@
                 <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
                     글로벌 오류 메시지</p>
             </div>
-            <input type="text" placeholder="브랜드로 검색" th:field="*{searchBrand}">
-            <div class="field-error" th:errors="*{searchBrand}">검색어를 입력 하세요</div>
+            <select th:field="*{searchKind}">
+                <option value="category">카테고리</option>
+                <option value="itemname">상품명</option>
+                <option value="brand">브랜드</option>
+            </select>
+            <input type="text" placeholder="검색어를 입력해주세요." th:field="*{searchWhat}">
+            <div class="field-error" th:errors="*{searchWhat}">검색어를 입력 하세요</div>
+
             <button id="searchBtn" type="submit" class="button-18">검색</button>
         </div>
     </form>

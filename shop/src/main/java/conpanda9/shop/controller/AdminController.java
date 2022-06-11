@@ -4,6 +4,8 @@ import conpanda9.shop.DTO.NoticeDTO;
 import conpanda9.shop.domain.Notice;
 import conpanda9.shop.domain.Question;
 import conpanda9.shop.domain.Report;
+import conpanda9.shop.domain.User;
+import conpanda9.shop.domain.questioncomparator.QuestionComparator;
 import conpanda9.shop.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,20 +29,6 @@ public class AdminController {
     public String main() {
 
         return "admin/main";
-    }
-
-    @GetMapping("/question")
-    public String question(Model model) {
-        List<Question> questions = adminService.findAllQuestion();
-        model.addAttribute("questions", questions);
-        return "admin/question";
-    }
-
-    @GetMapping("/report")
-    public String report(Model model) {
-        List<Report> reports = adminService.findAllReport();
-        model.addAttribute("reports", reports);
-        return "admin/report";
     }
 
     @GetMapping("/notice")
@@ -117,10 +105,99 @@ public class AdminController {
         return "redirect:/admin/notice";
     }
 
-    @GetMapping("notice/delete/{noticeId}")
+    @GetMapping("/notice/delete/{noticeId}")
     public String deleteNotice(@PathVariable("noticeId") Long id) {
         log.info("delete notice id={}", id);
         adminService.deleteNotice(id);
         return "redirect:/admin/notice";
+    }
+
+    @GetMapping("/question")
+    public String getQuestions(Model model) {
+        List<Question> questions = adminService.findAllQuestion();
+        questions.sort(new QuestionComparator());   // question 업로드 날짜 순으로 정렬
+        model.addAttribute("questions", questions);
+        return "admin/questions/list";
+    }
+
+    @GetMapping("/question/{questionId}")
+    public String getQuestion(@PathVariable("questionId") Long id, Model model) {
+        Question question = adminService.findQuestion(id);
+        log.info("question answer={}", question.getAnswer());
+        model.addAttribute("question", question);
+        model.addAttribute("error", null);
+        return "admin/questions/question";
+    }
+
+    @PostMapping("/question/add/answer/{questionId}")
+    public String postQuestionAddAnswer(@PathVariable("questionId") Long id,
+                                        @RequestParam("answer") String answer, Model model) {
+        log.info("answer={}", answer);
+        String error = null;
+        if(answer.equals("")) {
+            error = "답변 내용을 입력해주세요";
+            model.addAttribute("error", error);
+            model.addAttribute("question", adminService.findQuestion(id));
+            return "/admin/questions/question";
+        }
+
+        adminService.addAnswer(id, answer);
+        return "redirect:/admin/question/" + id;
+    }
+
+    @GetMapping("/question/edit/answer/{questionId}")
+    public String getQuestionEditAnswer(@PathVariable("questionId") Long id, Model model) {
+        Question question = adminService.findQuestion(id);
+        log.info("edit question id={}", id);
+        model.addAttribute("question", question);
+        model.addAttribute("error", null);
+        return "admin/questions/edit";
+    }
+
+    @PostMapping("/question/edit/answer/{questionId}")
+    public String postQuestionEditAnswer(@PathVariable("questionId") Long id,
+                                         @RequestParam("answer") String answer, Model model) {
+        String error = null;
+        if(answer.equals("")) {
+            error = "답변 내용을 입력하세요";
+            model.addAttribute("question", adminService.findQuestion(id));
+            model.addAttribute("error", error);
+            return "admin/questions/edit";
+        }
+
+        adminService.editAnswer(id, answer);
+        return "redirect:/admin/question/" + id;
+    }
+
+    @GetMapping("/report")
+    public String report(Model model) {
+        List<Report> reports = adminService.findAllReport();
+        model.addAttribute("reports", reports);
+        return "admin/report";
+    }
+    @GetMapping("/user")
+    public String users(Model model) {
+        List<User> users = adminService.findAllUser();
+        users.remove(0);   // admin 삭제
+        model.addAttribute("users", users);
+        return "admin/user/userlist";
+    }
+    @GetMapping("/user/delete/{userId}")
+    public String deleteUser(@PathVariable("userId") Long id){
+        log.info("delete user id={}", id);
+        /**
+         * 회원과 관련한 거래내역 먼저 처리
+         * sold, shared, seller에서 user만 null로 변경
+         * 회원 삭제해도 거래내역은 다른 사람이랑 연결된거라 남겨놓아야 할듯
+         */
+        // TODO
+        // 강퇴당한 회원이 팔고있는 상품들은 지워야하는데 상점을 지울 수가 없어서 일단 나중에 처리
+        adminService.setNullUserActHistory(id);
+        /**
+         * 관련 거래 내역 다 처리 후에 user 지움
+         * 여기서 review, question, alarm, review는 삭제됨!
+         */
+        adminService.deleteUser(id);
+        return "redirect:/admin/user";
     }
 }

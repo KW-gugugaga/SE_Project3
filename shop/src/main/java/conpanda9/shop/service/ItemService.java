@@ -100,11 +100,18 @@ public class ItemService {
             shares.sort(new ShareExpiredDateComparator());   // 마감기한 순 정렬
         }
     }
+
     public List<Gifticon> searchByBrand(String str){
         return itemRepository.searchByBrand(str);
     }
+    public List<Gifticon> searchByCategory(String str){
+        return itemRepository.searchByCategory(str);
+    }
+    public List<Gifticon> searchByItem(String str){
+        return itemRepository.searchByItem(str);
+    }
     public Optional<List<Gifticon>> search(SearchDTO searchDTO) {
-        Optional<List<Gifticon>> oneByBrand = Optional.ofNullable(itemRepository.searchByBrand(searchDTO.getSearchBrand()));
+        Optional<List<Gifticon>> oneByBrand = Optional.ofNullable(itemRepository.searchByBrand(searchDTO.getSearchWhat()));
         if(oneByBrand.isEmpty()) {   // 일치 브랜드 없을 경우
             return null;
         }

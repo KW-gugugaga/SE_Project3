@@ -1,0 +1,148 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin User</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+
+    <style>
+        .a-menu {
+            font-size: 16px;
+        }
+
+        .user-list {
+            cursor: pointer;
+        }
+        table,th,td{
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
+        }
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
+
+        .button-18 {
+            margin: 20px auto;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 30px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
+</div>
+<div id="colorlib-page">
+    <div class="admin-menu" th:fragment="admin-menu">
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul style="font-size: 16px;">
+                    <li><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                    <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                    <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                    <li class="colorlib-active"><a class="a-menu" href="/admin/user">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/">매물관리</a></li>
+                </ul>
+            </nav>
+        </aside> <!-- END COLORLIB-ASIDE -->
+    </div>
+
+    <div id="colorlib-main" style="text-align: center">
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b5bbbe;border-left: 5px solid #b5bbbe; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            회원 목록 및 관리
+        </h3><br>
+        <table>
+            <thead>
+            <tr>
+                <th>회원번호</th>
+                <th>아이디</th>
+                <th>비밀번호</th>
+                <th>닉네임</th>
+                <th>이메일</th>
+                <th>핸드폰 번호</th>
+                <th>강퇴</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="user-list" th:each="user : ${users}">
+                <td th:text="${user.id}">회원번호</td>
+                <td th:text="${user.loginId}">아이디</td>
+                <td th:text="${user.loginPw}">비밀번호</td>
+                <td th:text="${user.nickname}">닉네임</td>
+                <td th:text="${user.email}">이메일</td>
+                <td th:text="${user.phoneNumber}">핸드폰 번호</td>
+                <td><button type="submit" style="width: 100px; height: 30px;" class="button-18" th:onclick="|javascript:clickEvent('${user.id}')|">강퇴하기</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+<script>
+    function clickEvent(userid) {
+        if (confirm("정말 강퇴하시겠습니까? 관련된 회원 정보(ex. 상점, 판매 내역)가 모두 삭제됩니다.")) {
+            alert("강퇴 완료");
+            var uid = userid;
+            location.href = "/admin/user/delete/" + uid;
+        } else {
+            return false;
+        }
+    }
+</script>
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
+</body>
+</html>
+
