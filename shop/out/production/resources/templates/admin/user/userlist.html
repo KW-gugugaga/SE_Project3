@@ -48,12 +48,33 @@
         a {
             color: #6DA6D9;
         }
-        .answer-complete {
+
+        .button-18 {
+            margin: 20px auto;
             font-family: "nanum";
-            font-size: 12px;
-            color: darkred;
-            margin-left: 40px;
-            padding-left: 20px;
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 30px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
         }
     </style>
 
@@ -101,8 +122,7 @@
                 <td th:text="${user.nickname}">닉네임</td>
                 <td th:text="${user.email}">이메일</td>
                 <td th:text="${user.phoneNumber}">핸드폰 번호</td>
-                <td><button type="submit" class="button-18" th:onclick="|javascript:clickEvent('${user.id}')|">강퇴하기</button></td>
-            <!-- |location.href='@{/admin/user/delete/{userId}(userId=${user.id})}'| -->
+                <td><button type="submit" style="width: 100px; height: 30px;" class="button-18" th:onclick="|javascript:clickEvent('${user.id}')|">강퇴하기</button></td>
             </tr>
             </tbody>
         </table>

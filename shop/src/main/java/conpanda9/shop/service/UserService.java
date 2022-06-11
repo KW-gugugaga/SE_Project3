@@ -134,4 +134,12 @@ public class UserService {
     public List<Review> findReviews(Long id) {
         return userRepository.findReviews(id);
     }
+
+    public Optional<User> findId(String nickname, String email) {
+        return userRepository.findId(nickname, email);
+    }
+
+    public Optional<User> findPw(String loginId, String email) {
+        return userRepository.findPw(loginId, email);
+    }
 }

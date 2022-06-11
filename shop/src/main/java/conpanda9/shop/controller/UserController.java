@@ -1,5 +1,6 @@
 package conpanda9.shop.controller;
 
+import conpanda9.shop.DTO.FindIdPwDTO;
 import conpanda9.shop.DTO.JoinDTO;
 import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.PwEditDTO;
@@ -14,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.thymeleaf.model.IModel;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -37,8 +40,8 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(@Validated @ModelAttribute("joinDTO") JoinDTO joinDTO, BindingResult bindingResult) {
-
+    public String join(@Validated @ModelAttribute("joinDTO") JoinDTO joinDTO, BindingResult bindingResult,
+                       RedirectAttributes rttr) {
         /**
          * @Validated, 검사 객체, BindingResult 세트로 같이 써야함
          * 검사 객체에 Validation annotation으로 달아놓은 것 검사
@@ -64,8 +67,50 @@ public class UserController {
         User newUser = new User(joinDTO.getLoginId(), joinDTO.getLoginPw(), joinDTO.getNickname(), joinDTO.getEmail(), joinDTO.getPhoneNumber());
 
         userService.save(newUser);
-
+        rttr.addFlashAttribute("joinSuccess", "true");
         return "redirect:/";
+    }
+
+    @GetMapping("/find/id")
+    public String getFindUserId(Model model) {
+        model.addAttribute("findIdDTO", new FindIdPwDTO());
+        return "user/findid";
+    }
+
+    @PostMapping("/find/id")
+    public String postFindUserId(@Validated @ModelAttribute("findIdDTO") FindIdPwDTO findIdDTO, BindingResult bindingResult,
+                                 Model model) {
+        if(bindingResult.hasErrors()) {
+            return "user/findid";
+        }
+        Optional<User> findUser = userService.findId(findIdDTO.getInputFirst(), findIdDTO.getInputSecond());
+        if(findUser.isPresent()) {
+            model.addAttribute("findUser", findUser.get());
+        } else {
+            model.addAttribute("findUser", null);
+        }
+        return "user/findidresult";
+    }
+
+    @GetMapping("/find/pw")
+    public String getFindUserPw(Model model) {
+        model.addAttribute("findPwDTO", new FindIdPwDTO());
+        return "user/findpw";
+    }
+
+    @PostMapping("/find/pw")
+    public String postFindPw(@Validated @ModelAttribute("findPwDTO") FindIdPwDTO findPwDTO, BindingResult bindingResult,
+                             Model model) {
+        if(bindingResult.hasErrors()) {
+            return "user/findpw";
+        }
+        Optional<User> findUser = userService.findPw(findPwDTO.getInputFirst(), findPwDTO.getInputSecond());
+        if(findUser.isPresent()) {
+            model.addAttribute("findUser", findUser.get());
+        } else {
+            model.addAttribute("findUser", null);
+        }
+        return "user/findpwresult";
     }
 
     @GetMapping("/info/myinfo")

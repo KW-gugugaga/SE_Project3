@@ -139,4 +139,16 @@ public class UserRepository {
         return findAllReview().stream().filter(r -> r.getSeller().getId().equals(id))
                 .collect(Collectors.toList());
     }
+
+    public Optional<User> findId(String nickname, String email) {
+        return findAll().stream()
+                .filter(u -> u.getNickname().equals(nickname) && u.getEmail().equals(email))
+                .findAny();
+    }
+
+    public Optional<User> findPw(String loginId, String email) {
+        return findAll().stream()
+                .filter(u -> u.getLoginId().equals(loginId) && u.getEmail().equals(email))
+                .findAny();
+    }
 }

@@ -4,14 +4,16 @@
 
 <head>
     <style>
-        body{
+        body {
             font-family: "nanum";
         }
+
         .field-error {
             font-family: "nanum";
             font-size: 12px;
             color: darkred;
         }
+
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -90,6 +92,12 @@
 
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
+    <script type="text/javascript" th:inline="javascript">
+        const joinSuccess = [[ ${joinSuccess} ]];
+        if(joinSuccess === "true") {
+            alert("회원가입이 완료되었습니다!");
+        }
+    </script>
     <div class="container">
         <div class="row">
             <div class="col-lg-6 d-lg-flex flex-lg-column align-items-stretch order-1 order-lg-2 hero-img"
@@ -120,13 +128,16 @@
                         <br>
                         <div style="text-align: center">
                             <br>
-                            <button type="submit" value="로그인" class="button-18" role="button" style="width:80%">로그인</button>
+                            <button type="submit" value="로그인" class="button-18" role="button" style="width:80%">로그인
+                            </button>
                             <br><br>
                             <button type="button" value="회원가입" class="button-18" role="button"
                                     onClick="location.href='/user/join'">회원가입
                             </button>
-                            <button type="button" class="button-18" role="button">아이디 찾기</button>
-                            <button type="button" class="button-18" role="button">비밀번호 찾기</button>
+                            <button type="button" class="button-18" role="button"
+                                    onclick="window.open('/user/find/id','find id','width=650,height=380,location=no,status=no,scrollbars=yes');">아이디 찾기</button>
+                            <button type="button" class="button-18" role="button"
+                                    onClick="window.open('/user/find/pw','find pw','width=650,height=380,location=no,status=no,scrollbars=yes');">비밀번호 찾기</button>
                         </div>
                         <br>
                         <br>
@@ -137,7 +148,7 @@
             </div>
             <div class="col-lg-6 d-lg-flex flex-lg-column justify-content-center align-items-stretch pt-5 pt-lg-0 order-2 order-lg-1"
                  data-aos="fade-up">
-                <img src="/img/logo.png"  style="height: 400px; width: 300px; margin: 0 auto;" alt="">
+                <img src="/img/logo.png" style="height: 400px; width: 300px; margin: 0 auto;" alt="">
             </div>
         </div>
     </div>
