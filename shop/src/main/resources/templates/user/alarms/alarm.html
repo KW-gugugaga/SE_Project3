@@ -65,7 +65,19 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
-
+        .no-read {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+            font-weight: bold;
+        }
+        .read {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
+        }
         .field-error {
             font-family: "nanum";
             font-size: 12px;
@@ -74,6 +86,23 @@
 
         .edit-input {
             margin-bottom: 10px;
+        }
+        .blinking{
+            -webkit-animation:blink 1s ease-in-out infinite alternate;
+            -moz-animation:blink 1s ease-in-out infinite alternate;
+            animation:blink 1s ease-in-out infinite alternate;
+        }
+        @-webkit-keyframes blink{
+            0% {opacity:0;}
+            100% {opacity:1;}
+        }
+        @-moz-keyframes blink{
+            0% {opacity:0;}
+            100% {opacity:1;}
+        }
+        @keyframes blink{
+            0% {opacity:0;}
+            100% {opacity:1;}
         }
     </style>
     <meta charset="utf-8">
@@ -135,8 +164,10 @@
             </thead>
             <tbody>
             <tr th:each="alarm : ${alarms}" th:onclick=#>
-                <td th:text="${alarm.checked}">checked</a></td>
-                <td th:text="${alarm.text}">texts</td>
+                <td class="blinking no-read" th:if="${alarm.checked == false}" th:text="'미확인'"></td>
+                <td class="read" th:if="${alarm.checked == true}" th:text="'확인 완료'"></td>
+                <td class="blinking" th:if="${alarm.checked == false}" th:text="${alarm.text}">texts</td>
+                <td th:if="${alarm.checked == true}" th:text="${alarm.text}">texts</td>
                 <td th:text="${alarm.alarmDate}">time</td>
 
             </tr>
