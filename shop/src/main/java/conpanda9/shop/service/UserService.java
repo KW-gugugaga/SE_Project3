@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -147,5 +148,14 @@ public class UserService {
     }
     public List<Alarm> findAlarm(Long id) { //유저의 정보 받아와서 알람 찾아옴
         return userRepository.findAlarm(id);
+    }
+    public Alarm findOneAlarm(Long id){
+        return userRepository.findOneAlarm(id);
+    }
+    @Transactional
+    public Alarm updateAlarm(Long id){
+        Alarm alarm = userRepository.findOneAlarm(id);
+        alarm.setChecked(true);
+        return alarm;
     }
 }

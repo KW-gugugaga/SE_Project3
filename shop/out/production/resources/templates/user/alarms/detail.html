@@ -8,7 +8,7 @@
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 57%;
+            width: 70%;
             overflow: hidden;
             border-style: dashed !important;
             border-width: 1px !important;
@@ -19,6 +19,7 @@
         th {
             text-align: center;
             background: #6DA6D9;
+            color: #fff;
         }
 
         thead {
@@ -72,68 +73,16 @@
             vertical-align: middle;
         }
 
-        .no-read {
-            font-family: "nanum";
-            font-size: 12px;
-            color: darkred;
-            margin-left: 40px;
-            font-weight: bold;
-        }
-
-        .read {
-            font-family: "nanum";
-            font-size: 12px;
-            color: #9d8d8d;
-            margin-left: 40px;
-        }
-
         .field-error {
             font-family: "nanum";
             font-size: 12px;
             color: darkred;
         }
-
-        .edit-input {
-            margin-bottom: 10px;
-        }
-
-        .blinking {
-            -webkit-animation: blink 1s ease-in-out infinite alternate;
-            -moz-animation: blink 1s ease-in-out infinite alternate;
-            animation: blink 1s ease-in-out infinite alternate;
-        }
-
-        @-webkit-keyframes blink {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @-moz-keyframes blink {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
-        @keyframes blink {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
     </style>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Con Panda</title>
+    <title>Con Panda 9</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -164,47 +113,48 @@
 </head>
 
 <body>
-<header th:replace="navbar :: navbarFragment"></header>
 
-
-<section style="margin-top: 40px;text-align: center">
-    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-        내 알림
-    </h2><br>
-    <div style="margin: auto" >
-        <p th:unless="${a_cnt==0}" th:text="'💡미확인 알림이 ' + ${a_cnt} + '개 있습니다!💡'"></p>
-        <div th:if="${a_cnt==0}" >
-            <p style="margin:auto;">미확인 알림이 없습니다!</p>
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top  header-transparent ">
+    <div class="container d-flex align-items-center justify-content-between">
+        <div class="logo">
         </div>
-        <div>
-            <table>
-                <thead>
-                <tr>
-                    <th>확인여부</th>
-                    <th>알림 내용</th>
-                    <th>알림 시간</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="alarm : ${alarms}"
-                    th:onclick="|javascript:clickEvent('${alarm.id}')|">
-                    <td class="blinking no-read" th:if="${alarm.checked == false}" th:text="'미확인'"></td>
-                    <td class="read" th:if="${alarm.checked == true}" th:text="'확인 완료'"></td>
+    </div>
+</header><!-- End Header -->
 
-                    <td class="blinking" th:if="${alarm.checked == false}" th:text="${alarm.title}">texts</td>
-                    <td th:if="${alarm.checked == true}" th:text="${alarm.title}">texts</td>
-
-                    <td th:text="${alarm.alarmDate}">time</td>
-                </tr>
-                </tbody>
-            </table><br>
-            <input type="button" class="button-18" onclick="location.href='/main'" value="홈으로 돌아ㅠㄱ기">
+<section style="margin-top: 20px;">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        알림 확인
+    </h2><br>
+    <div>
+        <table>
+            <tbody>
+            <tr>
+                <th>알림 제목</th>
+                <td th:text="${alarm.title}">title</td>
+            </tr>
+            <tr>
+                <th>알림 내용</th>
+                <td th:text="${alarm.text}">texts</td>
+            </tr>
+            <tr>
+                <th>알림 시간</th>
+                <td th:text="${alarm.alarmDate}">time</td>
+            </tr>
+            </tbody>
+        </table><br>
+        <div style="text-align: center">
+        <form th:action="@{/user/alarms/{pv1}(pv1=${alarm.id})}" method="post">
+            <button th:if="${alarm.checked==false}" type="submit" class="button-18" >알림 확인</button>
+            <button th:if="${alarm.checked==true}" type="submit" class="button-18" >확인 및 창 종료</button>
+        </form>
         </div>
     </div>
 </section>
 <script>
     function clickEvent(id) {
-        window.open('/user/alarm/detail/' + id, 'alarm detail', 'width=650,height=650,location=no,status=no,scrollbars=yes');
+        alert("알림 확인 완료");
+        window.close();
     }
 </script>
 <script src="/vendor/aos/aos.js"></script>

@@ -166,4 +166,9 @@ public class UserRepository {
     public void saveAlarm(Alarm Alarm) {
         em.persist(Alarm);
     }
+
+    public Alarm findOneAlarm(Long id){
+        return em.find(Alarm.class,id);
+    }
+
 }
