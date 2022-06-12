@@ -186,7 +186,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="alarm : ${alarms}"
+                <tr style="cursor: pointer;" th:each="alarm : ${alarms}"
                     th:onclick="|javascript:clickEvent('${alarm.id}')|">
                     <td class="blinking no-read" th:if="${alarm.checked == false}" th:text="'미확인'"></td>
                     <td class="read" th:if="${alarm.checked == true}" th:text="'확인 완료'"></td>
@@ -194,7 +194,7 @@
                     <td class="blinking" th:if="${alarm.checked == false}" th:text="${alarm.title}">texts</td>
                     <td th:if="${alarm.checked == true}" th:text="${alarm.title}">texts</td>
 
-                    <td th:text="${alarm.alarmDate}">time</td>
+                    <td th:text="${#temporals.format(alarm.alarmDate, 'yyyy-MM-dd HH:mm:ss')}">time</td>
                 </tr>
                 </tbody>
             </table><br>

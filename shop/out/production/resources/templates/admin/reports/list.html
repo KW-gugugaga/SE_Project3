@@ -85,10 +85,31 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
+
+        .answer-complete {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+            font-weight: bold;
+        }
+
+        .answer-no {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
+        }
     </style>
 
 </head>
 <body>
+<script type="text/javascript" th:inline="javascript">
+    const completeSuccess = [[ ${completeSuccess} ]];
+    if(completeSuccess === "true") {
+        alert("신고사항 처리 및 알림 전송이 완료되었습니다.");
+    }
+</script>
 <div>
     <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
 </div>
@@ -126,7 +147,8 @@
                 <td th:text="${#temporals.format(report.reportDate, 'yyyy-MM-dd HH:mm:ss')}">신고날짜</td>
                 <td th:text="${report.user.id}">신고자 ID</a></td>
                 <td th:text="${report.seller.id}">신고상점 ID</td>
-                <td th:text="${report.isCompleted}">처리상태</td>
+                <td class="answer-complete" th:if="${report.isCompleted == true}" th:text="'처리 완료'"></td>
+                <td class="answer-no" th:if="${report.isCompleted == false}" th:text="'처리 대기'"></td>
                 <td><button type="submit" style="width: 100px; height: 30px; font-size: 13px;" class="button-18" th:onclick="|location.href='@{/admin/report/{pv1}(pv1=${report.id})}'|">상세보기</button></td>
             </tr>
             </tbody>

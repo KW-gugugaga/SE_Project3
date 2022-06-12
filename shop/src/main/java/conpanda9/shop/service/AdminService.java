@@ -129,4 +129,12 @@ public class AdminService {
         gifticon.getCategory().getGitficonList().remove(gifticon);   // category 리스트에서 기프티콘 목록 삭제
         adminRepository.deleteGifticon(id);
     }
+
+    public void saveReport(Alarm alarm) {
+        adminRepository.saveAlarm(alarm);
+    }
+
+    public void updateReportComplete(Long id) {
+        adminRepository.updateReportComplete(id);
+    }
 }

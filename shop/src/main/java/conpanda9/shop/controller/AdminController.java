@@ -13,7 +13,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -199,9 +201,11 @@ public class AdminController {
     }
 
     @GetMapping("/report")
-    public String getReportList(Model model) {
+    public String getReportList(Model model,
+                                @ModelAttribute(value = "completeSuccess") String completeSuccess) {
         List<Report> reports = adminService.findAllReport();
         model.addAttribute("reports", reports);
+        model.addAttribute("completeSuccess", completeSuccess);
         return "admin/reports/list";
     }
 
@@ -246,13 +250,14 @@ public class AdminController {
 
     @PostMapping("/report/complete/{reportId}")
     public String postReportComplete(@PathVariable("reportId") Long id, Model model,
+                                     RedirectAttributes rttr,
                                      @RequestParam("completeAct") String completeAct,
                                      @RequestParam(value = "act", defaultValue = "") String act) {
         String error = null;
+        Report report = adminService.findReport(id);
         if(completeAct.equals("extra")) {
             if(act.equals("")) {
                 error = "기타 처리 사항을 입력해주세요.";
-                Report report = adminService.findReport(id);
                 String reportReason = null;
                 if(report.getReportReason().equals(ReportReason.FAKE)) {
                     reportReason = "허위 매물";
@@ -271,6 +276,11 @@ public class AdminController {
         }
         // TODO
         // 신고사항 생성 및 유저에 전달
+        // 신고 처리 상태에 따라 메시지 다르게 전달해야함
+        adminService.updateReportComplete(id);
+        Alarm alarm = new Alarm(report.getUser(), LocalDateTime.now(), "신고 사항 처리 안내", "신고 처리 완료", false);
+        adminService.saveReport(alarm);
+        rttr.addFlashAttribute("completeSuccess", "true");
         return "redirect:/admin/report";
     }
 

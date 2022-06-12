@@ -134,4 +134,14 @@ public class AdminRepository {
     public void deleteGifticon(Long id) {
         em.remove(em.find(Gifticon.class, id));
     }
+
+    @Transactional
+    public void saveAlarm(Alarm alarm) {
+        em.persist(alarm);
+    }
+
+    @Transactional
+    public void updateReportComplete(Long id) {
+        em.find(Report.class, id).setCompleted(true);
+    }
 }
