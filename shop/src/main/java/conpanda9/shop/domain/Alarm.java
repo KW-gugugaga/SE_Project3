@@ -21,6 +21,8 @@ public class Alarm {
 
     private LocalDateTime alarmDate;   // 알람 전송 시간
 
+    private String title; //알림 제목
+
     private String text;   // 알람 내용
 
     private boolean checked;   // 알람 확인 여부
@@ -29,9 +31,10 @@ public class Alarm {
         return checked;
     }
 
-    public Alarm(User user, LocalDateTime alarmDate, String text, boolean checked) {
+    public Alarm(User user, LocalDateTime alarmDate,String title, String text, boolean checked) {
         this.user = user;
         this.alarmDate = alarmDate;
+        this.title = title;
         this.text = text;
         this.checked = checked;
         user.getAlarmList().add(this);

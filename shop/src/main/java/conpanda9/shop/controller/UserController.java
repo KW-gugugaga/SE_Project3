@@ -16,11 +16,12 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.thymeleaf.model.IModel;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.constraints.NotBlank;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -303,4 +304,45 @@ public class UserController {
             return "redirect:/";
         }
     }
+    @GetMapping("/alarms")
+    public String getAlarm(HttpServletRequest request, Model model){
+        Long id = (Long) request.getSession().getAttribute("user");
+        if(id == null) {
+            return "redirect:/";
+        }
+        log.info("id={}",id);
+
+        List<Alarm> alarm = userService.findAlarm(id);
+        for (Alarm alarm1 : alarm) {
+            log.info("alarm={}",alarm1.getTitle());
+            log.info("alarm.checked={}",alarm1.isChecked());
+
+        }
+        Long a_cnt = userService.countAlarm(id);
+        log.info("안읽은거 ;={} ",a_cnt);
+
+        model.addAttribute("alarms",alarm);
+        model.addAttribute("a_cnt",a_cnt);
+        return "user/alarms/alarm";
+    }
+    @PostMapping("/alarms/{alarmId}")
+    public String PostAlarm(@PathVariable("alarmId") Long id, Model model, HttpServletResponse response) throws IOException {
+        response.setContentType("text/html;charset=euc-kr");
+        PrintWriter out = response.getWriter();
+        String message="알림 확인 완료";
+        out.println("<script>alert('"+ message +"'); window.close(); </script>");
+        out.flush();
+        Alarm alarm = userService.updateAlarm(id);
+        log.info("alarm.checked={}",alarm.isChecked());
+        log.info("alarm.내용={}",alarm.getTitle());
+        return "redirect:/user/alarms";
+    }
+    @GetMapping("/alarm/detail/{alarmID}")
+    public String getAlarmDetail(@PathVariable("alarmID") Long id, Model model) {
+        Alarm alarm= userService.findOneAlarm(id);
+        log.info("alarm.title={}",alarm.getTitle());
+        model.addAttribute("alarm", alarm);
+        return "user/alarms/detail";
+    }
+
 }

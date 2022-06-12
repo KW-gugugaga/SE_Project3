@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 57%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #6DA6D9;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
+
+        .button-18 {
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+
+        .no-read {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+            font-weight: bold;
+        }
+
+        .read {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+        }
+
+        .edit-input {
+            margin-bottom: 10px;
+        }
+
+        .blinking {
+            -webkit-animation: blink 1s ease-in-out infinite alternate;
+            -moz-animation: blink 1s ease-in-out infinite alternate;
+            animation: blink 1s ease-in-out infinite alternate;
+        }
+
+        @-webkit-keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-moz-keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Con Panda</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    * Template Name: Appland - v4.7.0
+    * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+<header th:replace="navbar :: navbarFragment"></header>
+
+
+<section style="margin-top: 40px;text-align: center">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        내 알림
+    </h2><br>
+    <div style="margin: auto" >
+        <p th:unless="${a_cnt==0}" th:text="'💡미확인 알림이 ' + ${a_cnt} + '개 있습니다!💡'"></p>
+        <div th:if="${a_cnt==0}" >
+            <p style="margin:auto;">미확인 알림이 없습니다!</p>
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>확인여부</th>
+                    <th>알림 내용</th>
+                    <th>알림 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="alarm : ${alarms}"
+                    th:onclick="|javascript:clickEvent('${alarm.id}')|">
+                    <td class="blinking no-read" th:if="${alarm.checked == false}" th:text="'미확인'"></td>
+                    <td class="read" th:if="${alarm.checked == true}" th:text="'확인 완료'"></td>
+
+                    <td class="blinking" th:if="${alarm.checked == false}" th:text="${alarm.title}">texts</td>
+                    <td th:if="${alarm.checked == true}" th:text="${alarm.title}">texts</td>
+
+                    <td th:text="${alarm.alarmDate}">time</td>
+                </tr>
+                </tbody>
+            </table><br>
+            <input type="button" class="button-18" onclick="location.href='/main'" value="홈으로 돌아ㅠㄱ기">
+        </div>
+    </div>
+</section>
+<script>
+    function clickEvent(id) {
+        window.open('/user/alarm/detail/' + id, 'alarm detail', 'width=650,height=650,location=no,status=no,scrollbars=yes');
+    }
+</script>
+<script src="/vendor/aos/aos.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

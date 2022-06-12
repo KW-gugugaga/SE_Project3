@@ -160,4 +160,24 @@ public class UserRepository {
     public void saveReport(Report report) {
         em.persist(report);
     }
+
+    public Long countAlarm(Long id){
+        return (Long) em.createQuery("select count(a) from Alarm as a where a.user.id = :id and a.checked = false")
+                .setParameter("id",id)
+                .getSingleResult();
+    }
+    public List<Alarm> findAlarm(Long id) { //유저의 정보 받아와서 알람 찾아옴
+        return em.createQuery("select a from Alarm as a order by a.alarmDate desc", Alarm.class)
+                .getResultList().stream()
+                .filter(a -> a.getUser().getId().equals(id)).collect(Collectors.toList());
+    }
+    @Transactional
+    public void saveAlarm(Alarm Alarm) {
+        em.persist(Alarm);
+    }
+
+    public Alarm findOneAlarm(Long id){
+        return em.find(Alarm.class,id);
+    }
+
 }
