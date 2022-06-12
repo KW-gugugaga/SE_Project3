@@ -14,6 +14,7 @@ import org.springframework.validation.FieldError;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -109,6 +110,10 @@ public class UserService {
         return userRepository.findStore(id);
     }
 
+    public Optional<Seller> findOtherStore(Long id) {
+        return userRepository.findOtherStore(id);
+    }
+
     public List<Sold> findSolds(Long id) {
         return userRepository.findSolds(id);
     }
@@ -141,5 +146,18 @@ public class UserService {
 
     public Optional<User> findPw(String loginId, String email) {
         return userRepository.findPw(loginId, email);
+    }
+
+    public Double getStoreStarRate(Long id) {
+        List<Review> reviewList = userRepository.findAllReview().stream().filter(r -> r.getSeller().getId().equals(id)).collect(Collectors.toList());
+        Integer totalStarRate = 0;
+        for (Review review : reviewList) {
+            totalStarRate += review.getStar();
+        }
+        return (double) totalStarRate / (double) reviewList.size();
+    }
+
+    public void saveReport(Report report) {
+        userRepository.saveReport(report);
     }
 }

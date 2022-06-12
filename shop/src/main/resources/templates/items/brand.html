@@ -162,7 +162,7 @@
             <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
             <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
             <td th:text="${gifticon.expireDate}">expireDate</td>
-            <td th:text="${gifticon.lastModifiedDate}">lastModifiedDate</td>
+            <td th:text="${#temporals.format(gifticon.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}">lastModifiedDate</td>
         </tr>
         </tbody>
     </table>

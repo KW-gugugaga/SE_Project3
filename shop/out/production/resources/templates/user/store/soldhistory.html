@@ -146,7 +146,7 @@
                     <td th:text="${sold.gifticon.brand.name}">brand</td>
                     <td th:text="${sold.gifticon.originalPrice}">originalPrice</a></td>
                     <td th:text="${sold.soldPrice}">soldPrice</a></td>
-                    <td th:text="${sold.soldDate}">soldPrice</a></td>
+                    <td th:text="${#temporals.format(sold.soldDate, 'yyyy-MM-dd HH:mm:ss')}">soldPrice</a></td>
                     <td th:text="${sold.gifticon.expireDate}">expireDate</a></td>
                 </tr>
                 </tbody>

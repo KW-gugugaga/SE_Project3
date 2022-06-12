@@ -37,13 +37,16 @@ public class ItemController {
     public String getBrand(@PathVariable("brandId") Long id, Model model) {
         log.info("brand id={}", id);
         Brand brand = itemService.findBrand(id);
+        /**
+         * 기본은 최신순으로 정렬
+         * 브랜드에 속하는 기프티콘들 중 판매중인것만
+         * 강퇴 회원의 상품은 띄우지 않음
+         */
         List<Gifticon> gifticons = itemService.findBrand(id).getGifticonList()
-                .stream().filter(g -> g.getState().equals(GifticonState.Selling))
-                .collect(Collectors.toList());   // 브랜드에 속하는 기프티콘들 중 판매중인것만
-        gifticons.sort(new GifticonDateComparator());   // 기본은 최신순으로 정렬
-        for (Gifticon gifticon : gifticons) {
-            log.info("giticon lastModifiedDate={}", gifticon.getLastModifiedDate());
-        }
+                .stream()
+                .filter(g -> g.getState().equals(GifticonState.Selling) && g.getSeller().getUser() != null)
+                .sorted(new GifticonDateComparator())
+                .collect(Collectors.toList());
         model.addAttribute("brand", brand);
         model.addAttribute("gifticons", gifticons);
         return "items/brand";

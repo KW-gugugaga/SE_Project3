@@ -100,7 +100,7 @@
             <tr class="question-list" th:each="question : ${questions}"
                 th:onclick="|location.href='@{/admin/question/{pv1}(pv1=${question.id})}'|">
                 <td th:text="${question.title}">title</td>
-                <td th:text="${question.uploadDate}">question</td>
+                <td th:text="${#temporals.format(question.uploadDate, 'yyyy-MM-dd HH:mm:ss')}">question</td>
                 <td th:text="${question.user.nickname}">nickname</td>
                 <td class="answer-complete" th:if="${question.answer != null}" th:text="'답변 완료'"></td>
                 <td class="answer-no" th:if="${question.answer == null}" th:text="'답변 대기'"></td>

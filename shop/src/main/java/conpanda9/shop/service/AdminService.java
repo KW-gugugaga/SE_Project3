@@ -85,11 +85,7 @@ public class AdminService {
 
         log.info("delete user id={}", id);
         Optional<Seller> seller = adminRepository.findSellerByUserId(id);
-        if(seller.isPresent()) {
-            log.info("삭제하려는 user의 상점 존재");
-            seller.get().setUser(null);
-            //seller.ifPresent(value -> value.setUser(null));   // seller가 있는 경우 user null
-        }
+        seller.ifPresent(value -> value.setUser(null));
 
         List<Shared> sharedList = adminRepository.findSharedByUserId(id);
         if(!sharedList.isEmpty()) {
@@ -104,9 +100,33 @@ public class AdminService {
                 sold.setUser(null);
             }
         }
+
+        List<Report> reportList = adminRepository.findReportByUserId(id);
+        if(!reportList.isEmpty()) {
+            for (Report report : reportList) {
+                report.setUser(null);
+            }
+        }
     }
 
     public void deleteUser(Long id) {
         adminRepository.deleteUser(id);
+    }
+
+    public Report findReport(Long id) {
+        return adminRepository.findReport(id);
+    }
+
+    public List<Gifticon> findAllGitficons() {
+        return adminRepository.findAllGifticons();
+    }
+
+    public void setNullGifticon(Long id) {
+        // seller가 팔고있는 상품 목록에서 gifticon 삭제
+        Gifticon gifticon = adminRepository.findGifticon(id);
+        gifticon.getSeller().getGifticonList().remove(gifticon);   // seller 리스트에서 기프티콘 목록 삭제
+        gifticon.getBrand().getGifticonList().remove(gifticon);   // brand 리스트에서 기프티콘 목록 삭제
+        gifticon.getCategory().getGitficonList().remove(gifticon);   // category 리스트에서 기프티콘 목록 삭제
+        adminRepository.deleteGifticon(id);
     }
 }

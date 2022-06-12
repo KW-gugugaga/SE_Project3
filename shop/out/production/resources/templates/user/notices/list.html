@@ -131,7 +131,7 @@
                 <td th:if="${notice.important == true}" style="color:darkred !important;">중요</td>
                 <td th:if="${notice.important != true}"></td>
                 <td th:text="${notice.title}">title</a></td>
-                <td th:text="${notice.uploadDate}">updateDate</td>
+                <td th:text="${#temporals.format(notice.updateDate, 'yyyy-MM-dd HH:mm:ss')}">updateDate</td>
                 <td th:text="${notice.count}">count</td>
             </tr>
             </tbody>

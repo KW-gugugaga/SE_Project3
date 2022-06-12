@@ -156,8 +156,15 @@ public class TestDataInit {
         itemRepository.saveQuestion(question3);
         itemRepository.saveQuestion(question4);
 
-        Review review = new Review(user2, store, "review1", 1);
-        itemRepository.saveReview(review);
+        Review review1 = new Review(user2, store, "review1", 3);
+        Review review2 = new Review(user2, store, "review1", 5);
+        Review review3 = new Review(user2, store, "review1", 3);
+        itemRepository.saveReview(review1);
+        itemRepository.saveReview(review2);
+        itemRepository.saveReview(review3);
+
+        Report report = new Report(user2, store, "report", ReportReason.FAKE);
+        userRepository.saveReport(report);
 
         log.info("test data init");
     }

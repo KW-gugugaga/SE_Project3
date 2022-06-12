@@ -125,7 +125,7 @@
             </tr>
             <tr>
                 <th>작성일</th>
-                <td th:text="${notice.uploadDate}">uploadDate</td>
+                <td th:text="${#temporals.format(notice.uploadDate, 'yyyy-MM-dd HH:mm:ss')}">uploadDate</td>
             </tr>
             <tr>
                 <th>조회수</th>

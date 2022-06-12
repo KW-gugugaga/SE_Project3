@@ -40,6 +40,10 @@ public class UserRepository {
         return findAllStore().stream().filter(s -> s.getUser().getId().equals(id)).findAny();
     }
 
+    public Optional<Seller> findOtherStore(Long id) {
+        return findAllStore().stream().filter(s -> s.getId().equals(id)).findAny();
+    }
+
     public List<User> findAll() {
         return em.createQuery("select u from User as u", User.class).getResultList();
     }
@@ -150,5 +154,10 @@ public class UserRepository {
         return findAll().stream()
                 .filter(u -> u.getLoginId().equals(loginId) && u.getEmail().equals(email))
                 .findAny();
+    }
+
+    @Transactional
+    public void saveReport(Report report) {
+        em.persist(report);
     }
 }

@@ -86,7 +86,7 @@
         </tr>
         <tr>
             <th>작성일</th>
-            <td th:text="${question.lastModifiedDate}">lastModifiedDate</td>
+            <td th:text="${#temporals.format(question.lastModifiedDate, 'yyyyMM-dd HH:mm:ss')}">lastModifiedDate</td>
         </tr>
         </tbody>
     </table><br>
