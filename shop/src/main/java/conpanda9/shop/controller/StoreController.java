@@ -1,6 +1,5 @@
 package conpanda9.shop.controller;
 
-import conpanda9.shop.DTO.ReviewDTO;
 import conpanda9.shop.domain.*;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,7 +113,6 @@ public class StoreController {
 
     @GetMapping("/review/{storeId}")
     public String getStoreReview(@PathVariable("storeId") Long id, Model model) {
-        model.addAttribute("reviewDTO", new ReviewDTO());
         List<Review> reviews = userService.findReviews(id);
         model.addAttribute("name", userService.findOtherStore(id).get().getName());
         Double starRate = Math.round(userService.getStoreStarRate(id) * 10) / 10.0;
@@ -122,7 +123,56 @@ public class StoreController {
 
     @GetMapping("/review/add/{storeId}")
     public String getAddReview(@PathVariable("storeId") Long id, Model model) {
-        model.addAttribute("reviewDTO", new ReviewDTO());
+        Optional<Seller> store = userService.findOtherStore(id);
+        String name = store.get().getName();
+        model.addAttribute("error", null);
+        model.addAttribute("name", name);
         return "user/otherstore/addreview";
+    }
+
+    @PostMapping("/review/add/{storeId}")
+    public String postAddReview(HttpServletRequest request,
+                                HttpServletResponse response,
+                                @PathVariable("storeId") Long id, Model model,
+                                @RequestParam(value = "star", defaultValue = "") String star,
+                                @RequestParam(value = "review", defaultValue = "") String review) throws IOException {
+        log.info("star={}", star);
+        log.info("review ={}", review);
+        String error = null;
+        Optional<Seller> store = userService.findOtherStore(id);
+        String name = store.get().getName();
+        if(star.equals("") && review.equals("")) {
+            error = "별점을 선택하고 리뷰를 입력하세요.";
+            model.addAttribute("error", error);
+            model.addAttribute("name", name);
+            return "user/otherstore/addreview";
+        } else if(star.equals("")) {
+            error = "별점을 선택하세요.";
+            model.addAttribute("error", error);
+            model.addAttribute("name", name);
+            return "user/otherstore/addreview";
+        } else if(review.equals("")) {
+            error = "리뷰 내용을 입력하세요";
+            model.addAttribute("error", error);
+            model.addAttribute("name", name);
+            return "user/otherstore/addreview";
+        }
+
+        // TODO
+        // 리뷰 성공 로직
+        Long userId = (Long) request.getSession().getAttribute("user");
+        if(userId == null) {
+            return "redirect:/";
+        }
+        User user = userService.findUser(userId);
+        Review userReview = new Review(user, userService.findOtherStore(id).get(), review, Integer.valueOf(star));
+        userService.saveReview(userReview);
+
+        String message = "리뷰 등록이 완료되었습니다.";
+        
+        response.setContentType("text/html;charset=euc-kr");
+        PrintWriter writer = response.getWriter();
+        writer.println("<script>alert('"+ message +"'); window.close(); </script>");
+        return null;
     }
 }

@@ -180,4 +180,15 @@ public class UserRepository {
         return em.find(Alarm.class,id);
     }
 
+    @Transactional
+    public void saveReview(Review userReview) {
+        em.persist(userReview);
+    }
+
+    public Optional<User> findOneByPhoneNumber(String phoneNumber) {
+        log.info("UserRepository findOneByPhoneNumber");
+        return findAll().stream()
+                .filter(m ->m.getPhoneNumber().equals(phoneNumber))
+                .findAny();
+    }
 }

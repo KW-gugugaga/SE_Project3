@@ -164,7 +164,7 @@ public class UserController {
         }
 
         userService.editUser(id, editDTO);
-        return "redirect:/user/myinfo";
+        return "redirect:/user/info/myinfo";
     }
 
     @GetMapping("/info/edit/pw/{userId}")
@@ -345,6 +345,19 @@ public class UserController {
         log.info("alarm.title={}",alarm.getTitle());
         model.addAttribute("alarm", alarm);
         return "user/alarms/detail";
+    }
+
+    @GetMapping("/wallet")
+    public String getWallet(HttpServletRequest request, Model model) {
+        Long userId = (Long) request.getSession().getAttribute("user");
+        if(userId == null) {
+            return "redirect:/";
+        }
+        User user = userService.findUser(userId);
+        Long point = user.getPoint();
+        model.addAttribute("point", point);
+        model.addAttribute("user", user);
+        return "user/wallet";
     }
 
 }

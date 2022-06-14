@@ -28,14 +28,13 @@ public class User {
 
     private String phoneNumber;
 
+    private Long point;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Alarm> alarmList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Question> questionList = new ArrayList<>();
-
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    //private List<Report> reportList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Review> reviewList = new ArrayList<>();
@@ -46,5 +45,6 @@ public class User {
         this.nickname = nickname;
         this.email = email;
         this.phoneNumber = phoneNumber;
+        this.point = 0L;
     }
 }
