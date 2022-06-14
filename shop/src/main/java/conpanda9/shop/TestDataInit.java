@@ -40,15 +40,15 @@ public class TestDataInit {
         adminRepository.saveNotice(notice1);
         adminRepository.saveNotice(notice2);
 
-        Category cate1 = new Category("프랜차이즈");
-        Category cate2 = new Category("음료");
-        Category cate3 = new Category("생활");
-        Category cate4 = new Category("cate4");
-        Category cate5 = new Category("cate5");
-        Category cate6 = new Category("cate6");
-        Category cate7 = new Category("cate7");
-        Category cate8 = new Category("cate8");
-        Category cate9 = new Category("cate9");
+        Category cate1 = new Category("프랜차이즈", "/img/24-hours.png");
+        Category cate2 = new Category("음료","/img/coffee.png");
+        Category cate3 = new Category("베이커리","/img/bread.png");
+        Category cate4 = new Category("한식","/img/rice.png");
+        Category cate5 = new Category("햄버거","/img/burger.png");
+        Category cate6 = new Category("치킨","/img/fried-chicken.png");
+        Category cate7 = new Category("상품권","/img/gift-card.png");
+        Category cate8 = new Category("아이스크림","/img/ice-cream.png");
+        Category cate9 = new Category("기타","/img/more.png");
 
         itemRepository.saveCategory(cate1);
         itemRepository.saveCategory(cate2);
