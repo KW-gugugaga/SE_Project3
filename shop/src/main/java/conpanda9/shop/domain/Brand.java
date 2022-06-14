@@ -18,6 +18,8 @@ public class Brand {
 
     private String name;
 
+    private String img;
+
     /**
      * 브랜드와 카테고리를 연결
      * 하나의 브랜드는 하나의 카테고리에만 속한다고 가정
@@ -39,9 +41,10 @@ public class Brand {
     @OneToMany(mappedBy = "brand")
     private List<Gifticon> gifticonList = new ArrayList<>();
 
-    public Brand(String name, Category category) {
+    public Brand(String name, Category category, String img) {
         this.name = name;
         this.category = category;   // 양방향으로 연결
+        this.img = img;
         category.getBrandList().add(this);
     }
 }

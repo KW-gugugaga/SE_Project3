@@ -40,15 +40,15 @@ public class TestDataInit {
         adminRepository.saveNotice(notice1);
         adminRepository.saveNotice(notice2);
 
-        Category cate1 = new Category("프랜차이즈", "/img/24-hours.png");
-        Category cate2 = new Category("음료","/img/coffee.png");
-        Category cate3 = new Category("베이커리","/img/bread.png");
-        Category cate4 = new Category("한식","/img/rice.png");
-        Category cate5 = new Category("햄버거","/img/burger.png");
-        Category cate6 = new Category("치킨","/img/fried-chicken.png");
-        Category cate7 = new Category("상품권","/img/gift-card.png");
-        Category cate8 = new Category("아이스크림","/img/ice-cream.png");
-        Category cate9 = new Category("기타","/img/more.png");
+        Category cate1 = new Category("치킨", "/img/Category/fried-chicken.png");
+        Category cate2 = new Category("음료","/img/Category/coffee.png");
+        Category cate3 = new Category("베이커리","/img/Category/bread.png");
+        Category cate4 = new Category("한식","/img/Category/rice.png");
+        Category cate5 = new Category("햄버거","/img/Category/burger.png");
+        Category cate6 = new Category("편의점","/img/Category/24-hours.png");
+        Category cate7 = new Category("상품권","/img/Category/gift-card.png");
+        Category cate8 = new Category("아이스크림","/img/Category/ice-cream.png");
+        Category cate9 = new Category("기타","/img/Category/more.png");
 
         itemRepository.saveCategory(cate1);
         itemRepository.saveCategory(cate2);
@@ -60,18 +60,30 @@ public class TestDataInit {
         itemRepository.saveCategory(cate8);
         itemRepository.saveCategory(cate9);
 
-        Brand brand1 = new Brand("맘스터치", cate1);
-        Brand brand2 = new Brand("맥도날드", cate1);
-        Brand brand3 = new Brand("스타벅스", cate2);
-        Brand brand4 = new Brand("이디야", cate2);
-        Brand brand5 = new Brand("올리브영", cate3);
-        Brand brand6 = new Brand("신세계백화점", cate3);
+        Brand brand1 = new Brand("맘스터치", cate1, "/img/");
+        Brand brand2 = new Brand("맥도날드", cate1,"/img/");
+        Brand brand3 = new Brand("스타벅스", cate2, "/img/cafe/starbucks.png");
+        Brand brand4 = new Brand("이디야", cate2,"/img/cafe/ediya.png");
+        Brand brand5 = new Brand("빽다방", cate2, "/img/cafe/bback.png");
+        Brand brand6 = new Brand("앤젤리너스", cate2, "/img/cafe/angelinus.png");
+        Brand brand7 = new Brand("공차", cate2, "/img/cafe/gongcha.png");
+        Brand brand8 = new Brand("메가커피", cate2, "/img/cafe/mega.png");
+        Brand brand9 = new Brand("탐앤탐스", cate2, "/img/cafe/tomntoms.jpg");
+        Brand brand10 = new Brand("투썸플레이스", cate2, "/img/cafe/twosomeplace.png");
+        Brand brand14 = new Brand("올리브영", cate3,"/img/");
+        Brand brand15 = new Brand("신세계백화점", cate3,"/img");
         itemRepository.saveBrand(brand1);
         itemRepository.saveBrand(brand2);
         itemRepository.saveBrand(brand3);
         itemRepository.saveBrand(brand4);
         itemRepository.saveBrand(brand5);
         itemRepository.saveBrand(brand6);
+        itemRepository.saveBrand(brand7);
+        itemRepository.saveBrand(brand8);
+        itemRepository.saveBrand(brand9);
+        itemRepository.saveBrand(brand10);
+        itemRepository.saveBrand(brand14);
+        itemRepository.saveBrand(brand15);
 
         /*
         프랜차이즈

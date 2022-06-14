@@ -4,6 +4,38 @@
 
 <head>
     <style>
+        #wrap {
+            margin: 0px auto;
+        }
+
+        #categories {
+            justify-content: center; /* 수평 가운데 정렬 */
+            display: grid;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+            grid-template-rows: 200px 200px 200px;
+            grid-template-columns: 200px 200px 200px;
+        }
+        img{
+            width: 150px;
+            height: 150px;
+            margin-bottom: 15px;
+        }
+        input{
+            width: 180px;
+            background-color: #fff;
+            border: none;
+        }
+        #categories .category {
+            background: #fff;
+            border: 1px dashed #555;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #AAA;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -73,10 +105,21 @@
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         BRAND LIST
     </h2><br>
+
     <h3 th:value="${category.name}"></h3>
-    <div th:each="brand : ${brands}">
-        <input type="button" th:value="${brand.name}" th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${brand.id})}'|">
-    </div>
+
+    <wrap id="wrap">
+        <div style="margin-top: 40px;">
+            <div id="categories" style="margin:auto; width: 600px;">
+                <div class="category" th:each="brand : ${brands}">
+                    <div style="width: 200px"><a th:href="@{/items/brand/{pv1}(pv1=${brand.id})}"><img th:src="${brand.img}"></a></div>
+                    <div><input type="button" th:value="${brand.name}"
+                                th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${brand.id})}'|">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </wrap>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>
