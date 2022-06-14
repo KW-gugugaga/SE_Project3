@@ -198,7 +198,7 @@ public class ItemController {
         Brand brand = itemService.findBrandByName(uploadDTO.getBrandName());
         LocalDate expireDate = LocalDate.parse(uploadDTO.getExpireDate(), DateTimeFormatter.ISO_DATE);
 
-        Gifticon newGifticon = new Gifticon(uploadDTO.getName(), seller, category, brand, null, uploadDTO.getDescription(),
+        Gifticon newGifticon = new Gifticon(uploadDTO.getName(), seller, category, brand, null, null, uploadDTO.getDescription(),
                 originalPrice, sellingPrice, expireDate, LocalDateTime.now(), LocalDateTime.now());
 
         itemService.saveGifticon(newGifticon);
