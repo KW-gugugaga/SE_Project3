@@ -84,7 +84,9 @@
     <tr>
       <th>가격</th>
       <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
-      <del th:text="${gifticon.originalPrice}">originalPrice</del>
+      <td>
+        <del th:text="${gifticon.originalPrice}">originalPrice</del>
+      </td>
       <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
     </tr>
     <tr>

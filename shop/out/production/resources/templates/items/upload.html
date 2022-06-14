@@ -167,7 +167,12 @@
                 <select th:field="*{brandName}" th:value="*{brandName}" th:id="brand_name">
                 </select>
                 <div class="field-error" th:errors="*{brandName}">브랜드 선택 오류</div>
-
+            </tr>
+            <tr>
+                <div class="col-12">
+                    <label th:for="image" class="form-label">상품 이미지 업로드</label>
+                    <input type="file" class="form-control" id="imgFile" name="imgFile">
+                </div>
             </tr>
             <tr>
                 <td>
