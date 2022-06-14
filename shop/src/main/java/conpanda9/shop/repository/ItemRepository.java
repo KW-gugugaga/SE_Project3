@@ -74,6 +74,10 @@ public class ItemRepository {
         return findAllGifticon().stream().filter(g -> g.getState().equals(GifticonState.Selling)).collect(Collectors.toList());
     }
 
+    public Gifticon findGifticon(Long id) {
+        return em.find(Gifticon.class, id);
+    }
+
     @Transactional
     public void updateGifticonStateSold(Gifticon gifticon) {
         gifticon.setState(GifticonState.Sold);

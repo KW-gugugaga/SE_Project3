@@ -10,6 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -141,9 +143,8 @@ public class ItemController {
             model.addAttribute("brands", new Brand());
             return "items/upload";
         } else {
-            return "redirect:/main";
+            return "redirect:/item";
         }
-
     }
 
     @PostMapping("/SelectedCategory")
@@ -160,7 +161,7 @@ public class ItemController {
             brandNameOnly.add(brand.getName());
         }
 //        List<Brand> brand=itemService.findBrandbyCategory(category.getId());
-//        System.out.println(brand);
+//        System.out.println(bran                                                                                         d);
         return brandNameOnly;
     }
 
@@ -174,11 +175,20 @@ public class ItemController {
          */
 
         System.out.println("itemController post upload");
+        List<Category> categories = itemService.findAllCategory();
         if (bindingResult.hasErrors()) {   // 필드 에러
-            List<Category> categories = itemService.findAllCategory();
             model.addAttribute("categories", categories);
             return "items/upload";
         }
+        long originalPrice = Long.parseLong(uploadDTO.getOriginalPrice());
+        long sellingPrice = Long.parseLong(uploadDTO.getSellingPrice());
+
+        if(originalPrice<sellingPrice) {
+            bindingResult.addError(new ObjectError("uploadDTO", "원가보다 판매가가 높습니다."));
+            model.addAttribute("categories", categories);
+            return "items/upload";
+        }
+
         Long id = (Long) request.getSession().getAttribute("user");
         User user = userService.findUser(id);
         Optional<Seller> storeOptional = userService.findStore(id);
@@ -186,9 +196,6 @@ public class ItemController {
         long categoryId = Long.parseLong(uploadDTO.getCategoryId());
         Category category = itemService.findCategory(categoryId);
         Brand brand = itemService.findBrandByName(uploadDTO.getBrandName());
-        System.out.println("brand.getName() = " + brand.getName());
-        long originalPrice = Long.parseLong(uploadDTO.getOriginalPrice());
-        long sellingPrice = Long.parseLong(uploadDTO.getSellingPrice());
         LocalDate expireDate = LocalDate.parse(uploadDTO.getExpireDate(), DateTimeFormatter.ISO_DATE);
 
         Gifticon newGifticon = new Gifticon(uploadDTO.getName(), seller, category, brand, null, uploadDTO.getDescription(),
@@ -196,6 +203,28 @@ public class ItemController {
 
         itemService.saveGifticon(newGifticon);
 
-        return "redirect:/main";
+        return "redirect:/items/item/"+newGifticon.getId();
+    }
+
+    @GetMapping("/item/{g_id}")
+    public String eachItem(HttpServletRequest request, @PathVariable("g_id") long g_id, Model model) {
+
+        Long id = (Long) request.getSession().getAttribute("user");
+        System.out.println("id = " + id);
+        Gifticon gifticon = itemService.findGifticon(g_id);
+
+        Optional<Seller> storeOptional = userService.findStore(id);
+        Seller seller = storeOptional.get();
+        System.out.println("seller.getId() = " + seller.getUser().getId());
+
+
+        if(seller.getUser().getId()==id) {   // 내가 상품 주인이다!
+            model.addAttribute("gifticon", gifticon);
+            System.out.println("내꺼다");
+            return "items/myitem";
+        } else {
+            model.addAttribute("gifticon", gifticon);
+            return "items/item";
+        }
     }
 }
