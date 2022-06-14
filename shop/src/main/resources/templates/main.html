@@ -38,17 +38,32 @@
         }
 
         #categories {
+            justify-content: center; /* 수평 가운데 정렬 */
             display: grid;
-            grid-template-rows: 100px 100px 100px;
-            grid-template-columns: 100px 100px 100px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+            grid-template-rows: 200px 200px 200px;
+            grid-template-columns: 200px 200px 200px;
         }
-
+        img{
+            width: 150px;
+            height: 150px;
+            margin-bottom: 15px;
+        }
+        input{
+            width: 180px;
+            background-color: #fff;
+            border: none;
+        }
         #categories .category {
-            background: #444;
+            background: #fff;
             border: 1px solid #555;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
             color: #AAA;
         }
 
@@ -127,11 +142,15 @@
             <input type="button" class="button-18" value="특가상품" th:onclick="|location.href='@{/items/special}'|">
             <input type="button" class="button-18" value="마감임박상품" th:onclick="|location.href='@{/items/deadline}'|">
             <input type="button" class="button-18" value="나눔 상품" th:onclick="|location.href='@{/items/share}'|">
-        </div><br><br>
-        <div id="categories">
-            <div class="category" th:each="category : ${categories}">
-                <input type="button" th:value="${category.name}"
-                       th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
+        </div>
+        <div style="margin: 40px auto;">
+            <div id="categories" >
+                <div class="category" th:each="category : ${categories}">
+                    <div style="width: 200px"><a th:href="@{/items/category/{pv1}(pv1=${category.id})}"><img th:src="${category.img}"></a></div>
+                    <div><input type="button" th:value="${category.name}"
+                           th:onclick="|location.href='@{/items/category/{pv1}(pv1=${category.id})}'|">
+                    </div>
+                </div>
             </div>
         </div>
     </wrap>
