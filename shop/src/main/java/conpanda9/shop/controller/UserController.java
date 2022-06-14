@@ -209,7 +209,9 @@ public class UserController {
         Optional<Seller> storeOptional = userService.findStore((Long) request.getSession().getAttribute("user"));
         if(storeOptional.isPresent()) {   // 상점이 있을 경우 총 판매 금액 계산
             totalSellPrice = userService.getTotalSellPrice(storeOptional.get().getId());
+            Double starRate = Math.round(userService.getStoreStarRate(storeOptional.get().getId()) * 10) / 10.0;
             model.addAttribute("store", storeOptional.get());
+            model.addAttribute("starRate", starRate);
         } else {
             model.addAttribute("store", null);
         }

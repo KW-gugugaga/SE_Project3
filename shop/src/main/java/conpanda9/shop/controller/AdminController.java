@@ -30,8 +30,7 @@ public class AdminController {
 
     @GetMapping("/main")
     public String main() {
-
-        return "admin/main";
+        return "redirect:/admin/notice";
     }
 
     @GetMapping("/notice")
@@ -191,6 +190,9 @@ public class AdminController {
          */
         // TODO
         // 강퇴당한 회원이 팔고있는 상품들은 지워야하는데 상점을 지울 수가 없어서 일단 나중에 처리
+
+        // TODO
+        // 상점 없는 회원 삭제 안됨
         adminService.setNullUserActHistory(id);
         /**
          * 관련 거래 내역 다 처리 후에 user 지움

@@ -4,11 +4,16 @@
 
 <head>
     <style>
-        table {
+        .info-table {
+            border: none;
+            margin: auto;
+        }
+
+        .list-table {
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 30%;
+            width: 57%;
             overflow: hidden;
             border-style: dashed !important;
             border-width: 1px !important;
@@ -16,19 +21,18 @@
             border-radius: 5px;
         }
 
-        th {
+        .list-th {
             text-align: center;
             background: #6DA6D9;
-            color: #fff;
         }
 
-        thead {
+        .list-thead {
             font-weight: bold;
             color: #fff;
-            background: #8cacd0;
+            background: #6DA6D9;
         }
 
-        td, th {
+        .list-td, .list-th {
             padding: 1em .5em;
             vertical-align: middle;
             border-style: dashed !important;
@@ -36,7 +40,7 @@
             border-color: #7f878d !important;
         }
 
-        td {
+        .list-td {
             background: #fff;
         }
 
@@ -150,39 +154,76 @@
 
 <section style="text-align: center; margin-top: 40px;">
     <script type="text/javascript" th:inline="javascript">
-        const reportSuccess = [[ ${reportSuccess} ]];
-        if(reportSuccess === "true") {
+        const reportSuccess = [[ ${reportSuccess}]];
+        if (reportSuccess === "true") {
             alert("신고 접수가 완료되었습니다.\n관리자가 신고 처리 후 결과를 알려드리겠습니다.");
         }
     </script>
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);"
         th:text="${store.user.nickname} + '님의 상점입니다!'"></h2><br>
-    <div>
-        <img src="/img/star.png" style="height: 30px; width: 30px;" alt="">
-        <p th:text="${starRate}"></p>
-    </div>
+    <table class="info-table">
+        <td style="padding: 20px;">
+            <img src="/img/star.png" style="height: 30px; width: 30px;" alt="">
+            <p th:text="${starRate}"></p>
+        </td>
+        <td style="padding: 20px;">
+            <img src="/img/heart.png" style="height: 30px; width: 30px;" alt="">
+            <p th:text="${store.heart}"></p>
+        </td>
+        <td style="padding: 20px;">
+            <img src="/img/share.png" style="height: 30px; width: 30px;" alt="">
+            <p th:text="${store.share}"></p>
+        </td>
+    </table>
     <div style="text-align: center; margin: 0 auto; padding-bottom: 20px;">
-        <input class="button-18" type="button" th:onclick="|location.href='@{/store/selling/{pv1}(pv1=${store.id})}'|" value="판매내역">
-        <input class="button-18" type="button" th:onclick="|location.href='@{/store/review/{pv1}(pv1=${store.id})}}'|" value="상점 리뷰 확인">
+        <input class="button-18" type="button"
+               th:onclick="|window.open('@{/store/review/{pv1}(pv1=${store.id})}', 'review','width=510, height=480,location=no,status=no,scrollbars=yes')|"
+               value="상점 리뷰 확인">
+        <input class="button-18" type="button"
+               th:onclick="|window.open('@{/store/review/add/{pv1}(pv1=${store.id})}', 'review','width=510, height=480,location=no,status=no,scrollbars=yes')|"
+               value="상점 리뷰하기">
+        <input class="report-button" type="button"
+               th:onclick="|location.href='@{/store/report/{pv1}(pv1=${store.id})}'|"
+               value="상점 신고하기">
     </div>
-    <div>
-        <table>
-            <tbody>
-            <tr>
-                <th for="heart">찜 수</th>
-                <td th:text="${store.heart}" id="heart" name="heart"></td>
-            </tr>
-            <tr>
-                <th for="share">나눔 수</th>
-                <td th:text="${store.share}" id="share" name="share"></td>
-            </tr>
-            </tbody>
-        </table>
+    <div style="margin: auto" th:if="${sellings.isEmpty()}">
+        <p>판매 중인 상품 내역이 존재하지 않습니다.</p>
     </div>
-    <br>
-    <input class="report-button" type="button"
-           th:onclick="|location.href='@{/store/report/{pv1}(pv1=${store.id})}'|"
-           value="상점 신고하기">
+    <div th:unless="${sellings.isEmpty()}">
+        <p style="font-size: 18px;" th:text="${name} + ' 상점의 판매 중인 상품 내역입니다.'"></p>
+        <div th:unless="${sellings.isEmpty()}">
+            <table class="list-table">
+                <thead class="list-thead">
+                <tr class="list-tr">
+                    <th class="list-th">이름</th>
+                    <th class="list-th">카테고리</th>
+                    <th class="list-th">브랜드</th>
+                    <th class="list-th">원가</th>
+                    <th class="list-th">판매가</th>
+                    <th class="list-th">만료날짜</th>
+                    <th class="list-th">업로드날짜</th>
+                    <th class="list-th"></th>
+                </tr>
+                </thead>
+                <tbody class="list-tbody">
+                <tr class="list-tr" th:each="selling : ${sellings}"
+                    th:onclick="|location.href='#'|" style="cursor: pointer;">
+                    <td class="list-td" th:text="${selling.name}">name</a></td>
+                    <td class="list-td" th:text="${selling.category.name}">category</td>
+                    <td class="list-td" th:text="${selling.brand.name}">brand</td>
+                    <td class="list-td" th:text="${selling.originalPrice}">originalPrice</a></td>
+                    <td class="list-td" th:text="${selling.sellingPrice}">sellingPrice</a></td>
+                    <td class="list-td" th:text="${selling.expireDate}">expireDate</a></td>
+                    <td class="list-td" th:text="${#temporals.format(selling.uploadDate, 'yyyy-MM-dd')}">
+                        expireDate</a></td>
+                    <td class="list-td"><input type="button" class="button-18" style="height: 30px; font-size: 13px;"
+                                               th:onclick="|location.href='@{/user/store/selling/${buy.id}'|"
+                                               value="상품 확인"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

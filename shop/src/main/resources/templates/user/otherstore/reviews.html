@@ -15,16 +15,19 @@
             border-color: #7f878d !important;
             border-radius: 5px;
         }
+
         th {
             text-align: center;
             background: #6DA6D9;
             color: #fff;
         }
+
         thead {
             font-weight: bold;
             color: #fff;
             background: #6DA6D9;
         }
+
         td, th {
             padding: 1em .5em;
             vertical-align: middle;
@@ -32,12 +35,15 @@
             border-width: 1px !important;
             border-color: #7f878d !important;
         }
+
         td {
             background: #fff;
         }
+
         a {
             color: #6DA6D9;
         }
+
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -122,8 +128,17 @@
 
 <section style="margin-top: 20px;">
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-    STORE REVIEW
+        상점 리뷰
     </h2><br>
+    <div style="text-align: center;">
+        <div>
+            <p style="font-size: 18px;" th:text="${name} + '상점의 리뷰입니다.'"></p>
+        </div>
+        <div>
+            <img src="/img/star.png" style="height: 30px; width: 30px;" alt="">
+            <p th:text="${starRate}"></p>
+        </div>
+    </div>
     <div th:if="${reviews.isEmpty()}">
         <p>등록된 리뷰가 없습니다.</p>
     </div>

@@ -128,12 +128,12 @@
         <p>등록된 리뷰가 없습니다.</p>
     </div>
     <div th:unless="${reviews.isEmpty()}">
-        <table>
+        <table style="text-align: center;">
             <thead>
             <tr>
                 <th>작성자</th>
                 <th>내용</th>
-                <th>별점</th>
+                <th><img src="/img/star.png" style="height: 20px; width: 20px;" alt=""></th>
             </tr>
             </thead>
             <tbody>
