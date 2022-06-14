@@ -43,8 +43,8 @@ public class Gifticon{
     @JoinColumn(name = "brand_id")
     private Brand brand;   // 상품의 브랜드(여러 상품이 하나의 브랜드에 속할 수 있음)
 
-    private String image;   // 이미지 저장 경로
-    private String imageGifticon;   //실제 기프티콘 저장 경로
+    private String fakeImage;   // 이미지 저장 경로
+    private String realImage;   //실제 기프티콘 저장 경로
     private String description;   // 상품 설명
     private Long originalPrice;   // 원가
     private Long sellingPrice;   // 판매가
@@ -59,13 +59,16 @@ public class Gifticon{
     @OneToOne(mappedBy = "gifticon", cascade = CascadeType.REMOVE)
     private Sold sold;
 
-    public Gifticon(String name, Seller seller, Category category, Brand brand, String image, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
+
+
+    public Gifticon(String name, Seller seller, Category category, Brand brand, String fakeImage, String realImage, String description, Long originalPrice, Long sellingPrice, LocalDate expireDate, LocalDateTime uploadDate, LocalDateTime lastModifiedDate) {
         this.name = name;
         this.seller = seller;
         this.category = category;
         this.brand = brand;   // 상품에 브랜드 연결
         brand.getGifticonList().add(this);   // 브랜드에 상품 연결
-        this.image = image;
+        this.fakeImage = fakeImage;
+        this.realImage = realImage;
         this.description = description;
         this.originalPrice = originalPrice;
         this.sellingPrice = sellingPrice;

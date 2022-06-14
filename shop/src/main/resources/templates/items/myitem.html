@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <style>
+
+        .button-18 {
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+    </style>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Con Panda 9</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/img/favicon.png" rel="icon">
+  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/css/style.css" rel="stylesheet">
+  <!-- =======================================================
+  * Template Name: Appland - v4.7.0
+  * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+<header th:replace="navbar :: navbarFragment"></header>
+
+
+<section style="margin-top: 40px;">
+  <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+    기프티콘
+  </h2><br>
+  <table>
+    <tbody>
+    <tr>
+      <th>상품명</th>
+      <td th:text="${gifticon.name}">name</td>
+    </tr>
+    <tr>
+      <th>가격</th>
+      <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
+      <td>
+        <del th:text="${gifticon.originalPrice}">originalPrice</del>
+      </td>
+      <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
+    </tr>
+    <tr>
+      <th>유효기간</th>
+      <td th:text="${#temporals.format(gifticon.expireDate, 'yyyy-MM-dd')}">expireDate</td>
+    </tr>
+    <tr>
+      <th>상품 상세</th>
+      <td th:text="${gifticon.description}">description</td>
+    </tr>
+    </tbody>
+  </table><br>
+  <div style="text-align: center;">
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/item/modify/{pv1}(pv1=${gifticon.id})}'|">수정
+    </button>
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/items/item/delete/{pv1}(pv1=${gifticon.id})}'|">삭제
+    </button>
+    <button type="button" class="button-18"
+            th:onclick="|location.href='@{/main}'|">뒤로가기
+    </button></div>
+</section>
+
+<script src="/vendor/aos/aos.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+
+<script src="/js/main.js"></script>
+
+</body>
+
+</html>

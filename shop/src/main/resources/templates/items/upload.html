@@ -141,7 +141,7 @@
     <h2>
         UPLOAD GIFTICON
     </h2>
-    <form th:object="${uploadDTO}" th:action="@{/items/upload}" th:method="post">
+    <form th:object="${uploadDTO}" th:action="@{/items/upload}" th:method="post" th:enctype="multipart/form-data">
         <table>
             <tbody>
             <tr>
@@ -167,7 +167,12 @@
                 <select th:field="*{brandName}" th:value="*{brandName}" th:id="brand_name">
                 </select>
                 <div class="field-error" th:errors="*{brandName}">브랜드 선택 오류</div>
-
+            </tr>
+            <tr>
+                <div class="col-12">
+                    <label th:for="image" class="form-label">상품 이미지 업로드</label>
+                    <input type="file" class="form-control" id="imgFile" name="imgFile">
+                </div>
             </tr>
             <tr>
                 <td>
@@ -179,6 +184,10 @@
                     <label th:for="sellingPrice">판매가</label>
                     <input type="text" style="width: 100px;" th:field="*{sellingPrice}" th:value="*{sellingPrice}"/>
                     <div class="field-error" th:errors="*{sellingPrice}">가격 입력 오류</div>
+                </td>
+                <td th:if="${#fields.hasGlobalErrors()}">
+                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                        글로벌 오류 메시지</p>
                 </td>
             </tr>
             <tr>

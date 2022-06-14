@@ -76,6 +76,10 @@ public class ItemService {
         itemRepository.saveGifticon(gifticon);
     }
 
+    public Gifticon findGifticon(Long id) {
+        return itemRepository.findGifticon(id);
+    }
+
     /**
      * share
      */
