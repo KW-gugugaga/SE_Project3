@@ -139,11 +139,15 @@
                         <p style="font-size: 25px; font-weight: bold;" th:text="${point}"></p>
                     </td>
                 </table>
+                <div th:unless="${error == null}">
+                    <p class="field-error" th:text="${error}"></p>
+                </div>
                 <div>
                     <pt style="text-align: center;">충전 금액을 입력하세요.</pt>
-                    <input type="text">
-                    <input class="button-18" type="button" th:onclick="|location.href='@{/user/wallet/add}'|"
-                           value="포인트 충전하기">
+                    <input type="text" name="inputPoint" id="inputPoint">
+                    <div style="padding-top: 20px;">
+                        <input class="button-18" type="submit" value="포인트 충전하기">
+                    </div>
                 </div>
             </form>
         </div>

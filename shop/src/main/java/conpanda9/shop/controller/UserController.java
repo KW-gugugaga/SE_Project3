@@ -373,7 +373,23 @@ public class UserController {
         Long userId = (Long) request.getSession().getAttribute("user");
         Long point = userService.findUser(userId).getPoint();
         model.addAttribute("point", point);
+        model.addAttribute("error", null);
         return "user/wallet/add";
+    }
+
+    @PostMapping("/wallet/add")
+    public String postWalletAdd(HttpServletRequest request,
+                                @RequestParam(value = "inputPoint", defaultValue = "") String inputPoint, Model model) {
+        String error;
+        if(inputPoint.equals("")) {
+            log.info("충전금액 입력 오류");
+            error = "충전 금액을 입력하세요";
+            model.addAttribute("error", error);
+            return "user/wallet/add";
+        }
+        Long userId = (Long) request.getSession().getAttribute("user");
+        userService.chargePoint(userId, inputPoint);
+        return "redirect:/user/wallet";
     }
 
 }

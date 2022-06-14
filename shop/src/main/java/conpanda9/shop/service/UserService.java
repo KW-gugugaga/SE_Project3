@@ -193,4 +193,11 @@ public class UserService {
         }
         return totalBuyPrice;
     }
+
+    @Transactional
+    public void chargePoint(Long userId, String inputPoint) {
+        User user = userRepository.find(userId);
+        Long newPoint = user.getPoint() + Long.parseLong(inputPoint);
+        user.setPoint(newPoint);
+    }
 }
