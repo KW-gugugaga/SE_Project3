@@ -355,8 +355,16 @@ public class UserController {
         }
         User user = userService.findUser(userId);
         Long point = user.getPoint();
+        Long totalSellPrice = 0L;
+        Optional<Seller> store = userService.findStore(userId);
+        if(store.isPresent()) {
+            totalSellPrice = userService.getTotalSellPrice(store.get().getId());
+        }
+        Long totalBuyPrice = userService.getTotalBuyPrice(userId);
         model.addAttribute("point", point);
         model.addAttribute("user", user);
+        model.addAttribute("totalSellPrice", totalSellPrice);   // 총 판매 금액
+        model.addAttribute("totalBuyPrice", totalBuyPrice);   // 총 판매 금액
         return "user/wallet";
     }
 

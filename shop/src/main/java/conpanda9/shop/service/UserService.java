@@ -183,4 +183,14 @@ public class UserService {
     public void saveReview(Review userReview) {
         userRepository.saveReview(userReview);
     }
+
+    public Long getTotalBuyPrice(Long userId) {
+        List<Sold> collect = userRepository.findAllSold().stream().filter(s -> s.getUser().getId().equals(userId))
+                .collect(Collectors.toList());
+        Long totalBuyPrice = 0L;
+        for (Sold sold : collect) {
+            totalBuyPrice += sold.getSoldPrice();
+        }
+        return totalBuyPrice;
+    }
 }

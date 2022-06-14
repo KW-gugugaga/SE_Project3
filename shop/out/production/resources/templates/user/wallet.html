@@ -4,7 +4,12 @@
 
 <head>
     <style>
-        table {
+        .info-table {
+            border: none;
+            margin: auto;
+        }
+
+        .list-table {
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
@@ -16,18 +21,18 @@
             border-radius: 5px;
         }
 
-        th {
+        .list-th {
             text-align: center;
             background: #6DA6D9;
         }
 
-        thead {
+        .list-thead {
             font-weight: bold;
             color: #fff;
             background: #6DA6D9;
         }
 
-        td, th {
+        .list-td, .list-th {
             padding: 1em .5em;
             vertical-align: middle;
             border-style: dashed !important;
@@ -35,7 +40,7 @@
             border-color: #7f878d !important;
         }
 
-        td {
+        .list-td {
             background: #fff;
         }
 
@@ -124,8 +129,8 @@
     </h2><br>
     <div style="text-align: center; margin: 0 auto">
         <div>
-            <table>
-                <td style="padding: 0 20px 20px 20px;">
+            <table class="info-table">
+                <td style="padding: 20px 20px 20px 0;">
                     <img src="/img/point.png" style="height: 50px; width: 50px;" alt="">
                     <p>총 보유 포인트</p>
                 </td>
@@ -133,20 +138,21 @@
                     <p style="font-size: 25px; font-weight: bold;" th:text="${point}"></p>
                 </td>
             </table>
-            <table>
-                <tr>
-                    <th>총 판매금액</th>
-                    <td>
-                        <p th:text="${}"></p>
-                    </td>
+            <table class="list-table">
+                <thead class="list-thead">
+                <tr class="list-tr">
+                    <th class="list-th">총 판매금액</th>
+                    <th class="list-th">총 구매금액</th>
                 </tr>
-                <tr>
-                    <th>총 구매금액</th>
-                    <td>
-                        <p th:text="${}"></p>
-                    </td>
+                </thead>
+                <tbody class="list-tbody">
+                <tr class="list-tr" style="cursor: pointer;">
+                    <td class="list-td" th:text="${totalSellPrice}">총 판매금엑</td>
+                    <td class="list-td" th:text="${totalBuyPrice}">총 구매금액</td>
                 </tr>
+                </tbody>
             </table>
+
         </div>
     </div>
 </section>
