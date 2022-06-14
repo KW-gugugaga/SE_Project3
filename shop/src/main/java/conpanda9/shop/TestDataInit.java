@@ -156,13 +156,20 @@ public class TestDataInit {
         itemRepository.saveQuestion(question3);
         itemRepository.saveQuestion(question4);
 
-        Review review = new Review(user2, store, "review1", 1);
-        itemRepository.saveReview(review);
+        Review review1 = new Review(user2, store, "review1", 3);
+        Review review2 = new Review(user2, store, "review1", 5);
+        Review review3 = new Review(user2, store, "review1", 3);
+        itemRepository.saveReview(review1);
+        itemRepository.saveReview(review2);
+        itemRepository.saveReview(review3);
 
-        Alarm alarm1 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘을 판매해보세요!", false);
-        Alarm alarm2 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘이 판매되었습니다!", false);
-        Alarm alarm3 = new Alarm(user, LocalDateTime.now(), "환영합니다!", true);
-        Alarm alarm4 = new Alarm(user, LocalDateTime.now(), "상점을 개설해보세요!", true);
+        Report report = new Report(user2, store, "report", ReportReason.FAKE);
+        userRepository.saveReport(report);
+
+        Alarm alarm1 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘을 판매해보세요!","기프티콘을 판매하려면, 상점을 먼저 개설하세요!", false);
+        Alarm alarm2 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘이 판매되었습니다!","첫 판매를 축하드려요!!", false);
+        Alarm alarm3 = new Alarm(user, LocalDateTime.now(), "환영합니다!", "콘판다에서 여러분의 기프티콘을 팔아보세요!!",true);
+        Alarm alarm4 = new Alarm(user, LocalDateTime.now(), "상점을 개설해보세요!","상점을 개설하려면, 내 상점 페이지로 이동하세요!", true);
         userRepository.saveAlarm(alarm1);
         userRepository.saveAlarm(alarm2);
         userRepository.saveAlarm(alarm3);

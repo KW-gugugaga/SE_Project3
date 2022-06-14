@@ -156,7 +156,7 @@
             <td th:text="${share.brand.name}">brand name</a></td>
             <td th:text="${share.originalPrice}">originalPrice</td>
             <td th:text="${share.expireDate}">expireDate</td>
-            <td th:text="${share.lastModifiedDate}">lastModifiedDate</td>
+            <td th:text="${#temporals.format(share.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}">lastModifiedDate</td>
         </tr>
         </tbody>
     </table>

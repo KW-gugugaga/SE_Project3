@@ -15,15 +15,18 @@
             border-color: #7f878d !important;
             border-radius: 5px;
         }
+
         th {
             text-align: center;
             background: #6DA6D9;
         }
+
         thead {
             font-weight: bold;
             color: #fff;
             background: #6DA6D9;
         }
+
         td, th {
             padding: 1em .5em;
             vertical-align: middle;
@@ -31,12 +34,15 @@
             border-width: 1px !important;
             border-color: #7f878d !important;
         }
+
         td {
             background: #fff;
         }
+
         a {
             color: #6DA6D9;
         }
+
         .button-18 {
             font-family: "nanum";
             align-items: center;
@@ -66,6 +72,21 @@
             vertical-align: middle;
         }
 
+        .no-read {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+            font-weight: bold;
+        }
+
+        .read {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
+        }
+
         .field-error {
             font-family: "nanum";
             font-size: 12px;
@@ -74,6 +95,39 @@
 
         .edit-input {
             margin-bottom: 10px;
+        }
+
+        .blinking {
+            -webkit-animation: blink 1s ease-in-out infinite alternate;
+            -moz-animation: blink 1s ease-in-out infinite alternate;
+            animation: blink 1s ease-in-out infinite alternate;
+        }
+
+        @-webkit-keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @-moz-keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes blink {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
     </style>
     <meta charset="utf-8">
@@ -117,35 +171,42 @@
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         내 알림
     </h2><br>
-<   <div th:if="${a_cnt==0}">
-        <p style="margin:auto;">알림이 없습니다!</p>
-        <input type="button" class="button-18" onclick="location.href='/main'" value="뒤로가기">
+    <div style="margin: auto" >
+        <p th:unless="${a_cnt==0}" th:text="'💡미확인 알림이 ' + ${a_cnt} + '개 있습니다!💡'"></p>
+        <div th:if="${a_cnt==0}" >
+            <p style="margin:auto;">미확인 알림이 없습니다!</p>
+        </div>
+        <div>
+            <table>
+                <thead>
+                <tr>
+                    <th>확인여부</th>
+                    <th>알림 내용</th>
+                    <th>알림 시간</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="alarm : ${alarms}"
+                    th:onclick="|javascript:clickEvent('${alarm.id}')|">
+                    <td class="blinking no-read" th:if="${alarm.checked == false}" th:text="'미확인'"></td>
+                    <td class="read" th:if="${alarm.checked == true}" th:text="'확인 완료'"></td>
+
+                    <td class="blinking" th:if="${alarm.checked == false}" th:text="${alarm.title}">texts</td>
+                    <td th:if="${alarm.checked == true}" th:text="${alarm.title}">texts</td>
+
+                    <td th:text="${#temporals.format(alarm.alarmDate, 'yyyy-MM-dd HH:mm:ss')}">time</td>
+                </tr>
+                </tbody>
+            </table><br>
+            <input type="button" class="button-18" onclick="location.href='/main'" value="홈으로 돌아가기">
+        </div>
     </div>
-    <div style="margin: auto" th:unless="${a_cnt==0}">
-        <p th:text="'확인하지 않은 알림은 ' + ${a_cnt} + '개 입니다.'"></p>
-    <div>
-        <table>
-            <thead>
-            <tr>
-                <th>확인여부</th>
-                <th>알림 내용</th>
-                <th>알림 시간</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="alarm : ${alarms}" th:onclick=#>
-                <td th:text="${alarm.checked}">checked</a></td>
-                <td th:text="${alarm.text}">texts</td>
-                <td th:text="${alarm.alarmDate}">time</td>
-
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
-
 </section>
-
+<script>
+    function clickEvent(id) {
+        window.open('/user/alarm/detail/' + id, 'alarm detail', 'width=650,height=650,location=no,status=no,scrollbars=yes');
+    }
+</script>
 <script src="/vendor/aos/aos.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/vendor/glightbox/js/glightbox.min.js"></script>

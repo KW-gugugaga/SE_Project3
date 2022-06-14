@@ -1,0 +1,164 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Notice</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+
+    <style>
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
+
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
+        }
+
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
+        }
+
+        td, th {
+            vertical-align: middle;
+
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
+
+        body {
+            font-family: "nanum";
+        }
+
+        .a-menu {
+            font-size: 16px;
+        }
+
+        .button-18 {
+            margin: 20px auto;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 30px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+
+        .answer-complete {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+            font-weight: bold;
+        }
+
+        .answer-no {
+            font-family: "nanum";
+            font-size: 12px;
+            color: #9d8d8d;
+            margin-left: 40px;
+        }
+    </style>
+
+</head>
+<body>
+<script type="text/javascript" th:inline="javascript">
+    const completeSuccess = [[ ${completeSuccess} ]];
+    if(completeSuccess === "true") {
+        alert("신고사항 처리 및 알림 전송이 완료되었습니다.");
+    }
+</script>
+<div>
+    <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
+</div>
+<div id="colorlib-page">
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul style="font-size: 16px;">
+                <li><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                <li class="colorlib-active"><a class="a-menu" href="/admin/report">신고사항</a></li>
+                <li><a class="a-menu" href="/admin/user">회원관리</a></li>
+                <li><a class="a-menu" href="/admin/">매물관리</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
+
+    <section id="colorlib-main" style="margin: 30px auto;text-align: center;">
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b5bbbe;border-left: 5px solid #b5bbbe; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            신고 목록
+        </h3><br>
+        <table>
+            <thead>
+            <tr>
+                <th>신고자 ID</th>
+                <th>신고상점 ID</th>
+                <th>신고날짜</th>
+                <th>처리상태</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr th:each="report : ${reports}"
+                th:onclick="|location.href='@{/admin/report/{pv1}(pv1=${report.id})}'|">
+                <td th:text="${#temporals.format(report.reportDate, 'yyyy-MM-dd HH:mm:ss')}">신고날짜</td>
+                <td th:text="${report.user.id}">신고자 ID</a></td>
+                <td th:text="${report.seller.id}">신고상점 ID</td>
+                <td class="answer-complete" th:if="${report.isCompleted == true}" th:text="'처리 완료'"></td>
+                <td class="answer-no" th:if="${report.isCompleted == false}" th:text="'처리 대기'"></td>
+                <td><button type="submit" style="width: 100px; height: 30px; font-size: 13px;" class="button-18" th:onclick="|location.href='@{/admin/report/{pv1}(pv1=${report.id})}'|">상세보기</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </section><!-- END COLORLIB-MAIN -->
+</div><!-- END COLORLIB-PAGE -->
+
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
+</body>
+</html>

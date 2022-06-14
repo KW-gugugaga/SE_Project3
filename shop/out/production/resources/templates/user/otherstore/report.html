@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 30%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
+
+        .report-button {
+            font-family: "nanum";
+            align-items: center;
+            background-color: #b20425;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+        }
+
+        .extra-reason {
+            display: none;
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+
+        .report-gifticon {
+            display: none;
+            padding-top: 20px;
+            margin-top: 30px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Con Panda 9</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    * Template Name: Appland - v4.7.0
+    * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+</head>
+
+<body>
+<header th:replace="navbar :: navbarFragment"></header>
+
+<section style="text-align: center; margin-top: 40px;">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);"
+        th:text="'신고하기'"></h2><br>
+    <div>
+        <p>신고 사유를 선택해주세요.</p>
+        <form th:method="post">
+            <div th:unless="${error == null}">
+                <p class="field-error" th:text="${error}"></p>
+            </div>
+            <select name="reportReason" id="reportReason" onchange="changeReason();">
+                <option value="default">=== 신고 사유 ===</option>
+                <option value="duplicate">동일 상품 등록</option>
+                <option value="fake">허위 매물 등록</option>
+                <option value="abuse">부적절한 상품</option>
+                <option value="extra">기타</option>
+            </select>
+            <div class="extra-reason" id="extraReason" name="extraReason" style="margin-top: 30px;">
+                <label for="reason" style="vertical-align: top;">기타 사유를 입력해주세요.</label>
+                <textarea cols="50" rows="5" id="reason" name="reason"></textarea>
+            </div>
+            <div class="report-gifticon" id="reportGifticon" name="reportGifticon" style="margin-top: 30px;">
+                <label for="gifticon" style="vertical-align: top;">신고하고자 하는 상품명을 입력해주세요.</label>
+                <textarea cols="50" rows="5" id="gifticon" name="gifticon"></textarea>
+            </div>
+            <div style="padding-top: 20px;">
+                <input class="report-button" type="submit" value="상점 신고하기">
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="/vendor/aos/aos.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+
+<!--jquery-->
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+<script src="/js/main.js"></script>
+<script>
+    function changeReason() {
+        var v = $('#reportReason').val();
+        console.log(v);
+        if(v === 'default') {
+            document.getElementById('reportGifticon').classList.add('report-gifticon');
+            document.getElementById('extraReason').classList.add('extra-reason');
+        }
+        else if (v === 'extra') {
+            document.getElementById('reportGifticon').classList.add('report-gifticon');
+            document.getElementById('extraReason').classList.remove('extra-reason');
+        } else {
+            document.getElementById('extraReason').classList.add('extra-reason');
+            document.getElementById('reportGifticon').classList.remove('report-gifticon');
+        }
+    }
+</script>
+</body>
+
+</html>

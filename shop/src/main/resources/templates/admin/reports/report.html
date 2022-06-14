@@ -1,7 +1,7 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Admin Report</title>
+    <title>Admin Notice</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -15,19 +15,167 @@
         .a-menu {
             font-size: 16px;
         }
+
+        body {
+            font-family: "nanum";
+        }
+
+        table, th, td {
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
+
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
+        }
+
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
+        }
+
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
+        }
+
+        td, th {
+            vertical-align: middle;
+
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
+
+        .button-18 {
+            margin: 10px;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            width: fit-content;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+
+        .button-19 {
+            margin: 3px auto;
+            font-family: "nanum";
+            align-items: center;
+            background-color: darkred;
+            border: 0;
+            border-radius: 40px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 30px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
     </style>
 
 </head>
-<body>
 <div>
     <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
 </div>
 <div id="colorlib-page">
-    <div th:replace="fragments/admin-menu :: admin-menu"></div>
-    <div id="colorlib-main" style="margin-top: 40px;">
-        <h2>
-            ADMIN REPORT
-        </h2>
+    <div class="admin-menu" th:fragment="admin-menu">
+        <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+            <nav id="colorlib-main-menu" role="navigation">
+                <ul style="font-size: 16px;">
+                    <li class="colorlib-active"><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                    <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                    <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                    <li><a class="a-menu" href="/admin/user">회원관리</a></li>
+                    <li><a class="a-menu" href="/admin/">매물관리</a></li>
+                </ul>
+            </nav>
+        </aside> <!-- END COLORLIB-ASIDE -->
+    </div>
+
+    <div id="colorlib-main" style="margin-top: 40px;text-align: center">
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b5bbbe;border-left: 5px solid #b5bbbe; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            신고사항 확인
+        </h3><br>
+        <table>
+            <tbody>
+            <tr>
+                <th>신고날짜</th>
+                <td th:text="${#temporals.format(report.reportDate, 'yyyy-MM-dd HH:mm:ss')}">신고날짜</td>
+            </tr>
+            <tr>
+                <th>신고자 ID</th>
+                <td th:text="${report.user.id}">신고자 ID</td>
+            </tr>
+            <tr>
+                <th>신고자 닉네임</th>
+                <td th:text="${report.user.nickname}">신고자 nickname</td>
+            </tr>
+            <tr>
+                <th>신고상점 ID</th>
+                <td th:text="${report.seller.id}">신고상점 ID</td>
+            </tr>
+            <tr>
+                <th>신고상점 이름</th>
+                <td th:text="${report.seller.name}">신고상점 이름</td>
+            </tr>
+            <tr>
+                <th>신고사유</th>
+                <td th:text="${reportReason}">신고사유</td>
+            </tr>
+            <tr>
+                <th>세부사항</th>
+                <td th:text="${report.content}">세부사항</td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="padding-top: 20px;">
+            <p style="margin-bottom: 0px;">신고 사항 처리 후 완료 버튼을 눌러 신고자에게 알림을 보내세요.</p>
+            <input type="button" class="button-18" value="신고 처리 완료"
+                   th:onclick="|location.href='@{/admin/report/complete/{pv1}(pv1=${report.id})}'|">
+        </div>
     </div><!-- END COLORLIB-MAIN -->
 </div><!-- END COLORLIB-PAGE -->
 

@@ -26,6 +26,9 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Brand> brandList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "category")
+    private List<Gifticon> gitficonList = new ArrayList<>();
+
     public Category(String name) {
         this.name = name;
     }

@@ -34,8 +34,8 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Question> questionList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-    private List<Report> reportList = new ArrayList<>();
+    //@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    //private List<Report> reportList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
     private List<Review> reviewList = new ArrayList<>();

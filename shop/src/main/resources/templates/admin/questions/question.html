@@ -121,7 +121,7 @@
             </tr>
             <tr>
                 <th>작성일</th>
-                <td th:text="${question.uploadDate}">uploadDate</td>
+                <td th:text="${#temporals.format(question.uploadDate, 'yyyy-MM-dd HH:mm:ss')}">uploadDate</td>
             </tr>
             </tbody>
         </table>

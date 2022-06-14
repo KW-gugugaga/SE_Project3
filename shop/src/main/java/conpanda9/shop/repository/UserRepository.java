@@ -40,6 +40,10 @@ public class UserRepository {
         return findAllStore().stream().filter(s -> s.getUser().getId().equals(id)).findAny();
     }
 
+    public Optional<Seller> findOtherStore(Long id) {
+        return findAllStore().stream().filter(s -> s.getId().equals(id)).findAny();
+    }
+
     public List<User> findAll() {
         return em.createQuery("select u from User as u", User.class).getResultList();
     }
@@ -152,6 +156,11 @@ public class UserRepository {
                 .findAny();
     }
 
+    @Transactional
+    public void saveReport(Report report) {
+        em.persist(report);
+    }
+
     public Long countAlarm(Long id){
         return (Long) em.createQuery("select count(a) from Alarm as a where a.user.id = :id and a.checked = false")
                 .setParameter("id",id)
@@ -166,4 +175,9 @@ public class UserRepository {
     public void saveAlarm(Alarm Alarm) {
         em.persist(Alarm);
     }
+
+    public Alarm findOneAlarm(Long id){
+        return em.find(Alarm.class,id);
+    }
+
 }

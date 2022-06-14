@@ -117,8 +117,8 @@
                 th:onclick="|location.href='@{/question/{pv1}(pv1=${question.id})}'|"
                 style="cursor: pointer;">
                 <td th:text="${question.title}">name</a></td>
-                <td th:text="${question.uploadDate}">uploadDate</td>
-                <td th:text="${question.user.nickname}">uploadDate</td>
+                <td th:text="${#temporals.format(question.uploadDate, 'yyyy-MM-dd HH:mm:ss')}">uploadDate</td>
+                <td th:text="${question.user.nickname}">nickname</td>
             </tr>
             </tbody>
         </table>

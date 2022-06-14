@@ -111,4 +111,37 @@ public class AdminRepository {
                 .setParameter("id", id)
                 .getResultList();
     }
+
+    public List<Report> findReportByUserId(Long id) {
+        return em.createQuery("select r from Report as r where r.user.id = :id", Report.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
+
+    public Report findReport(Long id) {
+        return em.find(Report.class, id);
+    }
+
+    public List<Gifticon> findAllGifticons() {
+        return em.createQuery("select g from Gifticon as g", Gifticon.class).getResultList();
+    }
+
+    public Gifticon findGifticon(Long id) {
+        return em.find(Gifticon.class, id);
+    }
+
+    @Transactional
+    public void deleteGifticon(Long id) {
+        em.remove(em.find(Gifticon.class, id));
+    }
+
+    @Transactional
+    public void saveAlarm(Alarm alarm) {
+        em.persist(alarm);
+    }
+
+    @Transactional
+    public void updateReportComplete(Long id) {
+        em.find(Report.class, id).setCompleted(true);
+    }
 }

@@ -122,7 +122,7 @@
             <tr th:each="notice : ${notices}"
                 th:onclick="|location.href='@{/admin/notice/{pv1}(pv1=${notice.id})}'|">
                 <td th:text="${notice.title}">제목</a></td>
-                <td th:text="${notice.uploadDate}">날짜</td>
+                <td th:text="${#temporals.format(notice.uploadDate, 'yyyy-MM-dd HH:mm:ss')}">날짜</td>
                 <td th:text="${notice.count}">조회수</td>
             </tr>
             </tbody>

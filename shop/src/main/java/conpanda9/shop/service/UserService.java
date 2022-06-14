@@ -12,8 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -109,6 +111,10 @@ public class UserService {
         return userRepository.findStore(id);
     }
 
+    public Optional<Seller> findOtherStore(Long id) {
+        return userRepository.findOtherStore(id);
+    }
+
     public List<Sold> findSolds(Long id) {
         return userRepository.findSolds(id);
     }
@@ -142,10 +148,32 @@ public class UserService {
         return userRepository.findPw(loginId, email);
     }
 
+    public Double getStoreStarRate(Long id) {
+        List<Review> reviewList = userRepository.findAllReview().stream().filter(r -> r.getSeller().getId().equals(id)).collect(Collectors.toList());
+        Integer totalStarRate = 0;
+        for (Review review : reviewList) {
+            totalStarRate += review.getStar();
+        }
+        return (double) totalStarRate / (double) reviewList.size();
+    }
+
+    public void saveReport(Report report) {
+        userRepository.saveReport(report);
+    }
+
     public Long countAlarm(Long id){
         return userRepository.countAlarm(id);
     }
     public List<Alarm> findAlarm(Long id) { //유저의 정보 받아와서 알람 찾아옴
         return userRepository.findAlarm(id);
+    }
+    public Alarm findOneAlarm(Long id){
+        return userRepository.findOneAlarm(id);
+    }
+    @Transactional
+    public Alarm updateAlarm(Long id){
+        Alarm alarm = userRepository.findOneAlarm(id);
+        alarm.setChecked(true);
+        return alarm;
     }
 }
