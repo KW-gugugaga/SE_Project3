@@ -120,7 +120,7 @@
         내 정보 수정
     </h2><br>
     <div style="text-align: center; margin: 0 auto">
-        <form th:object="${editDTO}" th:action="@{/user/info/edit/{pv1}(pv1=${id})}" method="post">
+        <form th:object="${editDTO}" th:action="@{/user/info/edit/{pv1}(pv1=${id})}" th:method="post">
             <div style="padding: 0px 100px 50px 100px">
                 <table>
                     <tbody>

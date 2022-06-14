@@ -61,13 +61,16 @@ public class UserService {
     //회원정보 수정 시 중복 확인 메서드
     public void existCheck(MyInfoEditDTO editDTO, BindingResult bindingResult) {
         if(!userRepository.findOneById(editDTO.getLoginId()).isEmpty()) {
-            bindingResult.addError(new FieldError("joinDTO", "loginId", editDTO.getLoginId(), false, null, null,  "중복 아이디가 존재합니다."));
+            bindingResult.addError(new FieldError("editDTO", "loginId", editDTO.getLoginId(), false, null, null,  "중복 아이디가 존재합니다."));
         }
         if(!userRepository.findOneByNickname(editDTO.getNickname()).isEmpty()) {
-            bindingResult.addError(new FieldError("joinDTO", "nickname", editDTO.getNickname(), false, null, null, "중복 닉네임이 존재합니다."));
+            bindingResult.addError(new FieldError("editDTO", "nickname", editDTO.getNickname(), false, null, null, "중복 닉네임이 존재합니다."));
         }
         if(!userRepository.findOneByEmail(editDTO.getEmail()).isEmpty()) {
-            bindingResult.addError(new FieldError("joinDTO", "email", editDTO.getPhoneNumber(), false, null, null, "중복 이메일이 존재합니다."));
+            bindingResult.addError(new FieldError("editDTO", "email", editDTO.getEmail(), false, null, null, "중복 이메일이 존재합니다."));
+        }
+        if(!userRepository.findOneByPhoneNumber(editDTO.getPhoneNumber()).isEmpty()) {
+            bindingResult.addError(new FieldError("editDTO", "phoneNumber", editDTO.getEmail(), false, null, null, "중복 이메일이 존재합니다."));
         }
     }
 
@@ -175,5 +178,9 @@ public class UserService {
         Alarm alarm = userRepository.findOneAlarm(id);
         alarm.setChecked(true);
         return alarm;
+    }
+
+    public void saveReview(Review userReview) {
+        userRepository.saveReview(userReview);
     }
 }
