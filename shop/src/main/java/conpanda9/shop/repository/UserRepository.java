@@ -191,4 +191,8 @@ public class UserRepository {
                 .filter(m ->m.getPhoneNumber().equals(phoneNumber))
                 .findAny();
     }
+
+    public List<Sold> findAllSold() {
+        return em.createQuery("select s from Sold as s", Sold.class).getResultList();
+    }
 }
