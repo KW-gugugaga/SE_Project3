@@ -44,8 +44,14 @@ public class ItemRepository {
     public Brand findBrand(Long id) {
         return em.find(Brand.class, id);
     }
+
+    public List<Brand> findAllBrand() {
+        return em.createQuery("select b from Brand as b", Brand.class).getResultList();
+    }
+
     public Brand findBrandByName(String name){
-        return em.find(Brand.class, name);
+        return em.createQuery("select b from Brand as b where b.name = :searchName", Brand.class)
+                .setParameter("searchName", name).getSingleResult();
     }
 
     /**

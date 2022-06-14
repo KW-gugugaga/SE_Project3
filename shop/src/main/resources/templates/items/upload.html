@@ -65,26 +65,29 @@
     * Author: BootstrapMade.com
     * License: https://bootstrapmade.com/license/
     ======================================================== -->
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript">
         function SelectedCategory() {
             var cate_id = $('#cate_id').val();
             console.log(cate_id);
             $.ajax({
-                url:'/SelectedCategory',
+                url:'/items/SelectedCategory',
                 type:'post', //POST 방식으로 전달
                 data:{cate_id:cate_id},
 
                 success:function(brandNameOnly){
-                    document.getElementById("brand_select").style.display="block";
+                    var brand = brandNameOnly
+                    console.log(brand);
+                    //document.getElementById("brand_select").style.display="block";
                     //document.getElementById("brandNameOnly").innerHTML=brandNameOnly;
-                    var target = document.getElementById("brandNameOnly");
-                    for (x in brandNameOnly) {
-                        var opt = document.createElement("option");
-                        opt.value = brandNameOnly[x];
-                        opt.innerHTML = brandNameOnly[x];
-                        target.appendchild(opt);
+                    //var target = document.getElementById("brand_name");
+                    $('#brand_name').empty();
+                    $('#brand_name').append('<option>선택</option>');
+                    for ( var i = 0; i < brand.length; i++ ) {
+                      $('#brand_name').append('<option>' + brand[i] + '</option>');
                     }
+
                     //$('#brand_select').style.display="block";
                 },
                 error:function(){
@@ -138,7 +141,7 @@
     <h2>
         UPLOAD GIFTICON
     </h2>
-    <form th:object="${uploadDTO}" th:action="@{/upload}" th:method="post">
+    <form th:object="${uploadDTO}" th:action="@{/items/upload}" th:method="post">
         <table>
             <tbody>
             <tr>
@@ -158,17 +161,13 @@
                         </option>
 
                 </select>
-                <div th:id="brand_select" style="display:none">
-                    <label th:for="brand" style="vertical-align: top;">브랜드</label>
-                    <select th:field="*{brandName}" th:value="*{brandName}" th:id="brandNameOnly">
-                        <option value="선택"> 선택 </option>
-<!--                        <option th:each="brandSelect : brandNameOnly"-->
-<!--                                th:value="brandSelect"-->
-<!--                                th:utext="brandSelect">-->
-<!--                        </option>-->
+                <div class="field-error" th:errors="*{categoryId}">카테고리 선택 오류</div>
 
-                    </select>
-                </div>
+                <label th:for="brand" style="vertical-align: top;">브랜드</label>
+                <select th:field="*{brandName}" th:value="*{brandName}" th:id="brand_name">
+                </select>
+                <div class="field-error" th:errors="*{brandName}">브랜드 선택 오류</div>
+
             </tr>
             <tr>
                 <td>
@@ -184,21 +183,12 @@
             </tr>
             <tr>
                 <td>
-                    <input name="date" style="width: 50%;" placeholder="유효기간" th:field="*{expireDate}" th:value="*{expireDate}">
+                    <label th:for="expireDate">유효기간</label>
+                    <input name="date" type="date" style="width: 50%;" placeholder="유효기간" th:field="*{expireDate}" th:value="*{expireDate}">
                     <script th:inline="javascript">
-                     const config = {
-                        dateFormat: 'yy-mm-dd',
-                        showOn : "button",
-                        buttonImage: "img/dateButton.png",
-                        buttonImageOnly: true,
-                        minDate: 0
-                    }
-
-                    $(function() {
-                        $( "input[name='date']" ).datepicker(config);
-                    });
 
                     </script>
+                    <div class="field-error" th:errors="*{expireDate}">날짜 입력 오류</div>
                 </td>
 
             </tr>
@@ -212,7 +202,7 @@
 
             </tbody>
         </table>
-        <button type="submit">등록하기</button>
+        <button type="submit" value="upload">등록하기</button>
     </form>
 
 </section>

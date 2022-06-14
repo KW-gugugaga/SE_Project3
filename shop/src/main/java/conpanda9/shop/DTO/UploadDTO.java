@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Data
@@ -24,11 +25,12 @@ public class UploadDTO {
 
     @NotBlank(message = "상품 원가를 입력하세요.")
     private String originalPrice;
+
     @NotBlank(message = "상품 판매가를 입력하세요.")
     private String sellingPrice;
 
-    @NotBlank(message = "날짜를 입력하세요.")
-    private LocalDate expireDate;
+    @NotNull(message = "good")
+    private String expireDate;
 
     @NotBlank(message = "상품 내용을 입력하세요.")
     private String description;

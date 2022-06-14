@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
@@ -124,19 +126,27 @@ public class ItemController {
     }
 
     @GetMapping("/upload")
-    public String upload(Model model) {
+    public String upload(HttpServletRequest request, Model model) {
 
-        List<Category> categories = itemService.findAllCategory();
-        model.addAttribute("uploadDTO", new UploadDTO());
-        model.addAttribute("categories", categories);
-        model.addAttribute("brands", new Brand());
-        return "user/upload";
+        Long id = (Long) request.getSession().getAttribute("user");
+
+        Optional<Seller> storeOptional = userService.findStore(id);
+        if(storeOptional.isPresent()) {   // 상점이 있을 경우 등록가능
+            List<Category> categories = itemService.findAllCategory();
+            model.addAttribute("uploadDTO", new UploadDTO());
+            model.addAttribute("categories", categories);
+            model.addAttribute("brands", new Brand());
+            return "items/upload";
+        } else {
+            return "redirect:/main";
+        }
+
     }
 
-    @PostMapping("SelectedCategory")
+    @PostMapping("/SelectedCategory")
     @ResponseBody
     public List<String> selectedCategoryCheck(@RequestParam("cate_id") String cate_id) {
-        System.out.println("UploadController.SelectedCategory");
+        System.out.println("ItemController.SelectedCategory");
         long id = Long.parseLong(cate_id);
         System.out.println(cate_id);
         Category category = itemService.findCategory(id);
@@ -152,7 +162,7 @@ public class ItemController {
     }
 
     @PostMapping("/upload")
-    public String upload(HttpServletRequest request, @Validated @ModelAttribute("uploadDTO") UploadDTO uploadDTO, BindingResult bindingResult) {
+    public String upload(HttpServletRequest request, @Validated @ModelAttribute("uploadDTO") UploadDTO uploadDTO, BindingResult bindingResult,Model model) {
 
         /**
          * @Validated, 검사 객체, BindingResult 세트로 같이 써야함
@@ -160,20 +170,26 @@ public class ItemController {
          * message에 등록한 문구 출력
          */
 
+        System.out.println("itemController post upload");
         if (bindingResult.hasErrors()) {   // 필드 에러
-            return "user/upload";
+            List<Category> categories = itemService.findAllCategory();
+            model.addAttribute("categories", categories);
+            return "items/upload";
         }
         Long id = (Long) request.getSession().getAttribute("user");
         User user = userService.findUser(id);
-        Seller seller = new Seller(uploadDTO.getName(), user);
+        Optional<Seller> storeOptional = userService.findStore(id);
+        Seller seller = storeOptional.get();
         long categoryId = Long.parseLong(uploadDTO.getCategoryId());
         Category category = itemService.findCategory(categoryId);
         Brand brand = itemService.findBrandByName(uploadDTO.getBrandName());
+        System.out.println("brand.getName() = " + brand.getName());
         long originalPrice = Long.parseLong(uploadDTO.getOriginalPrice());
         long sellingPrice = Long.parseLong(uploadDTO.getSellingPrice());
+        LocalDate expireDate = LocalDate.parse(uploadDTO.getExpireDate(), DateTimeFormatter.ISO_DATE);
 
         Gifticon newGifticon = new Gifticon(uploadDTO.getName(), seller, category, brand, null, uploadDTO.getDescription(),
-                originalPrice, sellingPrice, uploadDTO.getExpireDate(), LocalDateTime.now(), LocalDateTime.now());
+                originalPrice, sellingPrice, expireDate, LocalDateTime.now(), LocalDateTime.now());
 
         itemService.saveGifticon(newGifticon);
 

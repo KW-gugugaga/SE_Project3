@@ -102,29 +102,6 @@
         CONPANDA
     </h2><br>
 
-
-        <nav id="navbar" class="navbar">
-            <ul>
-                <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-                <li class="dropdown"><a href="/user/store"><span>내 상점</span> <i class="bi bi-chevron-down"></i></a>
-                    <ul>
-                        <li><a href="/user/store/selling">나의 판매내역</a></li>
-                        <li><a href="#">나의 구매내역</a></li>
-                        <li><a href="#">나의 찜</a></li>
-                        <li><a href="#">나의 지갑</a></li>
-                        <li><a href="#">내 상점 리뷰</a></li>
-                    </ul>
-                </li>
-
-                <li><a class="nav-link scrollto" href="/notice">공지사항</a></li>
-                <li><a class="nav-link scrollto" href="/question">문의 게시판</a></li>
-                <li><a class="nav-link scrollto" href="#faq">알림</a></li>
-                <li><a class="nav-link scrollto" href='/user/info/myinfo'>내 정보</a></li>
-                <li>
-                    <button class="button-18" type="button" value="Join" style="margin-left:20px" onClick="location.href='/items/upload'">상품등록</button>
-                </li>
-            </ul>
-
     <div style="text-align: right">
         <form th:object="${searchDTO}" th:action="@{/search}" method="post">
             <div style="text-align: center; margin: 0 auto">
