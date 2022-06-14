@@ -4,37 +4,46 @@
 
 <head>
     <style>
-        table {
+        .info-table {
+            border: none;
+            margin: auto;
+        }
+
+        .list-table {
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 30%;
+            width: 57%;
             overflow: hidden;
             border-style: dashed !important;
             border-width: 1px !important;
             border-color: #7f878d !important;
             border-radius: 5px;
         }
-        th {
+
+        .list-th {
             text-align: center;
             background: #6DA6D9;
-            color: #fff;
         }
-        thead {
+
+        .list-thead {
             font-weight: bold;
             color: #fff;
-            background: #8cacd0;
+            background: #6DA6D9;
         }
-        td, th {
+
+        .list-td, .list-th {
             padding: 1em .5em;
             vertical-align: middle;
             border-style: dashed !important;
             border-width: 1px !important;
             border-color: #7f878d !important;
         }
-        td {
+
+        .list-td {
             background: #fff;
         }
+
         a {
             color: #6DA6D9;
         }
@@ -115,7 +124,7 @@
 
 <section style="text-align: center; margin-top: 40px;">
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-        STORE INFO
+        내상점
     </h2><br>
     <div style="text-align: center; margin: 0 auto">
         <div th:if="${store == null}">
@@ -123,33 +132,35 @@
             <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/add}'|" value="내 상점 만들기">
         </div>
         <div th:unless="${store == null}">
-            <h3><p th:text="${store.user.nickname} + '님의 상점 ' + ${store.name} + '입니다!'"></p></h3>
+            <h3><p style="font-size: 18px;" th:text="${store.user.nickname} + '님의 상점 ' + ${store.name} + '입니다!'"></p></h3>
+            <table class="info-table">
+                <td style="padding: 20px 20px 20px 0;">
+                    <img src="/img/star.png" style="height: 30px; width: 30px;" alt="">
+                    <p th:text="${starRate}"></p>
+                </td>
+                <td style="padding: 20px 20px 20px 0;">
+                    <img src="/img/heart.png" style="height: 30px; width: 30px;" alt="">
+                    <p th:text="${store.heart}"></p>
+                </td>
+                <td style="padding: 20px 20px 20px 0;">
+                    <img src="/img/share.png" style="height: 30px; width: 30px;" alt="">
+                    <p th:text="${store.share}"></p>
+                </td>
+            </table>
+            <table class="info-table">
+                <td style="padding: 0 20px 20px 20px;">
+                    <img src="/img/money.png" style="height: 50px; width: 50px;" alt="">
+                    <p>총 판매금액</p>
+                </td>
+                <td style="padding: 0 20px 20px 20px;">
+                    <p style="font-size: 25px; font-weight: bold;" th:text="${totalSellPrice}"></p>
+                </td>
+            </table>
             <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/selling}'|" value="판매내역">
             <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/selling}'|" value="구매내역">
             <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/selling}'|" value="나의 찜">
             <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/selling}'|" value="나의 지갑">
-            <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/selling}'|"
-                   value="내 상점 리뷰">
-<!--
-            <p th:text="'총 판매금액은 ' + ${totalSellPrice} + '원 입니다.'"></p>
--->
             <br><br>
-            <table>
-                <tbody>
-                <tr>
-                    <th for="totalSellPrice">총 판매 금액</th>
-                    <td th:text="${totalSellPrice}" id="totalSellPrice" name="totalSellPrice"></td>
-                </tr>
-                <tr>
-                    <th for="heart">찜 수</th>
-                    <td th:text="${store.heart}" id="heart" name="heart"></td>
-                </tr>
-                <tr>
-                    <th for="share">나눔 수</th>
-                    <td th:text="${store.share}" id="share" name="share"></td>
-                </tr>
-                </tbody>
-            </table><br>
             <button class="button-18" onclick="window.open('/user/store/review','review','width=430,height=500,location=no,status=no,scrollbars=yes');">내 상점 리뷰 확인하기</button>
         </div>
     </div>

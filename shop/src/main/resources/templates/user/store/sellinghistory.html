@@ -52,7 +52,7 @@
             justify-content: center;
             line-height: 20px;
             max-width: 480px;
-            min-height: 40px;
+            min-height: 30px;
             min-width: 0px;
             overflow: hidden;
             padding: 0px;
@@ -115,11 +115,11 @@
 
 <section style="margin-top: 40px;text-align: center">
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-        MY STORE SELLING
+        나의 판매내역
     </h2><br>
     <div th:if="${store.isEmpty()}">
         <p style="margin:auto;">아직 상점이 없습니다! 나만의 상점을 만들어보세요.</p>
-        <input class="button-18" type="button" th:onclick="|location.href='@{/user/store/add}'|" value="내 상점 만들기">
+        <input class="button-18" style="margin-top: 20px;" type="button" th:onclick="|location.href='@{/user/store/add}'|" value="내 상점 만들기">
     </div>
     <div style="margin: auto" th:unless="${store.isEmpty()}">
         <p th:text="'총 판매금액은 ' + ${totalSellPrice} + '원 입니다.'"></p>
@@ -139,6 +139,8 @@
                     <th>원가</th>
                     <th>판매가</th>
                     <th>만료날짜</th>
+                    <th>업로드날짜</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -150,6 +152,9 @@
                     <td th:text="${selling.originalPrice}">originalPrice</a></td>
                     <td th:text="${selling.sellingPrice}">sellingPrice</a></td>
                     <td th:text="${selling.expireDate}">expireDate</a></td>
+                    <td th:text="${#temporals.format(selling.uploadDate, 'yyyy-MM-dd')}">expireDate</a></td>
+                    <td><input type="button" class="button-18" style="height: 30px; font-size: 13px;"
+                               th:onclick="|location.href='@{/user/store/selling/${buy.id}'|" value="상품 확인"></td>
                 </tr>
                 </tbody>
             </table>

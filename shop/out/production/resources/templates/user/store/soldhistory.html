@@ -139,8 +139,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="sold : ${solds}"
-                    th:onclick="|location.href='#'|" style="cursor: pointer;">
+                <tr th:each="sold : ${solds}" style="cursor: pointer;">
                     <td th:text="${sold.gifticon.name}">name</a></td>
                     <td th:text="${sold.gifticon.category.name}">category</td>
                     <td th:text="${sold.gifticon.brand.name}">brand</td>
