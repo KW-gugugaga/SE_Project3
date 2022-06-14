@@ -17,6 +17,7 @@ public class Category {
     private Long id;
 
     private String name;
+    private String img;
 
     /**
      * 카테고리 하나에 여러개의 브랜드가 속할 수 있음
@@ -29,8 +30,9 @@ public class Category {
     @OneToMany(mappedBy = "category")
     private List<Gifticon> gitficonList = new ArrayList<>();
 
-    public Category(String name) {
+    public Category(String name, String img) {
         this.name = name;
+        this.img = img;
     }
 
 }
