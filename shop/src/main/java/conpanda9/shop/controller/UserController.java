@@ -365,7 +365,15 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("totalSellPrice", totalSellPrice);   // 총 판매 금액
         model.addAttribute("totalBuyPrice", totalBuyPrice);   // 총 판매 금액
-        return "user/wallet";
+        return "user/wallet/wallet";
+    }
+
+    @GetMapping("/wallet/add")
+    public String getWalletAdd(HttpServletRequest request, Model model) {
+        Long userId = (Long) request.getSession().getAttribute("user");
+        Long point = userService.findUser(userId).getPoint();
+        model.addAttribute("point", point);
+        return "user/wallet/add";
     }
 
 }

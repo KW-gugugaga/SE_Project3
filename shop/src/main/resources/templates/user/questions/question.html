@@ -9,28 +9,60 @@
             border-top: 1px rgba(170, 173, 176, 0.33) solid !important;
             border-bottom: 1px rgba(170, 173, 176, 0.33) solid !important;
         }
+
         table {
-            margin: auto;font-size: .9em;width: 40%;overflow: hidden;
+            margin: auto;
+            font-size: .9em;
+            width: 40%;
+            overflow: hidden;
         }
+
         th {
-            text-align: center;background: rgba(232, 237, 238, 0.71);
+            text-align: center;
+            background: rgba(232, 237, 238, 0.71);
         }
+
         thead {
-            font-weight: bold;color: #58595b;background: #d5dbe0;
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
         }
+
         td, th {
             vertical-align: middle;
         }
+
         td {
             background: #fff;
         }
+
         .button-18 {
-            font-family: "nanum";align-items: center;background-color: #6DA6D9;border: 0;
-            border-radius: 100px;box-sizing: border-box;color: #ffffff;
-            cursor: pointer;display: inline-flex;font-size: 16px;font-weight: 600;justify-content: center;line-height: 20px;max-width: 480px;min-height: 40px;min-width: 0px;overflow: hidden;
-            padding: 0px;padding-left: 20px;padding-right: 20px;text-align: center;
-            touch-action: manipulation;transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-            user-select: none;-webkit-user-select: none;vertical-align: middle;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
         }
     </style>
     <meta charset="utf-8">
@@ -88,15 +120,26 @@
             <th>작성일</th>
             <td th:text="${#temporals.format(question.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}">lastModifiedDate</td>
         </tr>
+        <tr th:if="${question.answer != null}">
+            <th>답변</th>
+            <td th:text="${question.answer}">lastModifiedDate</td>
+        </tr>
         </tbody>
-    </table><br>
-    <div style="text-align: center;">
-    <button type="button" class="button-18"
-            th:onclick="|location.href='@{/question/edit/{pv1}(pv1=${question.id})}'|">문의사항 수정하기
-    </button>
-    <button type="button" class="button-18"
-            th:onclick="|location.href='@{/question/delete/{pv1}(pv1=${question.id})}'|">문의사항 삭제하기
-    </button></div>
+    </table>
+    <br>
+    <div th:if="${question.answer == null}" style="text-align: center;">
+        <button type="button" class="button-18"
+                th:onclick="|location.href='@{/question/edit/{pv1}(pv1=${question.id})}'|">문의사항 수정하기
+        </button>
+        <button type="button" class="button-18"
+                th:onclick="|location.href='@{/question/delete/{pv1}(pv1=${question.id})}'|">문의사항 삭제하기
+        </button>
+    </div>
+    <div th:if="${question.answer != null}" style="text-align: center;">
+        <button type="button" class="button-18"
+                th:onclick="|location.href='@{/question/delete/{pv1}(pv1=${question.id})}'|">문의사항 삭제하기
+        </button>
+    </div>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

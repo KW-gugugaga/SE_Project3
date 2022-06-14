@@ -147,12 +147,14 @@
                 </thead>
                 <tbody class="list-tbody">
                 <tr class="list-tr" style="cursor: pointer;">
-                    <td class="list-td" th:text="${totalSellPrice}">총 판매금엑</td>
-                    <td class="list-td" th:text="${totalBuyPrice}">총 구매금액</td>
+                    <td class="list-td" th:text="${totalSellPrice}" style="font-weight: bold">총 판매금엑</td>
+                    <td class="list-td" th:text="${totalBuyPrice}" style="font-weight: bold">총 구매금액</td>
                 </tr>
                 </tbody>
             </table>
-
+            <div>
+                <input class="button-18" type="button" th:onclick="|location.href='@{/user/wallet/add}'|" value="포인트 충전하기">
+            </div>
         </div>
     </div>
 </section>
