@@ -18,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -48,7 +50,8 @@ public class ItemController {
     }
 
     @GetMapping("/brand/{brandId}")
-    public String getBrand(@PathVariable("brandId") Long id, Model model) {
+    public String getBrand(@PathVariable("brandId") Long id, Model model,
+                           @ModelAttribute("upSuccess") String upSuccess) {
         log.info("brand id={}", id);
         Brand brand = itemService.findBrand(id);
         /**
@@ -63,6 +66,7 @@ public class ItemController {
                 .collect(Collectors.toList());
         model.addAttribute("brand", brand);
         model.addAttribute("gifticons", gifticons);
+        model.addAttribute("upSuccess", upSuccess);
         return "items/brand";
     }
 
@@ -316,5 +320,16 @@ public class ItemController {
         log.info("gifticon id={}", id);
         itemService.setNullGifticon(id);
         return "redirect:/user/store/selling";
+    }
+
+    @GetMapping("/item/up/{itemId}")
+    public String getItemUp(@PathVariable("itemId") Long id, HttpServletResponse response,
+                            RedirectAttributes rttr) throws IOException {
+        Gifticon gifticon = itemService.findGifticon(id);
+        itemService.updateModifiedDate(gifticon);
+        response.setContentType("text/html;charset=euc-kr");
+        PrintWriter writer = response.getWriter();
+        rttr.addFlashAttribute("upSuccess", "true");
+        return "redirect:/items/brand/" + gifticon.getBrand().getId();
     }
 }
