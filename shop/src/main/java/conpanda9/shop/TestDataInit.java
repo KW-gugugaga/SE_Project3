@@ -29,50 +29,67 @@ public class TestDataInit {
 
         User user = new User("test", "test!", "nickname", "email@gmail.com", "010-0000-0000");
         User user2 = new User("test2", "test!", "nickname2", "email2@gmail.com", "010-2222-2222");
-        user2.setPoint(4000L);
+        User user3 = new User("test3", "test!", "보경이", "bob@gmail.com", "010-1234-0000");
+        User user4 = new User("test4", "test!", "예리밍", "yeye@gmail.com", "010-3423-2222");
+        User user5 = new User("test5", "test!", "워노", "owon@gmail.com", "010-2222-2342");
+        User user6 = new User("test6", "test!", "앵비니", "ang@gmail.com", "010-2222-1234");
+        User user7 = new User("test7", "test!", "나야나", "nana@gmail.com", "010-2342-2222");
         userRepository.save(user);
         userRepository.save(user2);
+        userRepository.save(user3);
+        userRepository.save(user4);
+        userRepository.save(user5);
+        userRepository.save(user6);
+        userRepository.save(user7);
 
         Seller store = new Seller("store", user);
+        Seller store3 = new Seller("봉이상점", user3);
+        Seller store4 = new Seller("멋쟁이", user4);
+        Seller store5 = new Seller("동이필요해", user5);
+        Seller store6 = new Seller("티끌모아티끌", user6);
         userRepository.saveStore(store);
+        userRepository.saveStore(store3);
+        userRepository.saveStore(store4);
+        userRepository.saveStore(store5);
+        userRepository.saveStore(store6);
 
         Notice notice1 = new Notice("notice1", "contents1", LocalDateTime.now(), LocalDateTime.now(), false);
         Notice notice2 = new Notice("notice2", "contents2", LocalDateTime.now(), LocalDateTime.now(), true);
         adminRepository.saveNotice(notice1);
         adminRepository.saveNotice(notice2);
 
-        Category cate1 = new Category("치킨", "/img/Category/fried-chicken.png");
-        Category cate2 = new Category("음료","/img/Category/coffee.png");
-        Category cate3 = new Category("베이커리","/img/Category/bread.png");
-        Category cate4 = new Category("한식","/img/Category/rice.png");
-        Category cate5 = new Category("햄버거","/img/Category/burger.png");
-        Category cate6 = new Category("편의점","/img/Category/24-hours.png");
-        Category cate7 = new Category("상품권","/img/Category/gift-card.png");
-        Category cate8 = new Category("아이스크림","/img/Category/ice-cream.png");
-        Category cate9 = new Category("기타","/img/Category/more.png");
+        Category chicken = new Category("치킨", "/img/Category/fried-chicken.png");
+        Category coffee = new Category("음료","/img/Category/coffee.png");
+        Category bakery = new Category("베이커리","/img/Category/bread.png");
+        Category rice = new Category("한식","/img/Category/rice.png");
+        Category burger = new Category("햄버거","/img/Category/burger.png");
+        Category convi = new Category("편의점","/img/Category/24-hours.png");
+        Category giftcard = new Category("상품권","/img/Category/gift-card.png");
+        Category icecream = new Category("아이스크림","/img/Category/ice-cream.png");
+        Category more = new Category("기타","/img/Category/more.png");
 
-        itemRepository.saveCategory(cate1);
-        itemRepository.saveCategory(cate2);
-        itemRepository.saveCategory(cate3);
-        itemRepository.saveCategory(cate4);
-        itemRepository.saveCategory(cate5);
-        itemRepository.saveCategory(cate6);
-        itemRepository.saveCategory(cate7);
-        itemRepository.saveCategory(cate8);
-        itemRepository.saveCategory(cate9);
+        itemRepository.saveCategory(chicken);
+        itemRepository.saveCategory(coffee);
+        itemRepository.saveCategory(bakery);
+        itemRepository.saveCategory(rice);
+        itemRepository.saveCategory(burger);
+        itemRepository.saveCategory(convi);
+        itemRepository.saveCategory(giftcard);
+        itemRepository.saveCategory(icecream);
+        itemRepository.saveCategory(more);
 
-        Brand brand1 = new Brand("맘스터치", cate1, "/img/");
-        Brand brand2 = new Brand("맥도날드", cate1,"/img/");
-        Brand brand3 = new Brand("스타벅스", cate2, "/img/cafe/starbucks.png");
-        Brand brand4 = new Brand("이디야", cate2,"/img/cafe/ediya.png");
-        Brand brand5 = new Brand("빽다방", cate2, "/img/cafe/bback.png");
-        Brand brand6 = new Brand("앤젤리너스", cate2, "/img/cafe/angelinus.png");
-        Brand brand7 = new Brand("공차", cate2, "/img/cafe/gongcha.png");
-        Brand brand8 = new Brand("메가커피", cate2, "/img/cafe/mega.png");
-        Brand brand9 = new Brand("탐앤탐스", cate2, "/img/cafe/tomntoms.jpg");
-        Brand brand10 = new Brand("투썸플레이스", cate2, "/img/cafe/twosomeplace.png");
-        Brand brand14 = new Brand("올리브영", cate3,"/img/");
-        Brand brand15 = new Brand("신세계백화점", cate3,"/img");
+        Brand brand1 = new Brand("맘스터치", burger, "/img/");
+        Brand brand2 = new Brand("맥도날드", chicken,"/img/");
+        Brand brand3 = new Brand("스타벅스", coffee, "/img/cafe/starbucks.png");
+        Brand brand4 = new Brand("이디야", coffee,"/img/cafe/ediya.png");
+        Brand brand5 = new Brand("빽다방", coffee, "/img/cafe/bback.png");
+        Brand brand6 = new Brand("앤젤리너스", coffee, "/img/cafe/angelinus.png");
+        Brand brand7 = new Brand("공차", coffee, "/img/cafe/gongcha.png");
+        Brand brand8 = new Brand("메가커피", coffee, "/img/cafe/mega.png");
+        Brand brand9 = new Brand("탐앤탐스", coffee, "/img/cafe/tomntoms.jpg");
+        Brand brand10 = new Brand("투썸플레이스", coffee, "/img/cafe/twosomeplace.png");
+        Brand brand14 = new Brand("올리브영", more,"/img/");
+        Brand brand15 = new Brand("신세계백화점", giftcard,"/img");
         itemRepository.saveBrand(brand1);
         itemRepository.saveBrand(brand2);
         itemRepository.saveBrand(brand3);
@@ -90,42 +107,40 @@ public class TestDataInit {
         프랜차이즈
          */
         //맘터
-        Gifticon g1 = new Gifticon("싸이버거", store, cate1, brand1, null,null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 7),
+        Gifticon g1 = new Gifticon("싸이버거", store, burger, brand1, null,null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 7),
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 2, 3, 3));
-        Gifticon g2 = new Gifticon("할라피뇨", store, cate1, brand1, null,null, "des", 4000L, 1000L, LocalDate.of(2022, 8, 3),
+        Gifticon g2 = new Gifticon("할라피뇨", store4, burger, brand1, null,null, "des", 4000L, 1000L, LocalDate.of(2022, 8, 3),
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 3, 3, 3));
         //맥날
-        Gifticon g3 = new Gifticon("더블불고기", store, cate1, brand2, null,null, "des", 3000L, 2000L, LocalDate.of(2022, 6, 6),
+        Gifticon g3 = new Gifticon("더블불고기", store3, burger, brand2, null,null, "des", 3000L, 2000L, LocalDate.of(2022, 6, 6),
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 3, 3, 3));
-        Gifticon g4 = new Gifticon("상하이", store, cate1, brand2, null,null, "des", 3000L, 1000L, LocalDate.of(2022, 8, 5),
+        Gifticon g4 = new Gifticon("상하이", store5, burger, brand2, null,null, "des", 3000L, 1000L, LocalDate.of(2022, 8, 5),
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 4, 3, 3));
 
         /*
         음료
          */
         //스벅
-        Gifticon g5 = new Gifticon("자허블", store, cate2, brand3, null, null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 9),
+        Gifticon g5 = new Gifticon("자허블", store4, coffee, brand3, null, null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 9),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 2, 4, 4));
-        Gifticon g6 = new Gifticon("콜드브루", store, cate2, brand3, "/img/gifticon/33_fake.jpg", "/img/gifticon/33_real.jpg","des", 4000L, 1000L, LocalDate.of(2022, 8, 7),
+        Gifticon g6 = new Gifticon("콜드브루", store4, coffee, brand3, "/img/gifticon/42_fake.jpg", "/img/gifticon/42_real.jpg","des", 4000L, 1000L, LocalDate.of(2022, 8, 7),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
         //이디야
-        Gifticon g7 = new Gifticon("꿀복숭아플랫치노", store, cate2, brand4, null, null,"des", 4000L, 2000L, LocalDate.of(2022, 6, 12),
+        Gifticon g7 = new Gifticon("꿀복숭아플랫치노", store4, coffee, brand4, null, null,"des", 4000L, 2000L, LocalDate.of(2022, 6, 12),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
-        Gifticon g8 = new Gifticon("아이스아메리카노", store, cate2, brand4, "/img/gifticon/35_fake.png", "/img/gifticon/35_real.jpg","des", 4000L, 1000L, LocalDate.of(2022, 8, 9),
+        Gifticon g8 = new Gifticon("아이스아메리카노", store4, coffee, brand4, null, null,"des", 4000L, 1000L, LocalDate.of(2022, 8, 9),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 4, 4, 4));
 
         /*
         생활
-         */
+        */
         //올영
-        Gifticon g9 = new Gifticon("랑방 향수", store, cate3, brand5, null,null, "des", 4000L, 2000L, LocalDate.of(2022, 8, 10),
-                LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 2, 5, 5));
-        Gifticon g10 = new Gifticon("30,000원권", store, cate3, brand5, null,null,"des", 4000L, 1000L, LocalDate.of(2022, 8, 11),
-                LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 3, 5, 5));
+        Gifticon g9 = new Gifticon("랑방 향수", store4, more, brand14, null,null, "des", 40000L, 20000L, LocalDate.of(2022, 8, 10), LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 2, 5, 5));
+        Gifticon g10 = new Gifticon("30,000원권", store4, giftcard, brand15, null,null,"des", 30000L, 10000L, LocalDate.of(2022, 8, 11), LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 3, 5, 5));
         //신세계
-        Gifticon g11 = new Gifticon("100,000원권", store, cate3, brand6, null, null,"des", 3000L, 2000L, LocalDate.of(2022, 8, 12),
+        Gifticon g11 = new Gifticon("100,000원권", store4, giftcard, brand15, null, null,"des", 100000L, 70000L, LocalDate.of(2022, 8, 12),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 4, 5, 5));
-        Gifticon g12 = new Gifticon("50,000원권", store, cate3, brand6, null, null,"des", 3000L, 1000L, LocalDate.of(2022, 8, 13),
+        Gifticon g12 = new Gifticon("50,000원권", store4, coffee, brand3, null, null,"des", 50000L, 40000L, LocalDate.of(2022, 8, 13),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 5, 5, 5));
         itemRepository.updateGifticonStateSold(g1);
         itemRepository.updateGifticonStateSold(g3);
@@ -159,9 +174,9 @@ public class TestDataInit {
         itemRepository.saveShared(shared2);
 
         Question question1 = new Question("question1", "text1", user, LocalDateTime.now(), LocalDateTime.now());
-        Question question2 = new Question("question2", "text2", user, LocalDateTime.now(), LocalDateTime.now());
-        Question question3 = new Question("question3", "text3", user, LocalDateTime.now(), LocalDateTime.now());
-        Question question4 = new Question("question4", "text4", user, LocalDateTime.now(), LocalDateTime.now());
+        Question question2 = new Question("question2", "text2", user3, LocalDateTime.now(), LocalDateTime.now());
+        Question question3 = new Question("question3", "text3", user4, LocalDateTime.now(), LocalDateTime.now());
+        Question question4 = new Question("question4", "text4", user5, LocalDateTime.now(), LocalDateTime.now());
         question1.setAnswer("answer1");
         question2.setAnswer("answer2");
         itemRepository.saveQuestion(question1);
@@ -169,14 +184,18 @@ public class TestDataInit {
         itemRepository.saveQuestion(question3);
         itemRepository.saveQuestion(question4);
 
-        Review review1 = new Review(user2, store, "review1", 3);
-        Review review2 = new Review(user2, store, "review1", 5);
-        Review review3 = new Review(user2, store, "review1", 3);
+        Review review1 = new Review(user2, store4, "review1", 3);
+        Review review2 = new Review(user3, store4, "review1", 5);
+        Review review3 = new Review(user4, store4, "review 처음남겨요", 3);
+        Review review4 = new Review(user5, store4, "감사합니다!! 개꿀", 3);
+        Review review5 = new Review(user6, store4, "좋은 상품 싸게 샀어요", 3);
         itemRepository.saveReview(review1);
         itemRepository.saveReview(review2);
         itemRepository.saveReview(review3);
+        itemRepository.saveReview(review4);
+        itemRepository.saveReview(review5);
 
-        Report report = new Report(user2, store, "report", ReportReason.FAKE);
+        Report report = new Report(user2, store4, "허위 매물이에요ㅡㅡ", ReportReason.FAKE);
         userRepository.saveReport(report);
 
         Alarm alarm1 = new Alarm(user, LocalDateTime.now(), "당신의 기프티콘을 판매해보세요!","기프티콘을 판매하려면, 상점을 먼저 개설하세요!", false);
