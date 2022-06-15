@@ -14,8 +14,11 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -166,7 +169,8 @@ public class ItemController {
     }
 
     @PostMapping("/upload")
-    public String upload(HttpServletRequest request, @Validated @ModelAttribute("uploadDTO") UploadDTO uploadDTO, BindingResult bindingResult,Model model) {
+    public String upload(HttpServletRequest request, @Validated @ModelAttribute("uploadDTO") UploadDTO uploadDTO,
+                         BindingResult bindingResult, Model model, @RequestPart(value="fakeFile",required = false)  MultipartFile fakeFile,@RequestPart(value="realFile",required = false)  MultipartFile realFile) throws IOException {
 
         /**
          * @Validated, 검사 객체, BindingResult 세트로 같이 써야함
@@ -175,6 +179,8 @@ public class ItemController {
          */
 
         System.out.println("itemController post upload");
+        System.out.println("fakeFile = " + fakeFile.getOriginalFilename());
+
         List<Category> categories = itemService.findAllCategory();
         if (bindingResult.hasErrors()) {   // 필드 에러
             model.addAttribute("categories", categories);
@@ -200,8 +206,14 @@ public class ItemController {
 
         Gifticon newGifticon = new Gifticon(uploadDTO.getName(), seller, category, brand, null, null, uploadDTO.getDescription(),
                 originalPrice, sellingPrice, expireDate, LocalDateTime.now(), LocalDateTime.now());
-
+        
         itemService.saveGifticon(newGifticon);
+        String[] fakeType = fakeFile.getContentType().split("/");
+        String[] realType = realFile.getContentType().split("/");
+        String fakePath = saveImage(newGifticon,fakeFile,"fake."+fakeType[1]);
+        String realPath = saveImage(newGifticon,realFile,"real."+realType[1]);
+
+        itemService.setImagePath(newGifticon,fakePath,realPath);
 
         return "redirect:/items/item/"+newGifticon.getId();
     }
@@ -220,11 +232,30 @@ public class ItemController {
 
         if(seller.getUser().getId()==id) {   // 내가 상품 주인이다!
             model.addAttribute("gifticon", gifticon);
-            System.out.println("내꺼다");
             return "items/myitem";
         } else {
             model.addAttribute("gifticon", gifticon);
             return "items/item";
         }
+    }
+
+    public String saveImage(Gifticon gifticon, MultipartFile imgFile, String what) throws IOException {
+
+        String oriImgName = imgFile.getOriginalFilename();
+        String imgName = "";
+
+        String projectPath = System.getProperty("user.dir") + "/shop/src/main/resources/static/img/gifticon";
+
+        long gid = gifticon.getId();
+
+        String savedFileName = gid + "_" + what; // 파일명 -> imgName
+
+        imgName = savedFileName;
+
+        File saveFile = new File(projectPath, imgName);
+
+        imgFile.transferTo(saveFile);
+
+        return "/img/"+imgName;
     }
 }
