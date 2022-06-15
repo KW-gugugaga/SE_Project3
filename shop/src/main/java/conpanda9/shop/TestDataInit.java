@@ -104,9 +104,9 @@ public class TestDataInit {
         itemRepository.saveBrand(brand15);
 
 
-        Gifticon g1 = new Gifticon("아이스아메리카노", store, coffee, brand3, "/img/gifticon/37_fake.png", "/img/gifticon/37_real.jpg", "스벅 아아", 4000L, 2000L, LocalDate.of(2022, 6, 7),
+        Gifticon g1 = new Gifticon("아이스아메리카노", store3, coffee, brand3, "/img/gifticon/37_fake.png", "/img/gifticon/37_real.jpg", "스벅 아아", 4000L, 2000L, LocalDate.of(2022, 6, 7),
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 2, 3, 3));
-        Gifticon g2 = new Gifticon("돌체라떼", store4, coffee, brand3, "/img/gifticon/38_fake.png","/img/gifticon/38_real.jpg", "스벅 돌체라떼", 4000L, 1000L, LocalDate.of(2022, 8, 3),
+        Gifticon g2 = new Gifticon("돌체라떼", store5, coffee, brand3, "/img/gifticon/38_fake.png","/img/gifticon/38_real.jpg", "스벅 돌체라떼", 4000L, 1000L, LocalDate.of(2022, 8, 3),
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 3, 3, 3));
 
         Gifticon g3 = new Gifticon("에스프레소", store3, coffee, brand3, "/img/gifticon/39_fake.png","/img/gifticon/39_real.png", "스벅 에스프레소", 3000L, 2000L, LocalDate.of(2022, 6, 6),
@@ -115,29 +115,29 @@ public class TestDataInit {
                 LocalDateTime.of(2022, 3, 1, 3, 3), LocalDateTime.of(2022, 3, 4, 3, 3));
 
 
-        Gifticon g5 = new Gifticon("망고패션후르츠블랜디드", store4, coffee, brand3, "/img/gifticon/41_fake.png", "/img/gifticon/41_real.png", "스벅 망고패션후르츠", 6000L, 3000L, LocalDate.of(2022, 6, 9),
+        Gifticon g5 = new Gifticon("망고패션후르츠블랜디드", store3, coffee, brand3, "/img/gifticon/41_fake.png", "/img/gifticon/41_real.png", "스벅 망고패션후르츠", 6000L, 3000L, LocalDate.of(2022, 6, 9),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 2, 4, 4));
-        Gifticon g6 = new Gifticon("바닐라크림프라푸치노", store4, coffee, brand3, "/img/gifticon/42_fake.png", "/img/gifticon/42_real.jpg","스벅 바닐라크림프라푸치노", 6500L, 4000L, LocalDate.of(2022, 8, 7),
+        Gifticon g6 = new Gifticon("바닐라크림프라푸치노", store5, coffee, brand3, "/img/gifticon/42_fake.png", "/img/gifticon/42_real.jpg","스벅 바닐라크림프라푸치노", 6500L, 4000L, LocalDate.of(2022, 8, 7),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
 
-        Gifticon g7 = new Gifticon("바닐라크림콜드브루", store4, coffee, brand3, "/img/gifticon/43_fake.png", "/img/gifticon/43_real.jpg","스벅 바크콜", 5800L, 3500L, LocalDate.of(2022, 6, 12),
+        Gifticon g7 = new Gifticon("바닐라크림콜드브루", store3, coffee, brand3, "/img/gifticon/43_fake.png", "/img/gifticon/43_real.jpg","스벅 바크콜", 5800L, 3500L, LocalDate.of(2022, 6, 12),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
-        Gifticon g8 = new Gifticon("딸기딜라이트요거트블랜디드", store4, coffee, brand3, "/img/gifticon/44_fake.png", "/img/gifticon/44_real.jpg","스벅 딸기요거트", 6800L, 5000L, LocalDate.of(2022, 8, 9),
+        Gifticon g8 = new Gifticon("딸기딜라이트요거트블랜디드", store6, coffee, brand3, "/img/gifticon/44_fake.png", "/img/gifticon/44_real.jpg","스벅 딸기요거트", 6800L, 5000L, LocalDate.of(2022, 8, 9),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 4, 4, 4));
 
 
-        Gifticon g9 = new Gifticon("자바칩프라푸치노", store4, coffee, brand3, "/img/gifticon/45_fake.png","/img/gifticon/45_real.jpg", "스벅 자바칩", 6500L, 3200L, LocalDate.of(2022, 8, 10), LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 2, 5, 5));
-        Gifticon g10 = new Gifticon("자몽허니블랙티", store4, coffee, brand3, "/img/gifticon/46_fake.png","/img/gifticon/46_real.jpg","스벅 자허블", 5400L, 3000L, LocalDate.of(2022, 8, 11), LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 3, 5, 5));
+        Gifticon g9 = new Gifticon("자바칩프라푸치노", store5, coffee, brand3, "/img/gifticon/45_fake.png","/img/gifticon/45_real.jpg", "스벅 자바칩", 6500L, 3200L, LocalDate.of(2022, 8, 10), LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 2, 5, 5));
+        Gifticon g10 = new Gifticon("자몽허니블랙티", store3, coffee, brand3, "/img/gifticon/46_fake.png","/img/gifticon/46_real.jpg","스벅 자허블", 5400L, 3000L, LocalDate.of(2022, 8, 11), LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 3, 5, 5));
 
-        Gifticon g11 = new Gifticon("쿨라임피지오", store4, coffee, brand3, "/img/gifticon/47_fake.png", "/img/gifticon/47_real.jpg","스벅 쿨라임피지오", 5600L, 5000L, LocalDate.of(2022, 8, 12),
+        Gifticon g11 = new Gifticon("쿨라임피지오", store6, coffee, brand3, "/img/gifticon/47_fake.png", "/img/gifticon/47_real.jpg","스벅 쿨라임피지오", 5600L, 5000L, LocalDate.of(2022, 8, 12),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 4, 5, 5));
-        Gifticon g12 = new Gifticon("부드러운 생크림 카스테라 + 아이스아메리카노 2잔", store4, coffee, brand3, "/img/gifticon/48_fake.jpg", "/img/gifticon/48_real.jpg","스벅 세트", 50000L, 40000L, LocalDate.of(2022, 8, 13),
+        Gifticon g12 = new Gifticon("부드러운 생크림 카스테라 + 아이스아메리카노 2잔", store3, coffee, brand3, "/img/gifticon/48_fake.jpg", "/img/gifticon/48_real.jpg","스벅 세트", 50000L, 40000L, LocalDate.of(2022, 8, 13),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 5, 5, 5));
-        Gifticon g13 = new Gifticon("스벅 3만원권", store4, coffee, brand3, "/img/gifticon/49_fake.jpg", "/img/gifticon/49_real.jpg","스벅 3만원권", 30000L, 15000L, LocalDate.of(2022, 8, 13),
+        Gifticon g13 = new Gifticon("스벅 3만원권", store3, coffee, brand3, "/img/gifticon/49_fake.jpg", "/img/gifticon/49_real.jpg","스벅 3만원권", 30000L, 15000L, LocalDate.of(2022, 8, 13),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 5, 5, 5));
-        Gifticon g14 = new Gifticon("아이스아메리카노", store4, coffee, brand3, "/img/gifticon/50_fake.png", "/img/gifticon/50_real.jpg","스벅 아아", 4000L, 2000L, LocalDate.of(2022, 8, 13),
+        Gifticon g14 = new Gifticon("아이스아메리카노", store6, coffee, brand3, "/img/gifticon/50_fake.png", "/img/gifticon/51_real.jpg","스벅 아아", 4000L, 2000L, LocalDate.of(2022, 8, 13),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 5, 5, 5));
-        Gifticon g15 = new Gifticon("아이스아메리카노", store4, coffee, brand3, "/img/gifticon/51_fake.png", "/img/gifticon/50_real.jpg","스벅 아아", 4000L, 1500L, LocalDate.of(2022, 8, 13),
+        Gifticon g15 = new Gifticon("아이스아메리카노", store3, coffee, brand3, "/img/gifticon/51_fake.png", "/img/gifticon/51_real.jpg","스벅 아아", 4000L, 1500L, LocalDate.of(2022, 8, 13),
                 LocalDateTime.of(2022, 5, 1, 5, 5), LocalDateTime.of(2022, 5, 5, 5, 5));
 
         itemRepository.updateGifticonStateSold(g1);

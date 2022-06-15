@@ -187,7 +187,7 @@
                 <td th:text="${buy.soldPrice}">soldPrice</td>
                 <td th:text="${#temporals.format(buy.soldDate, 'yyyy-MM-dd')}">soldDate</td>
                 <td th:text="${buy.gifticon.expireDate}">expireDate</td>
-                <td th:text="${buy.seller.name}">seller store name</td>
+                <td th:text="${buy.seller.name}" th:onclick="|location.href='@{/store/info/{pv1}(pv1=${buy.seller.id})}'|">seller store name</td>
                 <td th:text="${buy.seller.user.nickname}">seller nickname</td>
                 <td><input type="button" class="button-18" style="height: 30px; font-size: 13px;"
                            th:onclick="|window.open('@{/user/store/buy/info/{pv1}(pv1=${buy.gifticon.id})}', 'review','width=480, height=500,location=no,status=no,scrollbars=yes')|" value="상품 확인"></td>
