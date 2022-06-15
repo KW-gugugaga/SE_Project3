@@ -214,6 +214,7 @@ public class ItemController {
         String realPath = saveImage(newGifticon,realFile,"real."+realType[1]);
 
         itemService.setImagePath(newGifticon,fakePath,realPath);
+        log.info("new id={}", newGifticon.getId());
 
         return "redirect:/items/item/"+newGifticon.getId();
     }
@@ -244,7 +245,7 @@ public class ItemController {
         String oriImgName = imgFile.getOriginalFilename();
         String imgName = "";
 
-        String projectPath = System.getProperty("user.dir") + "/shop/src/main/resources/static/img/gifticon";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/gifticon";
 
         long gid = gifticon.getId();
 
