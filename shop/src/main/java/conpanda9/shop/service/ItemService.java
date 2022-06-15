@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -141,5 +143,10 @@ public class ItemService {
 
     public void saveSold(Sold sold) {
         itemRepository.saveSold(sold);
+    }
+
+    @Transactional
+    public void updateModifiedDate(Gifticon gifticon) {
+        gifticon.setLastModifiedDate(LocalDateTime.now());
     }
 }
