@@ -4,10 +4,11 @@ import conpanda9.shop.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -94,6 +95,22 @@ public class ItemRepository {
     {
         gifticon.setFakeImage(fakePath);
         gifticon.setRealImage(realPath);
+    }
+
+    @Transactional
+    public void modifyGifticon(Gifticon gifticon,String name, Category category, Brand brand, Long originalPrice, Long sellingPrice, LocalDate expireDate,String description)
+    {
+        gifticon.setName(name);
+        gifticon.setCategory(category);
+        gifticon.setBrand(brand);
+        gifticon.setOriginalPrice(originalPrice);
+        gifticon.setSellingPrice(sellingPrice);
+        gifticon.setExpireDate(expireDate);
+        gifticon.setDescription(description);
+
+        double discountRate=Math.round((originalPrice.doubleValue() - sellingPrice.doubleValue()) / originalPrice.doubleValue() * 1000) / 10.0;
+        gifticon.setDiscountRate(discountRate);
+        gifticon.setLastModifiedDate(LocalDateTime.now());
     }
 
     /**

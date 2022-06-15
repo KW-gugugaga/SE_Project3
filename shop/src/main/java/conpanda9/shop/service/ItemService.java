@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -87,6 +88,9 @@ public class ItemService {
 
     public void setImagePath(Gifticon gifticon,String fakePath, String realPath){
         itemRepository.setImagePath(gifticon,fakePath,realPath);
+    }
+    public void modifyGifticon(Gifticon gifticon,String name, Category category, Brand brand, Long originalPrice, Long sellingPrice, LocalDate expireDate, String description){
+        itemRepository.modifyGifticon(gifticon,name,category,brand,originalPrice,sellingPrice,expireDate,description);
     }
 
     public void setNullGifticon(Long id) {

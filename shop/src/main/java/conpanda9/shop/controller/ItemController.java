@@ -25,11 +25,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -266,20 +264,6 @@ public class ItemController {
         return "/img/gifticon/"+imgName;
     }
 
-    @GetMapping("/item/edit/{g_id}")
-    public String getItemEdit(HttpServletRequest request, @PathVariable("g_id") long g_id, Model model) {
-
-        Long id = (Long) request.getSession().getAttribute("user");
-        System.out.println("id = " + id);
-        Gifticon gifticon = itemService.findGifticon(g_id);
-
-
-        log.info("user edit id={}", id);
-        //model.addAttribute("editDTO", new MyInfoEditDTO());
-        model.addAttribute("id", id);
-        return "items/edititem";
-    }
-
     @GetMapping("/item/purchase/{gifticonId}")
     public String getItemPurchase(@PathVariable("gifticonId") Long gId,
                                   HttpServletRequest request, Model model) {
@@ -325,10 +309,50 @@ public class ItemController {
     }
 
     @GetMapping("/item/modify/{itemId}")
-    public String getModifyItem(@PathVariable("itemId") Long id, Model model) {
+    public String getModifyItem(HttpServletRequest request, @PathVariable("itemId") Long id, Model model) {
+        Long u_id = (Long) request.getSession().getAttribute("user");
+        List<Category> categories = itemService.findAllCategory();
         Gifticon gifticon = itemService.findGifticon(id);
+        model.addAttribute("uploadDTO", new UploadDTO());
+        model.addAttribute("categories", categories);
         model.addAttribute("gifticon", gifticon);
         return "items/modify";
+    }
+    @PostMapping("/item/modify/{itemId}")
+    public String postModifyItem(HttpServletRequest request,@PathVariable("itemId") Long id,@Validated @ModelAttribute("uploadDTO") UploadDTO uploadDTO,BindingResult bindingResult, Model model,
+                                 @RequestParam("newName") String newName,
+                                 @RequestParam("newOriginalPrice") String newOriginalPrice,
+                                 @RequestParam("newSellingPrice") String newSellingPrice,
+                                 @RequestParam("newDescription") String newDescription,
+                                 @RequestPart(value="fakeFile",required = false)  MultipartFile fakeFile,@RequestPart(value="realFile",required = false)  MultipartFile realFile) throws IOException {
+
+        Gifticon gifticon = itemService.findGifticon(id);
+        List<Category> categories = itemService.findAllCategory();
+
+        Long u_id = (Long) request.getSession().getAttribute("user");
+        User user = userService.findUser(u_id);
+        Optional<Seller> storeOptional = userService.findStore(u_id);
+        Seller seller = storeOptional.get();
+
+        long originalPrice = Long.parseLong(newOriginalPrice);
+        long sellingPrice = Long.parseLong(newSellingPrice);
+
+        long categoryId = Long.parseLong(uploadDTO.getCategoryId());
+        Category category = itemService.findCategory(categoryId);
+        Brand brand = itemService.findBrandByName(uploadDTO.getBrandName());
+        LocalDate expireDate = LocalDate.parse(uploadDTO.getExpireDate(), DateTimeFormatter.ISO_DATE);
+
+        System.out.println("newExpireDate = " + expireDate);
+
+        String[] fakeType = fakeFile.getContentType().split("/");
+        String[] realType = realFile.getContentType().split("/");
+        String fakePath = saveImage(gifticon,fakeFile,"fake."+fakeType[1]);
+        String realPath = saveImage(gifticon,realFile,"real."+realType[1]);
+
+        itemService.setImagePath(gifticon,fakePath,realPath);
+        itemService.modifyGifticon(gifticon,newName,category,brand,originalPrice,sellingPrice,expireDate,newDescription);
+
+        return "redirect:/items/item/"+gifticon.getId();
     }
 
     @GetMapping("/item/delete/{itemId}")

@@ -1,10 +1,266 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 63%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
+
+        .button-18 {
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: inline-flex;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+        }
+
+        .edit-input {
+            margin-bottom: 10px;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Con Panda 9</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    * Template Name: Appland - v4.7.0
+    * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+        function SelectedCategory() {
+            var cate_id = $('#cate_id').val();
+            console.log(cate_id);
+            $.ajax({
+                url: '/items/SelectedCategory',
+                type: 'post', //POST 방식으로 전달
+                data: {cate_id: cate_id},
+
+                success: function (brandNameOnly) {
+                    var brand = brandNameOnly
+                    console.log(brand);
+                    //document.getElementById("brand_select").style.display="block";
+                    //document.getElementById("brandNameOnly").innerHTML=brandNameOnly;
+                    //var target = document.getElementById("brand_name");
+                    $('#brand_name').empty();
+                    $('#brand_name').append('<option>선택</option>');
+                    for (var i = 0; i < brand.length; i++) {
+                        $('#brand_name').append('<option>' + brand[i] + '</option>');
+                    }
+
+                    //$('#brand_select').style.display="block";
+                },
+                error: function () {
+                    alert("에러입니다");
+                }
+            });
+        };
+    </script>
+
 </head>
 <body>
+<header th:replace="navbar :: navbarFragment"></header>
+
+<section style="margin-top: 40px;">
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        기프티콘 수정
+    </h2><br>
+    <div style="margin: 0 auto">
+        <form th:object="${uploadDTO}" th:action="@{/items/item/modify/{pv1}(pv1=${gifticon.id})}" th:method="post" enctype="multipart/form-data">
+            <div style="padding: 0px 100px 50px 100px">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>
+                            상품 이름
+                        </th>
+                        <td>
+                            <input type="text" style="width: 100%;" th:id="newName" th:name="newName" th:value="${gifticon.name}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            카테고리 및 브랜드
+                        </th>
+                        <td>
+                            <label th:for="category" style="vertical-align: top;">카테고리</label>
+                            <select th:field="*{categoryId}" th:value="*{categoryId}" th:id=cate_id
+                                    onchange="SelectedCategory()">
+                                <option value="선택"> 선택</option>
+                                <option th:each="categorySelect : ${categories}"
+                                        th:value="${categorySelect.id}"
+                                        th:utext="${categorySelect.name}">
+                                </option>
+
+                            </select>
+                            <div class="field-error" th:errors="*{categoryId}">카테고리 선택 오류</div>
+
+                            <label th:for="brand" style="vertical-align: top;">브랜드</label>
+                            <select th:field="*{brandName}" th:value="*{brandName}" th:id="brand_name">
+                            </select>
+                            <div class="field-error" th:errors="*{brandName}">브랜드 선택 오류</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th rowspan="2">
+                            상품 이미지
+                        </th>
+                        <td>
+                            <label th:for="fakeImage" class="form-label">상품 이미지 업로드</label>
+                            <input type="file" style="width: 300px;" class="form-control" id="fakeFile" name="fakeFile" th:value="${gifticon.fakeImage}" >
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label th:for="realPath" class="form-label">실제 기프티콘 업로드</label>
+                            <input type="file" style="width: 300px;" class="form-control" id="realFile" name="realFile" th:value="${gifticon.realImage}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            원가
+                        </th>
+                        <td>
+                            <input type="text" style="width: 100%;" th:id="newOriginalPrice" th:name="newOriginalPrice" th:value="${gifticon.originalPrice}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            판매가
+                        </th>
+                        <td>
+                            <input type="text" style="width: 100%;" th:id="newSellingPrice" th:name="newSellingPrice" th:value="${gifticon.sellingPrice}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            유효기간
+                        </th>
+                        <td>
+                            <input name="date" type="date" style="width: 100%;" placeholder="유효기간"th:field="*{expireDate}"
+                                   th:value="*{expireDate}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>
+                            상품 설명
+                        </th>
+                        <td>
+                            <textarea cols="84" rows="5" th:id="newDescription" th:name="newDescription">[[ ${gifticon.description} ]]</textarea>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="text-align: center;">
+                    <button type="submit" class="button-18" value="modify">수정</button>
+                    <button type="button" class="button-18"
+                            th:onclick="|location.href='@{/items/item/{pv1}(pv1=${gifticon.id})}'|">뒤로가기
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<script src="/vendor/aos/aos.js"></script>
+<script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="/vendor/php-email-form/validate.js"></script>
+
+<script src="/js/main.js"></script>
 
 </body>
+
 </html>
