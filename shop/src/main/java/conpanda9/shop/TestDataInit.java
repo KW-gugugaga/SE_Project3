@@ -105,12 +105,12 @@ public class TestDataInit {
         //스벅
         Gifticon g5 = new Gifticon("자허블", store, cate2, brand3, null, null, "des", 4000L, 2000L, LocalDate.of(2022, 6, 9),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 2, 4, 4));
-        Gifticon g6 = new Gifticon("콜드브루", store, cate2, brand3, null, null,"des", 4000L, 1000L, LocalDate.of(2022, 8, 7),
+        Gifticon g6 = new Gifticon("콜드브루", store, cate2, brand3, "/img/gifticon/33_fake.jpg", "/img/gifticon/33_real.jpg","des", 4000L, 1000L, LocalDate.of(2022, 8, 7),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
         //이디야
         Gifticon g7 = new Gifticon("꿀복숭아플랫치노", store, cate2, brand4, null, null,"des", 4000L, 2000L, LocalDate.of(2022, 6, 12),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 3, 4, 4));
-        Gifticon g8 = new Gifticon("아이스아메리카노", store, cate2, brand4, null, null,"des", 4000L, 1000L, LocalDate.of(2022, 8, 9),
+        Gifticon g8 = new Gifticon("아이스아메리카노", store, cate2, brand4, "/img/gifticon/35_fake.png", "/img/gifticon/35_real.jpg","des", 4000L, 1000L, LocalDate.of(2022, 8, 9),
                 LocalDateTime.of(2022, 4, 1, 4, 4), LocalDateTime.of(2022, 4, 4, 4, 4));
 
         /*
