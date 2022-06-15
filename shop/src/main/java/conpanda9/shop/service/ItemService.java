@@ -9,9 +9,12 @@ import conpanda9.shop.domain.sharecomparator.ShareNameComparator;
 import conpanda9.shop.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -78,6 +81,10 @@ public class ItemService {
 
     public Gifticon findGifticon(Long id) {
         return itemRepository.findGifticon(id);
+    }
+
+    public void setImagePath(Gifticon gifticon,String fakePath, String realPath){
+        itemRepository.setImagePath(gifticon,fakePath,realPath);
     }
 
     /**

@@ -4,6 +4,7 @@ import conpanda9.shop.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
@@ -86,6 +87,13 @@ public class ItemRepository {
     @Transactional
     public void updateGitficonStateSelling(Gifticon gifticon) {
         gifticon.setState(GifticonState.Selling);
+    }
+
+    @Transactional
+    public void setImagePath(Gifticon gifticon,String fakePath, String realPath)
+    {
+        gifticon.setFakeImage(fakePath);
+        gifticon.setRealImage(realPath);
     }
 
     /**
