@@ -15,8 +15,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.time.Month;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -27,11 +31,6 @@ import java.util.stream.Stream;
 public class AdminController {
 
     private final AdminService adminService;
-
-    @GetMapping("/main")
-    public String main() {
-        return "admin/main";
-    }
 
     @GetMapping("/notice")
     public String notices(Model model) {
@@ -302,5 +301,32 @@ public class AdminController {
         log.info("gifticon id={}", id);
         adminService.setNullGifticon(id);
         return "redirect:/admin/item";
+    }
+
+
+    @GetMapping("/main")
+    public String GetVisualization(Model model) {
+
+        Map<String, Integer> categoriesData = new LinkedHashMap<String, Integer>();
+        categoriesData.put("카페", 25);
+        categoriesData.put("치킨", 15);
+        categoriesData.put("베이커리/도넛/떡", 9);
+        categoriesData.put("한식", 3);
+        categoriesData.put("패스트푸드", 5);
+        categoriesData.put("편의점", 8);
+        categoriesData.put("상품권", 7);
+        categoriesData.put("아이스크림/빙수", 9);
+        categoriesData.put("기타", 5);
+
+        model.addAttribute("categoriesData", categoriesData);
+
+        Map<String, Integer> brandData = new LinkedHashMap<String, Integer>();
+        brandData.put("스타벅스",13);
+        brandData.put("bhc",9);
+        brandData.put("투썸플레이스",7);
+        brandData.put("베스킨라빈스",5);
+        brandData.put("올리브영",2);
+        model.addAttribute("brandData", brandData);
+        return "admin/static";
     }
 }

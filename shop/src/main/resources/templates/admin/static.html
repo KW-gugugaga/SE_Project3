@@ -1,0 +1,196 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Main</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="/menu_theme/css/style.css">
+    <link href="http://fonts.googleapis.com/earlyaccess/jejugothic.css" rel="stylesheet">
+
+    <style>
+        .a-menu {
+            font-size: 16px;
+        }
+        *{
+            font-family: "nanum" !important;
+        }
+        body {
+            font-family: "nanum";
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+            margin-left: 40px;
+        }
+        table,th,td{
+            border-top: 1px rgba(170, 173, 176, 0.33) solid;
+            border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
+        }
+        table {
+            margin: auto;
+            font-size: .9em;
+            width: 90%;
+            overflow: hidden;
+        }
+        th {
+            text-align: center;
+            background: rgba(232, 236, 238, 0.71);
+        }
+        thead {
+            font-weight: bold;
+            color: #58595b;
+            background: #d5dbe0;
+        }
+        td, th {
+            vertical-align: middle;
+
+        }
+        td {
+            background: #fff;
+        }
+        a {
+            color: #6DA6D9;
+        }
+        .button-18 {
+            margin: 20px auto;
+            font-family: "nanum";
+            align-items: center;
+            background-color: #6DA6D9;
+            border: 0;
+            border-radius: 100px;
+            box-sizing: border-box;
+            color: #ffffff;
+            cursor: pointer;
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            justify-content: center;
+            line-height: 20px;
+            max-width: 480px;
+            min-height: 40px;
+            min-width: 0px;
+            overflow: hidden;
+            padding: 0px;
+            padding-left: 20px;
+            padding-right: 20px;
+            text-align: center;
+            touch-action: manipulation;
+            transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+            user-select: none;
+            -webkit-user-select: none;
+            vertical-align: middle;
+        }
+    </style>
+
+</head>
+<body>
+<div>
+    <h2 style="font-family:nanum; color:#6DA6D9; margin-left: 18px">Conpanda</h2>
+</div>
+<div id="colorlib-page">
+    <aside id="colorlib-aside" role="complementary" class="js-fullheight" style="margin-top: 40px;">
+        <nav id="colorlib-main-menu" role="navigation">
+            <ul style="font-size: 16px;">
+                <li><a class="a-menu" href="/admin/notice">공지사항</a></li>
+                <li><a class="a-menu" href="/admin/question">문의사항</a></li>
+                <li><a class="a-menu" href="/admin/report">신고사항</a></li>
+                <li><a class="a-menu" href="/admin/user">회원관리</a></li>
+                <li><a class="a-menu" href="/admin/item">매물관리</a></li>
+            </ul>
+        </nav>
+    </aside> <!-- END COLORLIB-ASIDE -->
+    <div id="colorlib-main" style="margin-top: 40px;">
+        <h3 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #b5bbbe;border-left: 5px solid #b5bbbe; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+            상품 전체 통계
+        </h3><br>
+        <table>
+            <td>
+                <div id="piechart" style="width: 550px; height: 500px"></div>
+                <script th:inline="javascript">
+                    google.charts.load('current', {'packages':['corechart']});
+                    google.charts.setOnLoadCallback(drawChart);
+                    function drawChart() {
+                        var real_data = [[${categoriesData}]];
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string','Category');
+                        data.addColumn('number','상품 수');
+
+                        Object.keys(real_data).forEach(function(key) {
+                            data.addRow([ key, real_data[key] ]);
+                        });
+
+                        var options = {
+                            title : '카테고리별 상품 수',
+                            titleTextStyle : {
+                                    fontSize: 18
+                            },
+                            pieSliceText: 'label',
+                            hAxis : {
+                                title : 'Category',
+                            },
+                            vAxis : {
+                                title : '상품 수',
+                            },
+                            colors: ['#0F2437','#183A58','#265A8A', '#337ABB', '#5899D4','#6EA6D8', '#95BEE3', '#B6D2EC','#CBDFF1'],
+                            legend:'none',
+                            fontName: 'Jeju Gothic'
+                        };
+                        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+                        chart.draw(data,options);
+                    }
+                </script>
+            </td>
+            <td>
+                <div id="barchart" style="width: 550px; height: 500px"></div>
+                <script th:inline="javascript">
+                    google.charts.load('current', {packages : ['bar']});
+                    google.charts.setOnLoadCallback(drawBarChart);
+
+                    function drawBarChart() {
+                        var real_data = [[${brandData}]];
+                        console.log(real_data);
+
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('string', 'brands');
+                        data.addColumn('number', '상품 수');
+                        Object.keys(real_data).forEach(function(key) {
+                            data.addRow([ key, real_data[key] ]);
+                        });
+                        var options = {
+                            title : '인기 브랜드 TOP 5',
+                            titleTextStyle : {
+                                    fontSize: 18
+                            },
+
+                            hAxis : {
+                                title : '상품 수',
+                            },
+                            vAxis : {
+                                title : 'Brand',
+                            },
+                            colors: ['#6DA6D9'],
+                            legend:'none',
+                            fontName: 'Jeju Gothic'
+                        };
+                        var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+                        chart.draw(data, options);
+                    }
+                    </script>
+            </td>
+        </table>
+
+    </div>
+
+</div><!-- END COLORLIB-PAGE -->
+
+<script src="/menu_theme/js/jquery.min.js"></script>
+<script src="//js/popper.js"></script>
+<script src="/menu_theme/js/bootstrap.min.js"></script>
+<script src="/menu_theme/js/main.js"></script>
+</body>
+</html>
+
