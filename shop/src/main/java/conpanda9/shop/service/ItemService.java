@@ -153,4 +153,8 @@ public class ItemService {
     public void updateModifiedDate(Gifticon gifticon) {
         gifticon.setLastModifiedDate(LocalDateTime.now());
     }
+
+    public void updateGifticonStateSold(Gifticon gifticon) {
+        itemRepository.updateGifticonStateSold(gifticon);
+    }
 }
