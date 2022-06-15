@@ -198,7 +198,7 @@ public class UserController {
         }
 
         userService.editPw(id, editDTO.getNewPw());
-        return "redirect:/user/myinfo";
+        return "redirect:/user/info/myinfo";
     }
 
     @GetMapping("/store")

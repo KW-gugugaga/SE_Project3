@@ -4,6 +4,45 @@
 
 <head>
     <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 63%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -32,6 +71,16 @@
             user-select: none;
             -webkit-user-select: none;
             vertical-align: middle;
+        }
+
+        .field-error {
+            font-family: "nanum";
+            font-size: 12px;
+            color: darkred;
+        }
+
+        .edit-input {
+            margin-bottom: 10px;
         }
     </style>
     <meta charset="utf-8">
@@ -72,11 +121,11 @@
             var cate_id = $('#cate_id').val();
             console.log(cate_id);
             $.ajax({
-                url:'/items/SelectedCategory',
-                type:'post', //POST 방식으로 전달
-                data:{cate_id:cate_id},
+                url: '/items/SelectedCategory',
+                type: 'post', //POST 방식으로 전달
+                data: {cate_id: cate_id},
 
-                success:function(brandNameOnly){
+                success: function (brandNameOnly) {
                     var brand = brandNameOnly
                     console.log(brand);
                     //document.getElementById("brand_select").style.display="block";
@@ -84,13 +133,13 @@
                     //var target = document.getElementById("brand_name");
                     $('#brand_name').empty();
                     $('#brand_name').append('<option>선택</option>');
-                    for ( var i = 0; i < brand.length; i++ ) {
-                      $('#brand_name').append('<option>' + brand[i] + '</option>');
+                    for (var i = 0; i < brand.length; i++) {
+                        $('#brand_name').append('<option>' + brand[i] + '</option>');
                     }
 
                     //$('#brand_select').style.display="block";
                 },
-                error:function(){
+                error: function () {
                     alert("에러입니다");
                 }
             });
@@ -138,82 +187,115 @@
 </header><!-- End Header -->
 
 <section style="margin-top: 40px;">
-    <h2>
-        UPLOAD GIFTICON
-    </h2>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        상품등록
+    </h2><br>
     <form th:object="${uploadDTO}" th:action="@{/items/upload}" th:method="post">
         <table>
             <tbody>
             <tr>
+                <th>
+                    상품 이름
+                </th>
                 <td>
-                    <label th:for="name">상품 이름</label>
-                    <input type="text" style="width: 300px;" th:field="*{name}" th:value="*{name}"/>
+                    <input type="text" style="width: 100%;" th:field="*{name}" th:value="*{name}"/>
                     <div class="field-error" th:errors="*{name}">이름 입력 오류</div>
                 </td>
             </tr>
             <tr>
-                <label th:for="category" style="vertical-align: top;">카테고리</label>
-                <select th:field="*{categoryId}" th:value="*{categoryId}" th:id=cate_id onchange="SelectedCategory()">
-                        <option value="선택"> 선택 </option>
+                <th>
+                    카테고리 및 브랜드
+                </th>
+                <td>
+                    <label th:for="category" style="vertical-align: top;">카테고리</label>
+                    <select th:field="*{categoryId}" th:value="*{categoryId}" th:id=cate_id
+                            onchange="SelectedCategory()">
+                        <option value="선택"> 선택</option>
                         <option th:each="categorySelect : ${categories}"
                                 th:value="${categorySelect.id}"
                                 th:utext="${categorySelect.name}">
                         </option>
 
-                </select>
-                <div class="field-error" th:errors="*{categoryId}">카테고리 선택 오류</div>
+                    </select>
+                    <div class="field-error" th:errors="*{categoryId}">카테고리 선택 오류</div>
 
-                <label th:for="brand" style="vertical-align: top;">브랜드</label>
-                <select th:field="*{brandName}" th:value="*{brandName}" th:id="brand_name">
-                </select>
-                <div class="field-error" th:errors="*{brandName}">브랜드 선택 오류</div>
+                    <label th:for="brand" style="vertical-align: top;">브랜드</label>
+                    <select th:field="*{brandName}" th:value="*{brandName}" th:id="brand_name">
+                    </select>
+                    <div class="field-error" th:errors="*{brandName}">브랜드 선택 오류</div>
+                </td>
             </tr>
+
             <tr>
-                <div class="col-12">
+                <th rowspan="2">
+                    상품 이미지
+                </th>
+                <td>
                     <label th:for="image" class="form-label">상품 이미지 업로드</label>
                     <input type="file" class="form-control" id="imgFile" name="imgFile">
-                </div>
+                </td>
             </tr>
+
             <tr>
                 <td>
-                    <label th:for="originalPrice">원가</label>
-                    <input type="text" style="width: 100px;" th:field="*{originalPrice}" th:value="*{originalPrice}"/>
-                    <div class="field-error" th:errors="*{originalPrice}">가격 입력 오류</div>
+                    <label th:for="image" class="form-label">상품 이미지 업로드2</label>
+                    <input type="file" class="form-control" id="img2" name="img2">
                 </td>
+            </tr>
+            <tr>
+                <th>
+                    원가
+                </th>
                 <td>
-                    <label th:for="sellingPrice">판매가</label>
-                    <input type="text" style="width: 100px;" th:field="*{sellingPrice}" th:value="*{sellingPrice}"/>
+                    <input type="text" style="width: 100%;" th:field="*{originalPrice}"
+                           th:value="*{originalPrice}"/>
+                    <div class="field-error" style="margin-bottom: 0;" th:errors="*{originalPrice}">가격 입력 오류</div>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    판매가
+                </th>
+                <td>
+                    <input type="text" style="width: 100%;" th:field="*{sellingPrice}"
+                           th:value="*{sellingPrice}"/>
                     <div class="field-error" th:errors="*{sellingPrice}">가격 입력 오류</div>
-                </td>
-                <td th:if="${#fields.hasGlobalErrors()}">
-                    <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
-                        글로벌 오류 메시지</p>
+                    <div>
+                        <div th:if="${#fields.hasGlobalErrors()}">
+                            <p class="field-error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
+                                글로벌 오류 메시지</p>
+                        </div>
+                    </div>
                 </td>
             </tr>
             <tr>
+                <th>
+                    유효기간
+                </th>
                 <td>
-                    <label th:for="expireDate">유효기간</label>
-                    <input name="date" type="date" style="width: 50%;" placeholder="유효기간" th:field="*{expireDate}" th:value="*{expireDate}">
+                    <input name="date" type="date" style="width: 100%;" placeholder="유효기간" th:field="*{expireDate}"
+                           th:value="*{expireDate}">
                     <script th:inline="javascript">
 
                     </script>
                     <div class="field-error" th:errors="*{expireDate}">날짜 입력 오류</div>
                 </td>
-
             </tr>
             <tr>
+                <th>
+                    상품 설명
+                </th>
                 <td>
-                    <label th:for="description" style="vertical-align: top;">상품 설명</label>
-                    <textarea cols="70" rows="5" th:field="*{description}" th:value="*{description}"></textarea>
+                    <textarea cols="84" rows="5" th:field="*{description}" th:value="*{description}"></textarea>
                     <div class="field-error" th:errors="*{description}">내용 입력 오류</div>
                 </td>
             </tr>
-
             </tbody>
         </table>
-        <button type="submit" value="upload">등록하기</button>
+        <div style="margin-top: 20px; padding-top: 20px; text-align: center;">
+            <button type="submit" class="button-18" value="upload">등록하기</button>
+        </div>
     </form>
-
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

@@ -212,17 +212,16 @@ public class ItemController {
         Long id = (Long) request.getSession().getAttribute("user");
         System.out.println("id = " + id);
         Gifticon gifticon = itemService.findGifticon(g_id);
-
         Optional<Seller> storeOptional = userService.findStore(id);
-        Seller seller = storeOptional.get();
-        System.out.println("seller.getId() = " + seller.getUser().getId());
-
-
-        if(seller.getUser().getId()==id) {   // 내가 상품 주인이다!
-            model.addAttribute("gifticon", gifticon);
-            System.out.println("내꺼다");
-            return "items/myitem";
-        } else {
+        if(storeOptional.isPresent()) {   // 내가 상점이 있을 떄
+            if(storeOptional.get().getUser().getId().equals(id)) {   // 내가 상품 주인이다!
+                model.addAttribute("gifticon", gifticon);
+                System.out.println("내꺼다");
+                return "items/myitem";
+            } else {   // 상점 주인이 내가 아니다
+                return "items/item";
+            }
+        } else {   // 내가 상점이 없다 -> 남의 상점
             model.addAttribute("gifticon", gifticon);
             return "items/item";
         }
