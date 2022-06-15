@@ -337,7 +337,7 @@ public class UserController {
         Alarm alarm = userService.updateAlarm(id);
         log.info("alarm.checked={}",alarm.isChecked());
         log.info("alarm.내용={}",alarm.getTitle());
-        return "redirect:/user/alarms";
+        return null;
     }
     @GetMapping("/alarm/detail/{alarmID}")
     public String getAlarmDetail(@PathVariable("alarmID") Long id, Model model) {
