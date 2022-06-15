@@ -13,7 +13,7 @@
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 57%;
+            width: 80%;
             overflow: hidden;
             border-style: dashed !important;
             border-width: 1px !important;
@@ -195,6 +195,7 @@
             <table class="list-table">
                 <thead class="list-thead">
                 <tr class="list-tr">
+                    <th class="list-th"></th>
                     <th class="list-th">이름</th>
                     <th class="list-th">카테고리</th>
                     <th class="list-th">브랜드</th>
@@ -208,6 +209,9 @@
                 <tbody class="list-tbody">
                 <tr class="list-tr" th:each="selling : ${sellings}"
                     th:onclick="|location.href='#'|" style="cursor: pointer;">
+                    <td>
+                        <img th:src="${selling.fakeImage}" style="width: 50px;">
+                    </td>
                     <td class="list-td" th:text="${selling.name}">name</a></td>
                     <td class="list-td" th:text="${selling.category.name}">category</td>
                     <td class="list-td" th:text="${selling.brand.name}">brand</td>

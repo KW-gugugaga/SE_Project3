@@ -8,7 +8,7 @@
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 57%;
+            width: 70%;
             overflow: hidden;
             border-style: dashed !important;
             border-width: 1px !important;
@@ -158,6 +158,7 @@
     <table>
         <thead>
         <tr>
+            <th></th>
             <th>이름</th>
             <th>브랜드</th>
             <th>원가</th>
@@ -168,13 +169,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="gifticon : ${gifticons}"
+        <tr th:each="gifticon : ${gifticons}" style="cursor: pointer;"
             th:onclick="|location.href='@{/items/item/{pv1}(pv1=${gifticon.id})}'|"><!--기프티콘 상품 페이지로 이동-->
+            <td>
+                <img th:src="${gifticon.fakeImage}" style="width: 50px;">
+            </td>
             <td th:text="${gifticon.name}">name</a></td>
             <td th:text="${gifticon.brand.name}">brand name</a></td>
             <td th:text="${gifticon.originalPrice}">originalPrice</td>
             <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
-            <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
+            <td th:text="${gifticon.discountRate} + '%'" style="color: darkred;">discountRate</td>
             <td th:text="${gifticon.expireDate}">expireDate</td>
             <td th:text="${#temporals.format(gifticon.lastModifiedDate, 'yyyy-MM-dd HH:mm:ss')}">lastModifiedDate</td>
         </tr>

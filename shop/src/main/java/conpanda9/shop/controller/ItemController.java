@@ -86,7 +86,7 @@ public class ItemController {
     @GetMapping("/special")
     public String getSpecial(Model model) {
         List<Gifticon> specialGitficons = itemService.findAllGitfitonSelling()
-                .stream().filter(g -> g.getDiscountRate() >= 30.0)
+                .stream().filter(g -> g.getDiscountRate() >= 50.0)
                 .collect(Collectors.toList());   // 판매중인 모든 기프티콘 중 할인율 30 이상인 것
         specialGitficons.sort(new GifticonDateComparator());   // 기본은 최신순
         model.addAttribute("gifticons", specialGitficons);
@@ -184,7 +184,7 @@ public class ItemController {
          */
 
         System.out.println("itemController post upload");
-        System.out.println("fakeFile = " + fakeFile.getOriginalFilename());
+        System.out.println("fakeFile = " + fakeFile.getContentType());
 
         List<Category> categories = itemService.findAllCategory();
         if (bindingResult.hasErrors()) {   // 필드 에러
@@ -297,6 +297,7 @@ public class ItemController {
         Long userId = (Long) request.getSession().getAttribute("user");
         User user = userService.findUser(userId);
         Gifticon gifticon = itemService.findGifticon(gId);
+        itemService.updateGifticonStateSold(gifticon);   // gifticon state
         Sold sold = new Sold(gifticon, gifticon.getSeller(), user, gifticon.getSellingPrice(), LocalDateTime.now());
         itemService.saveSold(sold);   // 판매 내역 저장
         userService.minusPoint(user, gifticon.getSellingPrice());   // 구매자 포인트 감소

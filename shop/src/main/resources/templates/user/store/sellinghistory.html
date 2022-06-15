@@ -7,7 +7,7 @@
         table {
             margin: auto;
             font-size: .9em;
-            width: 57%;
+            width: 80%;
             overflow: hidden;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
             border-style: dashed !important;
@@ -133,6 +133,7 @@
             <table>
                 <thead>
                 <tr>
+                    <th></th>
                     <th>이름</th>
                     <th>카테고리</th>
                     <th>브랜드</th>
@@ -145,6 +146,9 @@
                 </thead>
                 <tbody>
                 <tr th:each="selling : ${sellings}">
+                    <td>
+                        <img th:src="${selling.fakeImage}" style="width: 50px;">
+                    </td>
                     <td th:text="${selling.name}">name</a></td>
                     <td th:text="${selling.category.name}">category</td>
                     <td th:text="${selling.brand.name}">brand</td>
