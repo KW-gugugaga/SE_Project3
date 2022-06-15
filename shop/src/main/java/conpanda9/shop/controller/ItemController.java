@@ -221,7 +221,6 @@ public class ItemController {
 
     @GetMapping("/item/{g_id}")
     public String eachItem(HttpServletRequest request, @PathVariable("g_id") long g_id, Model model) {
-
         Long id = (Long) request.getSession().getAttribute("user");
         System.out.println("id = " + id);
         Gifticon gifticon = itemService.findGifticon(g_id);
