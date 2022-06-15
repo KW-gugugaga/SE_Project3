@@ -256,6 +256,6 @@ public class ItemController {
 
         imgFile.transferTo(saveFile);
 
-        return "/img/"+imgName;
+        return "/img/gifticon/"+imgName;
     }
 }
