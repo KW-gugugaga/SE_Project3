@@ -4,6 +4,11 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
+body {
+  src : url("../../fonts/NanumSquare_acB.ttf");
+  font-family: "nanum";
+  color: #585a61;
+}
 :root {
   --blue: #007bff;
   --indigo: #6610f2;
@@ -41,7 +46,7 @@
   box-sizing: border-box; }
 
 html {
-  font-family: sans-serif;
+  font-family: "nanum";
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
@@ -51,7 +56,9 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  src : url("../../fonts/NanumSquare_acB.ttf");
+  font-family: "nanum";
+  color: #585a61;
   font-size: 1rem;
   font-weight: 400;
   line-height: 1.5;
@@ -8201,7 +8208,9 @@ h1, h2, h3, h4, h5,
 #colorlib-page {
   width: 100%;
   overflow: hidden;
-  position: relative; }
+  position: relative;
+  font-family: "nanum";
+}
 
 #colorlib-aside {
   padding-top: 3em;
@@ -8253,7 +8262,7 @@ h1, h2, h3, h4, h5,
         text-decoration: none;
         position: relative;
         padding: 10px 0;
-        font-family: "Poppins", Arial, sans-serif;
+        font-family: "nanum";
         -webkit-transition: 0.3s;
         -o-transition: 0.3s;
         transition: 0.3s; }

@@ -139,7 +139,8 @@
             </tr>
             <tr>
                 <th>알림 시간</th>
-                <td th:text="${alarm.alarmDate}">time</td>
+                <td th:text="${#temporals.format(alarm.alarmDate, 'yyyy-MM-dd HH:mm:ss')}">time</td>
+
             </tr>
             </tbody>
         </table><br>

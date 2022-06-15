@@ -5,10 +5,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="/menu_theme/css/style.css">
 
     <style>
@@ -16,7 +12,9 @@
             border-top: 1px rgba(170, 173, 176, 0.33) solid;
             border-bottom: 1px rgba(170, 173, 176, 0.33) solid;
         }
-
+        *{
+            font-family: "nanum" !important;
+        }
         table {
             margin: auto;
             font-size: .9em;
@@ -144,9 +142,9 @@
 
             <tr th:each="report : ${reports}"
                 th:onclick="|location.href='@{/admin/report/{pv1}(pv1=${report.id})}'|">
+                <td th:text="${report.user.loginId}">신고자 ID</a></td>
+                <td th:text="${report.seller.name}">신고상점 ID</td>
                 <td th:text="${#temporals.format(report.reportDate, 'yyyy-MM-dd HH:mm:ss')}">신고날짜</td>
-                <td th:text="${report.user.id}">신고자 ID</a></td>
-                <td th:text="${report.seller.id}">신고상점 ID</td>
                 <td class="answer-complete" th:if="${report.isCompleted == true}" th:text="'처리 완료'"></td>
                 <td class="answer-no" th:if="${report.isCompleted == false}" th:text="'처리 대기'"></td>
                 <td><button type="submit" style="width: 100px; height: 30px; font-size: 13px;" class="button-18" th:onclick="|location.href='@{/admin/report/{pv1}(pv1=${report.id})}'|">상세보기</button></td>
