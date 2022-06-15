@@ -303,4 +303,18 @@ public class ItemController {
         rttr.addFlashAttribute("purSuccess", "true");
         return "redirect:/user/store/buy";
     }
+
+    @GetMapping("/item/modify/{itemId}")
+    public String getModifyItem(@PathVariable("itemId") Long id, Model model) {
+        Gifticon gifticon = itemService.findGifticon(id);
+        model.addAttribute("gifticon", gifticon);
+        return "items/modify";
+    }
+
+    @GetMapping("/item/delete/{itemId}")
+    public String getDeleteItem(@PathVariable("itemId") Long id) {
+        log.info("gifticon id={}", id);
+        itemService.setNullGifticon(id);
+        return "redirect:/user/store/selling";
+    }
 }
