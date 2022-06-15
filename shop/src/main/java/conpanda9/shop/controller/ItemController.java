@@ -15,6 +15,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
@@ -257,5 +258,49 @@ public class ItemController {
         imgFile.transferTo(saveFile);
 
         return "/img/gifticon/"+imgName;
+    }
+
+    @GetMapping("/item/purchase/{gifticonId}")
+    public String getItemPurchase(@PathVariable("gifticonId") Long gId,
+                                  HttpServletRequest request, Model model) {
+        Long userId = (Long) request.getSession().getAttribute("user");
+        String error = null;
+        Long restPoint = null;
+        if(userId == null) {
+            return "redirect:/";
+        }
+        User user = userService.findUser(userId);
+        Long point = user.getPoint();   // 사용자 보유 포인트
+        Gifticon gifticon = itemService.findGifticon(gId);
+
+         model.addAttribute("point", point);
+         model.addAttribute("gifticon", gifticon);
+         if(point < gifticon.getSellingPrice()) {   // 잔여 포인트 부족
+             error = "잔여 포인트가 부족합니다. 나의 지갑을 확인하세요.";
+             model.addAttribute("error", error);
+             model.addAttribute("restPoint", restPoint);
+         } else {
+             restPoint = point - gifticon.getSellingPrice();
+             model.addAttribute("restPoint", restPoint);
+             model.addAttribute("error", null);
+         }
+        return "items/purchase";
+    }
+
+    @PostMapping("/item/purchase/{gifticonId}")
+    public String postItemPurchase(@PathVariable("gifticonId") Long gId, RedirectAttributes rttr,
+                                   HttpServletRequest request) {
+        Long userId = (Long) request.getSession().getAttribute("user");
+        User user = userService.findUser(userId);
+        Gifticon gifticon = itemService.findGifticon(gId);
+        Sold sold = new Sold(gifticon, gifticon.getSeller(), user, gifticon.getSellingPrice(), LocalDateTime.now());
+        itemService.saveSold(sold);   // 판매 내역 저장
+        userService.minusPoint(user, gifticon.getSellingPrice());   // 구매자 포인트 감소
+        String message = "회원님의 상품 " + gifticon.getName() + "이(가) 판매 완료되었습니다.";
+        Alarm alarm = new Alarm(gifticon.getSeller().getUser(), LocalDateTime.now(), "상품 판매 완료 알림", message, false);
+        userService.saveAlarm(alarm);   // 판매자에게 알람 전송
+        userService.plusPoint(gifticon.getSeller().getUser(), gifticon.getSellingPrice());   // 판매자 포인트 증가
+        rttr.addFlashAttribute("purSuccess", "true");
+        return "redirect:/user/store/buy";
     }
 }

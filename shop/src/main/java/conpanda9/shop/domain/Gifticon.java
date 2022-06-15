@@ -75,7 +75,7 @@ public class Gifticon{
         this.expireDate = expireDate;
         this.uploadDate = uploadDate;
         this.lastModifiedDate = lastModifiedDate;
-        this.discountRate = Math.round(sellingPrice.doubleValue() / originalPrice.doubleValue() * 1000) / 10.0;
+        this.discountRate = Math.round((originalPrice.doubleValue() - sellingPrice.doubleValue()) / originalPrice.doubleValue() * 1000) / 10.0;
         this.state = GifticonState.Selling;   // 기본은 판매중으로 설정
         seller.getGifticonList().add(this);
     }

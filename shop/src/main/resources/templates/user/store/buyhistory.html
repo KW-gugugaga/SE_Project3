@@ -120,6 +120,12 @@
 
 
 <section style="margin-top: 40px;text-align: center">
+    <script type="text/javascript" th:inline="javascript">
+        const purSuccess = [[ ${purSuccess} ]];
+        if(purSuccess === "true") {
+            alert('상품 구매가 완료되었습니다.');
+        }
+    </script>
     <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
         나의 구매내역
     </h2><br>
@@ -154,7 +160,7 @@
                 <td th:text="${buy.seller.name}">seller store name</td>
                 <td th:text="${buy.seller.user.nickname}">seller nickname</td>
                 <td><input type="button" class="button-18" style="height: 30px; font-size: 13px;"
-                           th:onclick="|location.href='@{/user/store/buy/${buy.id}'|" value="상품 확인"></td>
+                           th:onclick="|window.open('@{/user/store/buy/info/{pv1}(pv1=${buy.gifticon.id})}', 'review','width=480, height=500,location=no,status=no,scrollbars=yes')|" value="상품 확인"></td>
             </tr>
             </tbody>
         </table>

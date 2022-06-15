@@ -6,6 +6,7 @@ import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.PwEditDTO;
 import conpanda9.shop.domain.*;
 import conpanda9.shop.domain.soldcomparator.SoldDateComparator;
+import conpanda9.shop.service.ItemService;
 import conpanda9.shop.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +34,7 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final ItemService itemService;
 
     @GetMapping("/join")
     public String join(Model model) {
@@ -206,7 +208,11 @@ public class UserController {
         // TODO
         // 상점 정보 띄우기
         Long totalSellPrice = 0L;
-        Optional<Seller> storeOptional = userService.findStore((Long) request.getSession().getAttribute("user"));
+        Long userId = (Long) request.getSession().getAttribute("user");
+        if(userId == null) {
+            return "redirect:/";
+        }
+        Optional<Seller> storeOptional = userService.findStore(userId);
         if(storeOptional.isPresent()) {   // 상점이 있을 경우 총 판매 금액 계산
             totalSellPrice = userService.getTotalSellPrice(storeOptional.get().getId());
             Double starRate = Math.round(userService.getStoreStarRate(storeOptional.get().getId()) * 10) / 10.0;
@@ -286,11 +292,13 @@ public class UserController {
     }
 
     @GetMapping("/store/buy")
-    public String getBuy(HttpServletRequest request, Model model) {   // 구매내역
+    public String getBuy(HttpServletRequest request, Model model,
+                         @ModelAttribute("purSuccess") String purSuccess) {   // 구매내역
         // user id의 구매내역
         List<Sold> buys = userService.findBuys((Long) request.getSession().getAttribute("user"));
         buys.sort(new SoldDateComparator());   // 더 최신에 구매한 내역
         model.addAttribute("buys", buys);
+        model.addAttribute("purSuccess", purSuccess);
         return "user/store/buyhistory";
     }
 
@@ -390,6 +398,14 @@ public class UserController {
         Long userId = (Long) request.getSession().getAttribute("user");
         userService.chargePoint(userId, inputPoint);
         return "redirect:/user/wallet";
+    }
+
+    @GetMapping("/store/buy/info/{buyId}")
+    public String getBuyInfo(@PathVariable("buyId") Long id, Model model) {
+        Gifticon gifticon = itemService.findGifticon(id);
+        model.addAttribute("gifticon", gifticon);
+        log.info("gifticon={}", gifticon.getName());
+        return "user/store/buyitem";
     }
 
 }

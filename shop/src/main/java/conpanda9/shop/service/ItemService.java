@@ -130,4 +130,8 @@ public class ItemService {
             return oneByBrand;
         }
     }
+
+    public void saveSold(Sold sold) {
+        itemRepository.saveSold(sold);
+    }
 }
