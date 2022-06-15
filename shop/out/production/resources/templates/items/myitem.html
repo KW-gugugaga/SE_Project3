@@ -3,7 +3,46 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <style>
+    <style>
+        table {
+            margin: auto;
+            font-size: .9em;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
+            width: 50%;
+            overflow: hidden;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+            border-radius: 5px;
+        }
+
+        th {
+            text-align: center;
+            background: #6DA6D9;
+            color: #fff;
+        }
+
+        thead {
+            font-weight: bold;
+            color: #fff;
+            background: #8cacd0;
+        }
+
+        td, th {
+            padding: 1em .5em;
+            vertical-align: middle;
+            border-style: dashed !important;
+            border-width: 1px !important;
+            border-color: #7f878d !important;
+        }
+
+        td {
+            background: #fff;
+        }
+
+        a {
+            color: #6DA6D9;
+        }
 
         .button-18 {
             font-family: "nanum";
@@ -33,82 +72,95 @@
             -webkit-user-select: none;
             vertical-align: middle;
         }
+
+        .discount-rate {
+            font-family: "nanum";
+            font-size: 14px;
+            color: darkred;
+            font-weight: bold;
+        }
     </style>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Con Panda 9</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <title>Con Panda</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="/img/favicon.png" rel="icon">
-  <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <!-- Favicons -->
+    <link href="/img/favicon.png" rel="icon">
+    <link href="/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+          rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Vendor CSS Files -->
+    <link href="/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="/css/style.css" rel="stylesheet">
-  <!-- =======================================================
-  * Template Name: Appland - v4.7.0
-  * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+    <!-- Template Main CSS File -->
+    <link href="/css/style.css" rel="stylesheet">
+    <!-- =======================================================
+    * Template Name: Appland - v4.7.0
+    * Template URL: https://bootstrapmade.com/free-bootstrap-app-landing-page-template/
+    * Author: BootstrapMade.com
+    * License: https://bootstrapmade.com/license/
+    ======================================================== -->
 </head>
 
 <body>
 <header th:replace="navbar :: navbarFragment"></header>
 
-
 <section style="margin-top: 40px;">
-  <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-    기프티콘
-  </h2><br>
-  <table>
-    <tbody>
-    <tr>
-      <th>상품명</th>
-      <td th:text="${gifticon.name}">name</td>
-    </tr>
-    <tr>
-      <th>가격</th>
-      <td th:text="${gifticon.sellingPrice}">sellingPrice</td>
-      <td>
-        <del th:text="${gifticon.originalPrice}">originalPrice</del>
-      </td>
-      <td th:text="${gifticon.discountRate} + '%'">discountRate</td>
-    </tr>
-    <tr>
-      <th>유효기간</th>
-      <td th:text="${#temporals.format(gifticon.expireDate, 'yyyy-MM-dd')}">expireDate</td>
-    </tr>
-    <tr>
-      <th>상품 상세</th>
-      <td th:text="${gifticon.description}">description</td>
-    </tr>
-    </tbody>
-  </table><br>
-  <div style="text-align: center;">
-    <button type="button" class="button-18"
-            th:onclick="|location.href='@{/items/item/modify/{pv1}(pv1=${gifticon.id})}'|">수정
-    </button>
-    <button type="button" class="button-18"
-            th:onclick="|location.href='@{/items/item/delete/{pv1}(pv1=${gifticon.id})}'|">삭제
-    </button>
-    <button type="button" class="button-18"
-            th:onclick="|location.href='@{/main}'|">뒤로가기
-    </button></div>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
+        기프티콘 상품정보
+    </h2><br>
+    <div style="text-align: center; margin: 0 auto">
+        <form>
+            <div style="padding: 0px 100px 50px 100px">
+                <table>
+                    <tbody>
+                    <tr>
+                        <th>상품명</th>
+                        <td th:text="${gifticon.name}">name</td>
+                    </tr>
+                    <tr>
+                        <th>가격</th>
+                        <td style="text-align: center;">
+                            <p style="float: left; margin-left: 25%; margin-bottom: 0; font-size: 18px; font-weight: bold;" th:text="${gifticon.sellingPrice}">sellingPrice</p>
+                            <del style="float: left; margin-left: 20px; margin-right: 20px; margin-bottom: 0;" th:text="${gifticon.originalPrice}">originalPrice</del>
+                            <p style="float: left; margin-bottom: 0;" th:text="'할인율 ' + ${gifticon.discountRate} + '%'" class="discount-rate">discountRate</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>유효기간</th>
+                        <td th:text="${#temporals.format(gifticon.expireDate, 'yyyy-MM-dd')}">expireDate</td>
+                    </tr>
+                    <tr>
+                        <th>상품 상세</th>
+                        <td th:text="${gifticon.description}">description</td>
+                    </tr>
+                    </tbody>
+                </table>
+                <br>
+                <div style="text-align: center;">
+                    <button type="button" class="button-18"
+                            th:onclick="|location.href='@{/items/item/modify/{pv1}(pv1=${gifticon.id})}'|">수정
+                    </button>
+                    <button type="button" class="button-18"
+                            th:onclick="|location.href='@{/items/item/delete/{pv1}(pv1=${gifticon.id})}'|">삭제
+                    </button>
+                    <button type="button" class="button-18"
+                            th:onclick="|location.href='@{/main}'|">뒤로가기
+                </div>
+            </div>
+        </form>
+    </div>
 </section>
 
 <script src="/vendor/aos/aos.js"></script>

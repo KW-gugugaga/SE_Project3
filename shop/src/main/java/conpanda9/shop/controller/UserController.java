@@ -198,7 +198,8 @@ public class UserController {
         }
 
         userService.editPw(id, editDTO.getNewPw());
-        return "redirect:/user/info/myinfo";    }
+        return "redirect:/user/info/myinfo";
+    }
 
     @GetMapping("/store")
     public String getStore(HttpServletRequest request, Model model) {
