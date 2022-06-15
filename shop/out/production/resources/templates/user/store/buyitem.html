@@ -4,11 +4,16 @@
 
 <head>
     <style>
-        table {
+        .info-table {
+            border: none;
+            margin: auto;
+        }
+
+        .list-table {
             margin: auto;
             font-size: .9em;
             box-shadow: 0 2px 5px rgba(0, 0, 0, .25);
-            width: 90%;
+            width: 70%;
             overflow: hidden;
             border-style: dashed !important;
             border-width: 1px !important;
@@ -16,19 +21,19 @@
             border-radius: 5px;
         }
 
-        th {
+        .list-th {
             text-align: center;
             background: #6DA6D9;
-            color: #fff;
+            color: #ffffff;
         }
 
-        thead {
+        .list-thead {
             font-weight: bold;
             color: #fff;
             background: #6DA6D9;
         }
 
-        td, th {
+        .list-td, .list-th {
             padding: 1em .5em;
             vertical-align: middle;
             border-style: dashed !important;
@@ -36,7 +41,7 @@
             border-color: #7f878d !important;
         }
 
-        td {
+        .list-td {
             background: #fff;
         }
 
@@ -59,7 +64,7 @@
             justify-content: center;
             line-height: 20px;
             max-width: 480px;
-            min-height: 40px;
+            min-height: 30px;
             min-width: 0px;
             overflow: hidden;
             padding: 0px;
@@ -77,6 +82,17 @@
             font-family: "nanum";
             font-size: 12px;
             color: darkred;
+        }
+
+        .edit-input {
+            margin-bottom: 10px;
+        }
+
+        .discount-rate {
+            font-family: "nanum";
+            font-size: 14px;
+            color: darkred;
+            font-weight: bold;
         }
     </style>
     <meta charset="utf-8">
@@ -112,52 +128,43 @@
     ======================================================== -->
 </head>
 
-<body>
-
-<!-- ======= Header ======= -->
-<header id="header" class="fixed-top  header-transparent ">
-    <div class="container d-flex align-items-center justify-content-between">
-        <div class="logo">
+<section style="text-align: center; margin-top: 40px;">
+    <div style="text-align: center; margin: 0 auto">
+        <div>
+            <img th:src="${gifticon.realImage}" style="width: 70%;">
         </div>
-    </div>
-</header><!-- End Header -->
-
-<section style="margin-top: 20px;">
-    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-        알림 확인
-    </h2><br>
-    <div>
-        <table>
-            <tbody>
-            <tr>
-                <th>알림 제목</th>
-                <td th:text="${alarm.title}">title</td>
+        <table class="list-table" style="margin-top: 20px;">
+            <tbody class="list-tbody">
+            <tr class="list-tr">
+                <th class="list-th">상품명</th>
+                <td class="list-td" th:text="${gifticon.name}">name</td>
             </tr>
-            <tr>
-                <th>알림 내용</th>
-                <td th:text="${alarm.text}">texts</td>
+            <tr class="list-tr">
+                <th class="list-th">가격</th>
+                <td class="list-td" style="text-align: center;">
+                    <p style="float: left; margin-left: 25%; margin-bottom: 0; font-size: 18px; font-weight: bold;"
+                       th:text="${gifticon.sellingPrice}">sellingPrice</p>
+                    <del style="float: left; margin-left: 20px; margin-right: 20px; margin-bottom: 0;"
+                         th:text="${gifticon.originalPrice}">originalPrice
+                    </del>
+                    <p style="float: left; margin-bottom: 0;" th:text="'할인율 ' + ${gifticon.discountRate} + '%'"
+                       class="discount-rate">discountRate</p>
+                </td>
             </tr>
-            <tr>
-                <th>알림 시간</th>
-                <td th:text="${#temporals.format(alarm.alarmDate, 'yyyy-MM-dd HH:mm:ss')}">time</td>
-
+            <tr class="list-tr">
+                <th class="list-th">유효기간</th>
+                <td class="list-td" th:text="${#temporals.format(gifticon.expireDate, 'yyyy-MM-dd')}">expireDate
+                </td>
+            </tr>
+            <tr class="list-tr">
+                <th class="list-th">상품 상세</th>
+                <td class="list-td" th:text="${gifticon.description}">description</td>
             </tr>
             </tbody>
-        </table><br>
-        <div style="text-align: center">
-        <form th:action="@{/user/alarms/{pv1}(pv1=${alarm.id})}" method="post">
-            <button th:if="${alarm.checked==false}" type="submit" class="button-18" >알림 확인</button>
-            <button th:if="${alarm.checked==true}" type="submit" class="button-18" >확인 및 창 종료</button>
-        </form>
-        </div>
+        </table>
     </div>
 </section>
-<script>
-    function clickEvent(id) {
-        alert("알림 확인 완료");
-        window.close();
-    }
-</script>
+
 <script src="/vendor/aos/aos.js"></script>
 <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="/vendor/glightbox/js/glightbox.min.js"></script>

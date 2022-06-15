@@ -29,6 +29,7 @@ public class TestDataInit {
 
         User user = new User("test", "test!", "nickname", "email@gmail.com", "010-0000-0000");
         User user2 = new User("test2", "test!", "nickname2", "email2@gmail.com", "010-2222-2222");
+        user2.setPoint(4000L);
         userRepository.save(user);
         userRepository.save(user2);
 
