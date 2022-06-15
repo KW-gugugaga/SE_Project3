@@ -1,5 +1,6 @@
 package conpanda9.shop.controller;
 
+import conpanda9.shop.DTO.MyInfoEditDTO;
 import conpanda9.shop.DTO.UploadDTO;
 import conpanda9.shop.domain.*;
 import conpanda9.shop.domain.gifticoncomparator.*;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -245,7 +247,7 @@ public class ItemController {
         String oriImgName = imgFile.getOriginalFilename();
         String imgName = "";
 
-        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/gifticon";
+        String projectPath = System.getProperty("user.dir") + "/shop/src/main/resources/static/img/gifticon";
 
         long gid = gifticon.getId();
 
@@ -258,5 +260,19 @@ public class ItemController {
         imgFile.transferTo(saveFile);
 
         return "/img/gifticon/"+imgName;
+    }
+
+    @GetMapping("/item/edit/{g_id}")
+    public String getItemEdit(HttpServletRequest request, @PathVariable("g_id") long g_id, Model model) {
+
+        Long id = (Long) request.getSession().getAttribute("user");
+        System.out.println("id = " + id);
+        Gifticon gifticon = itemService.findGifticon(g_id);
+
+
+        log.info("user edit id={}", id);
+        //model.addAttribute("editDTO", new MyInfoEditDTO());
+        model.addAttribute("id", id);
+        return "items/edititem";
     }
 }
