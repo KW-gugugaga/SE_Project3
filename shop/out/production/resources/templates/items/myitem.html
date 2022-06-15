@@ -150,13 +150,13 @@
                 <br>
                 <div style="text-align: center;">
                     <button type="button" class="button-18"
-                            th:onclick="|location.href='@{/items/item/modify/{pv1}(pv1=${gifticon.id})}'|">수정
+                            th:onclick="|location.href='@{/items/item/modify/{pv1}(pv1=${gifticon.id})}'|">상품 정보 수정
                     </button>
                     <button type="button" class="button-18"
-                            th:onclick="|location.href='@{/items/item/delete/{pv1}(pv1=${gifticon.id})}'|">삭제
+                            th:onclick="|location.href='@{/items/item/delete/{pv1}(pv1=${gifticon.id})}'|">상품 삭제
                     </button>
                     <button type="button" class="button-18"
-                            th:onclick="|location.href='@{/main}'|">뒤로가기
+                            th:onclick="|location.href='@{/items/brand/{pv1}(pv1=${gitficon.brand.id}}'|">뒤로가기
                 </div>
             </div>
         </form>
