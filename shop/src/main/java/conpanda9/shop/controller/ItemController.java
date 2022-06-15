@@ -249,7 +249,7 @@ public class ItemController {
         String oriImgName = imgFile.getOriginalFilename();
         String imgName = "";
 
-        String projectPath = System.getProperty("user.dir") + "/shop/src/main/resources/static/img/gifticon";
+        String projectPath = System.getProperty("user.dir") + "/src/main/resources/static/img/gifticon";
 
         long gid = gifticon.getId();
 

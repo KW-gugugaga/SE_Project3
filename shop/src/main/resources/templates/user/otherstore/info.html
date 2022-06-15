@@ -209,7 +209,7 @@
                 <tbody class="list-tbody">
                 <tr class="list-tr" th:each="selling : ${sellings}"
                     th:onclick="|location.href='#'|" style="cursor: pointer;">
-                    <td>
+                    <td class="list-td">
                         <img th:src="${selling.fakeImage}" style="width: 50px;">
                     </td>
                     <td class="list-td" th:text="${selling.name}">name</a></td>

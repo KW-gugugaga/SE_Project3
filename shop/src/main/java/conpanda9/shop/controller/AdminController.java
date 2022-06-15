@@ -30,7 +30,7 @@ public class AdminController {
 
     @GetMapping("/main")
     public String main() {
-        return "redirect:/admin/notice";
+        return "admin/main";
     }
 
     @GetMapping("/notice")
