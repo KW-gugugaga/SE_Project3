@@ -16,10 +16,13 @@ import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -49,7 +52,8 @@ public class ItemController {
     }
 
     @GetMapping("/brand/{brandId}")
-    public String getBrand(@PathVariable("brandId") Long id, Model model) {
+    public String getBrand(@PathVariable("brandId") Long id, Model model,
+                           @ModelAttribute("upSuccess") String upSuccess) {
         log.info("brand id={}", id);
         Brand brand = itemService.findBrand(id);
         /**
@@ -64,6 +68,7 @@ public class ItemController {
                 .collect(Collectors.toList());
         model.addAttribute("brand", brand);
         model.addAttribute("gifticons", gifticons);
+        model.addAttribute("upSuccess", upSuccess);
         return "items/brand";
     }
 
@@ -223,7 +228,6 @@ public class ItemController {
 
     @GetMapping("/item/{g_id}")
     public String eachItem(HttpServletRequest request, @PathVariable("g_id") long g_id, Model model) {
-
         Long id = (Long) request.getSession().getAttribute("user");
         System.out.println("id = " + id);
         Gifticon gifticon = itemService.findGifticon(g_id);
@@ -274,5 +278,74 @@ public class ItemController {
         //model.addAttribute("editDTO", new MyInfoEditDTO());
         model.addAttribute("id", id);
         return "items/edititem";
+    }
+
+    @GetMapping("/item/purchase/{gifticonId}")
+    public String getItemPurchase(@PathVariable("gifticonId") Long gId,
+                                  HttpServletRequest request, Model model) {
+        Long userId = (Long) request.getSession().getAttribute("user");
+        String error = null;
+        Long restPoint = null;
+        if(userId == null) {
+            return "redirect:/";
+        }
+        User user = userService.findUser(userId);
+        Long point = user.getPoint();   // 사용자 보유 포인트
+        Gifticon gifticon = itemService.findGifticon(gId);
+
+         model.addAttribute("point", point);
+         model.addAttribute("gifticon", gifticon);
+         if(point < gifticon.getSellingPrice()) {   // 잔여 포인트 부족
+             error = "잔여 포인트가 부족합니다. 나의 지갑을 확인하세요.";
+             model.addAttribute("error", error);
+             model.addAttribute("restPoint", restPoint);
+         } else {
+             restPoint = point - gifticon.getSellingPrice();
+             model.addAttribute("restPoint", restPoint);
+             model.addAttribute("error", null);
+         }
+        return "items/purchase";
+    }
+
+    @PostMapping("/item/purchase/{gifticonId}")
+    public String postItemPurchase(@PathVariable("gifticonId") Long gId, RedirectAttributes rttr,
+                                   HttpServletRequest request) {
+        Long userId = (Long) request.getSession().getAttribute("user");
+        User user = userService.findUser(userId);
+        Gifticon gifticon = itemService.findGifticon(gId);
+        Sold sold = new Sold(gifticon, gifticon.getSeller(), user, gifticon.getSellingPrice(), LocalDateTime.now());
+        itemService.saveSold(sold);   // 판매 내역 저장
+        userService.minusPoint(user, gifticon.getSellingPrice());   // 구매자 포인트 감소
+        String message = "회원님의 상품 " + gifticon.getName() + "이(가) 판매 완료되었습니다.";
+        Alarm alarm = new Alarm(gifticon.getSeller().getUser(), LocalDateTime.now(), "상품 판매 완료 알림", message, false);
+        userService.saveAlarm(alarm);   // 판매자에게 알람 전송
+        userService.plusPoint(gifticon.getSeller().getUser(), gifticon.getSellingPrice());   // 판매자 포인트 증가
+        rttr.addFlashAttribute("purSuccess", "true");
+        return "redirect:/user/store/buy";
+    }
+
+    @GetMapping("/item/modify/{itemId}")
+    public String getModifyItem(@PathVariable("itemId") Long id, Model model) {
+        Gifticon gifticon = itemService.findGifticon(id);
+        model.addAttribute("gifticon", gifticon);
+        return "items/modify";
+    }
+
+    @GetMapping("/item/delete/{itemId}")
+    public String getDeleteItem(@PathVariable("itemId") Long id) {
+        log.info("gifticon id={}", id);
+        itemService.setNullGifticon(id);
+        return "redirect:/user/store/selling";
+    }
+
+    @GetMapping("/item/up/{itemId}")
+    public String getItemUp(@PathVariable("itemId") Long id, HttpServletResponse response,
+                            RedirectAttributes rttr) throws IOException {
+        Gifticon gifticon = itemService.findGifticon(id);
+        itemService.updateModifiedDate(gifticon);
+        response.setContentType("text/html;charset=euc-kr");
+        PrintWriter writer = response.getWriter();
+        rttr.addFlashAttribute("upSuccess", "true");
+        return "redirect:/items/brand/" + gifticon.getBrand().getId();
     }
 }

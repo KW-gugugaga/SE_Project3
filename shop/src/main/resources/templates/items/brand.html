@@ -110,10 +110,18 @@
 <header th:replace="navbar :: navbarFragment"></header>
 
 <section style="margin-top: 40px; text-align: center">
-    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);">
-        ITEM LIST
+    <script type="text/javascript" th:inline="javascript">
+        const upSuccess = [[ ${upSuccess} ]];
+        if(upSuccess === "true") {
+            alert("상품 끌어올리기가 완료되었습니다!");
+        }
+    </script>
+    <h2 style="margin: auto; width:fit-content; text-align: center;border-right: 5px solid #6DA6D9;border-left: 5px solid #6DA6D9; padding: 0.3em 1em;border-radius: 3px;box-shadow: 0 2px 5px rgba(0,0,0,.25);" th:text="${brand.name}">
     </h2><br>
-
+    <div>
+        <img th:src="${brand.img}" style="width: 8%">
+    </div>
+    <br>
     <button type="button" class="button-18"
             th:onclick="|location.href='@{/items/brand/{pv1}/{pv2}(pv1=${brand.id}, pv2=|latest|)}'|">
         최신순
@@ -147,6 +155,7 @@
     <table>
         <thead>
         <tr>
+            <th></th>
             <th>이름</th>
             <th>원가</th>
             <th>판매가</th>
@@ -156,8 +165,11 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="gifticon : ${gifticons}"
-            th:onclick="|location.href='@{/items/item/{pv1}(pv1=${gifticon.id})}'|">><!--기프티콘 상품 페이지로 이동-->
+        <tr th:each="gifticon : ${gifticons}" style="cursor: pointer;"
+            th:onclick="|location.href='@{/items/item/{pv1}(pv1=${gifticon.id})}'|"><!--기프티콘 상품 페이지로 이동-->
+            <td>
+                <img th:src="${gifticon.fakeImage}" style="width: 50px;">
+            </td>
             <td th:text="${gifticon.name}">name</a></td>
             <td th:text="${gifticon.originalPrice}">originalPrice</td>
             <td th:text="${gifticon.sellingPrice}">sellingPrice</td>

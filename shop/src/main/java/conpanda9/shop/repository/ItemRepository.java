@@ -171,4 +171,9 @@ public class ItemRepository {
     public void saveReview(Review review) {
         em.persist(review);
     }
+
+    @Transactional
+    public void deleteGifticon(Long id) {
+        em.remove(em.find(Gifticon.class, id));
+    }
 }

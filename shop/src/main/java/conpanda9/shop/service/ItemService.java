@@ -11,7 +11,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.transaction.Transactional;
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -87,6 +89,14 @@ public class ItemService {
         itemRepository.setImagePath(gifticon,fakePath,realPath);
     }
 
+    public void setNullGifticon(Long id) {
+        Gifticon gifticon = itemRepository.findGifticon(id);
+        gifticon.getSeller().getGifticonList().remove(gifticon);   // seller 리스트에서 기프티콘 목록 삭제
+        gifticon.getBrand().getGifticonList().remove(gifticon);   // brand 리스트에서 기프티콘 목록 삭제
+        gifticon.getCategory().getGitficonList().remove(gifticon);   // category 리스트에서 기프티콘 목록 삭제
+        itemRepository.deleteGifticon(id);
+    }
+
     /**
      * share
      */
@@ -129,5 +139,14 @@ public class ItemService {
         else {
             return oneByBrand;
         }
+    }
+
+    public void saveSold(Sold sold) {
+        itemRepository.saveSold(sold);
+    }
+
+    @Transactional
+    public void updateModifiedDate(Gifticon gifticon) {
+        gifticon.setLastModifiedDate(LocalDateTime.now());
     }
 }

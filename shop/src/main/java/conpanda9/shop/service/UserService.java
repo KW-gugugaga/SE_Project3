@@ -200,4 +200,20 @@ public class UserService {
         Long newPoint = user.getPoint() + Long.parseLong(inputPoint);
         user.setPoint(newPoint);
     }
+
+    @Transactional
+    public void minusPoint(User user, Long sellingPrice) {
+        Long newPoint = user.getPoint() - sellingPrice;
+        user.setPoint(newPoint);
+    }
+
+    @Transactional
+    public void plusPoint(User user, Long sellingPrice) {
+        Long newPoint = user.getPoint() + sellingPrice;
+        user.setPoint(newPoint);
+    }
+
+    public void saveAlarm(Alarm alarm) {
+        userRepository.saveAlarm(alarm);
+    }
 }
