@@ -144,8 +144,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="selling : ${sellings}"
-                    th:onclick="|location.href='#'|" style="cursor: pointer;">
+                <tr th:each="selling : ${sellings}">
                     <td th:text="${selling.name}">name</a></td>
                     <td th:text="${selling.category.name}">category</td>
                     <td th:text="${selling.brand.name}">brand</td>
@@ -154,7 +153,7 @@
                     <td th:text="${selling.expireDate}">expireDate</a></td>
                     <td th:text="${#temporals.format(selling.uploadDate, 'yyyy-MM-dd')}">expireDate</a></td>
                     <td><input type="button" class="button-18" style="height: 30px; font-size: 13px;"
-                               th:onclick="|location.href='@{/user/store/selling/${buy.id}'|" value="상품 확인"></td>
+                               th:onclick="|location.href='@{/items/item/{pv1}(pv1=${selling.id})}'|" value="상품 확인"></td>
                 </tr>
                 </tbody>
             </table>

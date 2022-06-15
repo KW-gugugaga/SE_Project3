@@ -121,7 +121,8 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="gifticon : ${gifticons}" th:onclick=#><!--기프티콘 상품 페이지로 이동-->
+            <tr th:each="gifticon : ${gifticons}"
+                th:onclick="|location.href='@{/items/item/{pv1}(pv1=${gifticon.id})}'|"><!--기프티콘 상품 페이지로 이동-->
                 <td th:text="${gifticon.name}">name</a></td>
                 <td th:text="${gifticon.originalPrice}">originalPrice</td>
                 <td th:text="${gifticon.sellingPrice}">sellingPrice</td>

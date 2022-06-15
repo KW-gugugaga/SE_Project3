@@ -217,7 +217,7 @@
                     <td class="list-td" th:text="${#temporals.format(selling.uploadDate, 'yyyy-MM-dd')}">
                         expireDate</a></td>
                     <td class="list-td"><input type="button" class="button-18" style="height: 30px; font-size: 13px;"
-                                               th:onclick="|location.href='@{/user/store/selling/${buy.id}'|"
+                                               th:onclick="|location.href='@{/items/item/{pv1}(pv1=${selling.id})}'|"
                                                value="상품 확인"></td>
                 </tr>
                 </tbody>
